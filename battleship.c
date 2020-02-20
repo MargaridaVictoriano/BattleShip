@@ -23,5 +23,4 @@ MAP* build_matrix(){
 
 int main(int argc, char** argv){
 	MAP* player1 = (MAP*)build_matrix(); //construir mapa do jogador
-	
 }
