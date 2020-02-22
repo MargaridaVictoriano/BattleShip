@@ -3,14 +3,52 @@
 
 #define N_MATRIX 10 // tamanho da matriz
 #define N_BOATS 5	// numero de barcos
+#define CARRIER 	  'c'
+#define BATTLESHIP    'b'
+#define CRUISER       'r'
+#define SUBMARINE     's'
+#define DESTROYER     'd'
+
+
+/* Boat type    symbol		size
+	Carrier		c	  		5
+	Battleship 	b	  		4
+	Cruiser		r  			3
+	Submarine	s 			3
+	Destroyer   d 			2
+*/ 
+
 
 // em ifs 0 = false, 1 = true
 
 int const boat_size[] = {2,3,4,4,5}; // o tamanho dos navios e quantidade
 
+typedef enum{
+	CARRIER_S    = 5, 
+	BATTLESHIP_S = 4,
+	CRUISER_S    = 3, 
+	SUBMARINE_S  = 3,
+	DESTROYER_S  = 2
+}ShipeSize;
+
+//Struct para embarcações
+typedef struct ship {
+	char symbol;
+	int length;
+	char *name;
+} SHIP;
+
+typedef struct coordinates{
+	int row; 	//linha
+	int coluna; //colunas
+} COORDINATES;
+
 typedef struct {
 	int matrix[N_MATRIX][N_MATRIX]; 
 } MAP;
+
+
+
 
 MAP* build_matrix(){
 	MAP* map = (MAP*)malloc(sizeof(MAP)); //mapa jogador 
@@ -72,8 +110,29 @@ void print_matrix(MAP* map){
 		printf("\n");
 	}
 }
+void Battlesip(){
+	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@\n");
+	printf ("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
+	printf ("@@@@@  @@  @@   @@     @@   @@     @@@@    @@@@  @@@@@@ @@ @@@@\n"); 
+	printf ("@@  @@ @@@@@@   @@     @@   @@     @@         @@ @@  @@ @@ @@\n");
+	printf ("@@@@@  @@  @@   @@     @@   @@@@@@ @@@@@@ @@@@@  @@  @@ @@ @@\n");
+	printf("\n");
+
+	/* ***************************************************************************
+	|                                                                             |
+	|																			  |
+	|																			  |
+	|						Pretty screen with rules													  |
+	|																			  |
+	|																			  |
+	|																			  | 
+	|																			  |
+	|*****************************************************************************
+	*/
+}
 
 int main(int argc, char** argv){
+	Battlesip();
 	MAP* player1 = (MAP*)build_matrix(); //construir mapa do jogador
 	insert_boat(player1,0,2,3,1);
 	insert_boat(player1,4,6,4,0);
