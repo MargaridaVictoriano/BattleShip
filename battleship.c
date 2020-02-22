@@ -135,7 +135,7 @@ BOATPOSITION placeShip(int row, int column, char id, int direction){
 	new.id = id;
 	return new;
 }
-/*void randomlyPlaceShipsOnGameBoard (CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
+/*void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
 	COORDINATES position;
 	int direction = -1;
 	int i = 0;
