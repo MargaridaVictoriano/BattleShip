@@ -3,7 +3,7 @@
 
 #define N_MATRIX 10 // tamanho da matriz
 #define N_BOATS 5	// numero de barcos
-#define CARRIER       'c'
+#define CARRIER 	  'c'
 #define BATTLESHIP    'b'
 #define CRUISER       'r'
 #define SUBMARINE     's'
@@ -11,11 +11,11 @@
 
 
 /* Boat type    symbol		size
-	Carrier		c	  5
-	Battleship 	b	  4
-	Cruiser		r  	  3
-	Submarine	s 	  3
-	Destroyer       d 	  2
+	Carrier		c	  		5
+	Battleship 	b	  		4
+	Cruiser		r  			3
+	Submarine	s 			3
+	Destroyer   d 			2
 */ 
 
 
@@ -40,13 +40,19 @@ typedef struct ship {
 
 typedef struct coordinates{
 	int row; 	//linha
-	int coluna; //colunas
+	int column; //colunas
 } COORDINATES;
 
 typedef struct {
 	int matrix[N_MATRIX][N_MATRIX]; 
 } MAP;
 
+typedef struct boatPosition{
+    char id;
+    int row;
+    int column;
+    int direction;
+} BOATPOSITION;
 
 
 
@@ -88,7 +94,7 @@ int insert_boat(MAP* map,int boat_num,int x,int y, int dir){
 
 char select_char(int v){
 	switch(v){
-		case 0 : return '-';
+		case 0 : return '~';
 		case 1 : return '#';
 		default: return -1;
 	}
@@ -110,6 +116,29 @@ void print_matrix(MAP* map){
 		printf("\n");
 	}
 }
+
+BOATPOSITION placeShip(int row, int column, char id, int direction){
+	BOATPOSITION new;
+	new.row = row;
+	new.column = column;
+	new.direction = direction;
+	new.id = id;
+	return new;
+}
+
+//put ship on the map
+void pickBoatPosition(){
+	printf("Boats Available and ID: \n");
+	printf("CARRIER       'c'\n");
+	printf("BATTLESHIP    'b'\n");
+	printf("CRUISER       'r'\n");
+	printf("SUBMARINE     's'\n");
+	printf("DESTROYER     'd'\n");
+	printf("\n");
+
+
+}
+
 void Battlesip(){
 	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@\n");
 	printf ("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -122,7 +151,7 @@ void Battlesip(){
 	|                                                                             |
 	|																			  |
 	|																			  |
-	|						Pretty screen with rules													  |
+	|						Pretty screen with rules							  |
 	|																			  |
 	|																			  |
 	|																			  | 
@@ -133,6 +162,7 @@ void Battlesip(){
 
 int main(int argc, char** argv){
 	Battlesip();
+	pickBoatPosition();
 	MAP* player1 = (MAP*)build_matrix(); //construir mapa do jogador
 	insert_boat(player1,0,2,3,1);
 	insert_boat(player1,4,6,4,0);
