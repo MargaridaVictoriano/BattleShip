@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-#define N_MATRIX 10 // tamanho da matriz
-#define N_BOATS 5	// numero de barcos
-#define CARRIER 	  'c'
+#define N_MATRIX  10   // tamanho da matriz
+#define N_BOATS   5	  // numero de barcos
+#define CARRIER       'c'
 #define BATTLESHIP    'b'
 #define CRUISER       'r'
 #define SUBMARINE     's'
 #define DESTROYER     'd'
 
 
-/* Boat type    symbol		size
+/* Boat type   symbol   size
 	Carrier		c	  		5
 	Battleship 	b	  		4
-	Cruiser		r  			3
+	Cruiser		r  		3
 	Submarine	s 			3
 	Destroyer   d 			2
 */ 
@@ -21,15 +22,20 @@
 
 // em ifs 0 = false, 1 = true
 
-int const boat_size[] = {2,3,4,4,5}; // o tamanho dos navios e quantidade
+int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
 
-typedef enum{
+//Matriz n*n
+typedef struct map{
+	int matrix[N_MATRIX][N_MATRIX]; 
+} MAP;
+
+typedef enum {
 	CARRIER_S    = 5, 
 	BATTLESHIP_S = 4,
 	CRUISER_S    = 3, 
 	SUBMARINE_S  = 3,
 	DESTROYER_S  = 2
-}ShipeSize;
+} ShipeSize;
 
 
 //Struct para embarcações
@@ -51,11 +57,6 @@ typedef struct cells{
 	COORDINATES position;
 } CELLS;
 
-//Matriz n*n
-typedef struct {
-	int matrix[N_MATRIX][N_MATRIX]; 
-} MAP;
-
 //Localização do barco
 typedef struct boatPosition{
     char id;
@@ -74,6 +75,11 @@ MAP* build_matrix(){
 		}
 	}
 	return map;
+}
+
+int contains_boat(MAP* map,int x,int y){
+   if(map -> matrix[x][y] == 1) return 1;
+   return 0;
 }
 
 int insert_boat(MAP* map,int boat_num,int x,int y, int dir){
@@ -139,7 +145,6 @@ BOATPOSITION placeShip(int row, int column, char id, int direction){
 	COORDINATES position;
 	int direction = -1;
 	int i = 0;
-
 	for (i = 0; i < N_BOATS; i++) {
 		while (1) {
 			direction = getRandomNumber (0, 1); // 0 : horizontal, 1 : vertical 
@@ -147,15 +152,14 @@ BOATPOSITION placeShip(int row, int column, char id, int direction){
 			//Criar funçao para verificar se a posiçao existe e se nao esta ocupada
 			//if (isValidLocation (gameBoard, position, direction, ship[i].length)) break;
 		}
-
 		insert_boat(map, ship[i], position, direction);
 	}
 }
 */
 
-//REVER porque acho que nao funciona direito
+// ASSUMINDO QUE A <= B
 int generateRandomNumber(int a, int b){
-	return rand () % ++b; 
+	return (rand() % (b-a+1)) + a; 
 }
 
 //put ship on the map
@@ -193,10 +197,12 @@ void Battlesip(){
 }
 
 int main(int argc, char** argv){
+   srand(time(NULL)); // randomize seed
+   
 	Battlesip();
 	pickBoatPosition();
 	MAP* player1 = (MAP*)build_matrix(); //construir mapa do jogador
-	insert_boat(player1,0,2,3,1);
-	insert_boat(player1,4,6,4,0);
+	//insert_boat(player1,0,2,3,1);
+	//insert_boat(player1,4,6,4,0);
 	print_matrix(player1);
 }
