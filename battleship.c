@@ -31,6 +31,7 @@ typedef enum{
 	DESTROYER_S  = 2
 }ShipeSize;
 
+
 //Struct para embarcações
 typedef struct ship {
 	char symbol;
@@ -38,15 +39,24 @@ typedef struct ship {
 	char *name;
 } SHIP;
 
+//Struct para as coordenadas
 typedef struct coordinates{
 	int row; 	//linha
 	int column; //colunas
 } COORDINATES;
 
+//Struct que define cada célula 1*1 (estou a tentar uma coisa)
+typedef struct cells{
+	//char symbol ????
+	COORDINATES position;
+} CELLS;
+
+//Matriz n*n
 typedef struct {
 	int matrix[N_MATRIX][N_MATRIX]; 
 } MAP;
 
+//Localização do barco
 typedef struct boatPosition{
     char id;
     int row;
@@ -124,6 +134,28 @@ BOATPOSITION placeShip(int row, int column, char id, int direction){
 	new.direction = direction;
 	new.id = id;
 	return new;
+}
+/*void randomlyPlaceShipsOnGameBoard (CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
+	COORDINATES position;
+	int direction = -1;
+	int i = 0;
+
+	for (i = 0; i < N_BOATS; i++) {
+		while (1) {
+			direction = getRandomNumber (0, 1); // 0 : horizontal, 1 : vertical 
+			//position = generatePosition (direction, ship[i].length);
+			//Criar funçao para verificar se a posiçao existe e se nao esta ocupada
+			//if (isValidLocation (gameBoard, position, direction, ship[i].length)) break;
+		}
+
+		insert_boat(map, ship[i], position, direction);
+	}
+}
+*/
+
+//REVER porque acho que nao funciona direito
+int generateRandomNumber(int a, int b){
+	return rand () % ++b; 
 }
 
 //put ship on the map
