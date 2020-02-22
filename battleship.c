@@ -3,7 +3,7 @@
 
 #define N_MATRIX 10 // tamanho da matriz
 #define N_BOATS 5	// numero de barcos
-#define CARRIER 	  'c'
+#define CARRIER       'c'
 #define BATTLESHIP    'b'
 #define CRUISER       'r'
 #define SUBMARINE     's'
@@ -11,11 +11,11 @@
 
 
 /* Boat type    symbol		size
-	Carrier		c	  		5
-	Battleship 	b	  		4
-	Cruiser		r  			3
-	Submarine	s 			3
-	Destroyer   d 			2
+	Carrier		c	  5
+	Battleship 	b	  4
+	Cruiser		r  	  3
+	Submarine	s 	  3
+	Destroyer       d 	  2
 */ 
 
 
