@@ -19,16 +19,8 @@
 	Destroyer   d 			2
 */ 
 
-
-// em ifs 0 = false, 1 = true
-
-int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
-
-//Matriz n*n
-typedef struct map{
-	int matrix[N_MATRIX][N_MATRIX]; 
-} MAP;
-
+/*
+// falta definir relaçao com as restantes funçoes. Temos que tomar uma decisao.
 typedef enum {
 	CARRIER_S    = 5, 
 	BATTLESHIP_S = 4,
@@ -64,17 +56,43 @@ typedef struct boatPosition{
     int column;
     int direction;
 } BOATPOSITION;
+*/
 
+// em ifs 0 = false, 1 = true
 
+int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
+
+//Matriz n*n
+typedef struct map{
+	int **matrix; 
+} MAP;
 
 MAP* build_matrix(){
 	MAP* map = (MAP*)malloc(sizeof(MAP)); //mapa jogador 
+	
+	// construir a matrix
+	map -> matrix = (int **)malloc(N_MATRIX*sizeof(int *));
+	for(int i=0; i<N_MATRIX; i++){
+	   map -> matrix[i] = (int *)malloc(N_MATRIX*sizeof(int));
+	}
+	
+	// zerar a matrix
 	for(int i = 0; i < N_MATRIX; i++){
 		for(int j = 0; j < N_MATRIX; j++){
 			map -> matrix[i][j] = 0;
 		}
 	}
 	return map;
+}
+
+void destroy_matrix(MAP* map){
+   if(map != NULL){
+      for(int i=0; i<N_MATRIX; i++){
+         free(map -> matrix[i]);
+      }
+      free(map -> matrix);
+      free(map);
+   }
 }
 
 int contains_boat(MAP* map,int x,int y){
@@ -133,6 +151,7 @@ void print_matrix(MAP* map){
 	}
 }
 
+/*
 BOATPOSITION placeShip(int row, int column, char id, int direction){
 	BOATPOSITION new;
 	new.row = row;
@@ -141,7 +160,8 @@ BOATPOSITION placeShip(int row, int column, char id, int direction){
 	new.id = id;
 	return new;
 }
-/*void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
+
+void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
 	COORDINATES position;
 	int direction = -1;
 	int i = 0;
@@ -202,7 +222,9 @@ int main(int argc, char** argv){
 	Battlesip();
 	pickBoatPosition();
 	MAP* player1 = (MAP*)build_matrix(); //construir mapa do jogador
-	//insert_boat(player1,0,2,3,1);
+	insert_boat(player1,0,2,3,1);
 	//insert_boat(player1,4,6,4,0);
 	print_matrix(player1);
+	
+	destroy_matrix(player1);
 }
