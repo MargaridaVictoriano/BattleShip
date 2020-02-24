@@ -62,6 +62,7 @@ typedef struct boatPosition{
 
 int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
 
+// -------- Estrutura do mapa ------- //
 //Matriz n*n
 typedef struct map{
 	int **matrix; 
@@ -150,6 +151,8 @@ void print_matrix(MAP* map){
 		printf("\n");
 	}
 }
+
+// -------------------------------------- //
 
 /*
 BOATPOSITION placeShip(int row, int column, char id, int direction){
