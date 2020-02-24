@@ -33,24 +33,24 @@ typedef enum {
 //Struct para embarcações
 typedef struct ship {
 	char symbol;
-	int length;
+	unsigned int length;
 	char *name;
 } SHIP;
 
 //Struct para as coordenadas
-typedef struct coordinates{
+typedef struct {
 	int row; 	//linha
 	int column; //colunas
 } COORDINATES;
 
 //Struct que define cada célula 1*1 (estou a tentar uma coisa)
-typedef struct cells{
+typedef struct {
 	//char symbol ????
 	COORDINATES position;
 } CELLS;
 
 //Localização do barco
-typedef struct boatPosition{
+typedef struct {
     char id;
     int row;
     int column;
@@ -102,6 +102,8 @@ int contains_boat(MAP* map,int x,int y){
    if(map -> matrix[x][y] == 1) return 1;
    return 0;
 }
+
+// int insert_boat(Map, ship, coord, dir)
 
 int insert_boat(MAP* map,int boat_num,int x,int y, int dir){
 	if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return 0;
@@ -156,7 +158,7 @@ void print_matrix(MAP* map){
 
 // -------------------------------------- //
 
-/*
+
 BOATPOSITION placeShip(int row, int column, char id, int direction){
 	BOATPOSITION new;
 	new.row = row;
@@ -180,7 +182,7 @@ void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
 		insert_boat(map, ship[i], position, direction);
 	}
 }
-*/
+
 
 // ASSUMINDO QUE A <= B
 int generateRandomNumber(int a, int b){
