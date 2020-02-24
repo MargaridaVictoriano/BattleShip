@@ -52,8 +52,7 @@ typedef struct cells{
 //Localização do barco
 typedef struct boatPosition{
     char id;
-    int row;
-    int column;
+    COORDINATES position;
     int direction;
 } BOATPOSITION;
 */
