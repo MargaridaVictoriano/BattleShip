@@ -5,11 +5,6 @@
 
 #define N_MATRIX  10   // tamanho da matriz
 #define N_BOATS   5	  // numero de barcos
-#define CARRIER       'c'
-#define BATTLESHIP    'b'
-#define CRUISER       'r'
-#define SUBMARINE     's'
-#define DESTROYER     'd'
 
 // em ifs 0 = false, 1 = true
 
@@ -80,30 +75,35 @@ int contains_boat(MAP* map,int x,int y){
 
 // int insert_boat(Map, ship, coord, dir)
 
-int insert_boat(MAP* map,int boat_num,int x,int y, int dir){
-	if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return 0;
+BOAT insert_boat(MAP* map,char boat_id ,BOATPOSITION position){
+	int size_boat = boat_size(boat_id);
+	int x = position.position.row;
+	int y = position.position.column;
+	int dir = position.direction;
+	
+	if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return NULL;
 	
 	// dir = 0 -> vertical
 	// dir = 1 -> horizontal
 	if(dir){	// horizontal
-		if(boat_size[boat_num] + y >= map->size) return 0;
+		if(boat_size[boat_num] + y >= map->size) return NULL;
 		for(int k=y; k<boat_size[boat_num]+y; k++){
-			if(map -> matrix[x][k] != 0) return 0;
+			if(map -> matrix[x][k] != 0) return NULL;
 		}
 		for(int k=y; k<boat_size[boat_num]+y; k++){
 			map -> matrix[x][k] = 1;
 		}
 	}
 	else {	// vertical
-		if(boat_size[boat_num] + x >= map->size) return 0;
+		if(boat_size[boat_num] + x >= map->size) return NULL;
 		for(int k=x; k<boat_size[boat_num]+x; k++){
-			if(map -> matrix[k][y] != 0) return 0;
+			if(map -> matrix[k][y] != 0) return NULL;
 		}
 		for(int k=x; k<boat_size[boat_num]+x; k++){
 			map -> matrix[k][y] = 1;
 		}
 	}
-	return 1;
+	return build_boat(id,position);
 }
 
 char select_char(int v){
