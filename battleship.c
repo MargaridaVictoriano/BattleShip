@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "map.h"
+#include "boat.h"
 
 #define N_MATRIX  10   // tamanho da matriz
 #define N_BOATS   5	  // numero de barcos
@@ -17,36 +18,6 @@ void pickBoatPosition(){
 	printf("SUBMARINE     's'\n");
 	printf("DESTROYER     'd'\n");
 	printf("\n");
-	
-}
-
-MAP* build_matrix(unsigned int len){
-	MAP* map = (MAP*)malloc(sizeof(MAP)); //mapa jogador 
-	map->size = len;
-	
-	// construir a matrix
-	map -> matrix = (int **)malloc(map->size*sizeof(int *));
-	for(int i=0; i<map->size; i++){
-	   map -> matrix[i] = (int *)malloc(map->size*sizeof(int));
-	}
-	
-	// zerar a matrix
-	for(int i = 0; i < map->size; i++){
-		for(int j = 0; j < map->size; j++){
-			map -> matrix[i][j] = 0;
-		}
-	}
-	return map;
-}
-
-void destroy_matrix(MAP* map){
-   if(map != NULL){
-      for(int i=0; i< map->size; i++){
-         free(map -> matrix[i]);
-      }
-      free(map -> matrix);
-      free(map);
-   }
 }
 
 int contains_boat(MAP* map,int x,int y){
@@ -62,24 +33,12 @@ BOAT insert_boat(MAP* map,char boat_id ,BOATPOSITION position){
 	int y = position.position.column;
 	int dir = position.direction;
 	
-	if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return NULL;
-	
-	// dir = 0 -> vertical
-	// dir = 1 -> horizontal
 	if(dir){	// horizontal
-		if(size_boat + y >= map->size) return NULL;
-		for(int k=y; k<size_boat+y; k++){
-			if(map -> matrix[x][k] != 0) return NULL;
-		}
 		for(int k=y; k<size_boat+y; k++){
 			map -> matrix[x][k] = 1;
 		}
 	}
 	else {	// vertical
-		if(size_boat + x >= map->size) return NULL;
-		for(int k=x; k<size_boat+x; k++){
-			if(map -> matrix[k][y] != 0) return NULL;
-		}
 		for(int k=x; k<size_boat+x; k++){
 			map -> matrix[k][y] = 1;
 		}
@@ -87,29 +46,27 @@ BOAT insert_boat(MAP* map,char boat_id ,BOATPOSITION position){
 	return build_boat(boat_id,position);
 }
 
-char select_char(int v){
-	switch(v){
-		case 0 : return '~';
-		case 1 : return '#';
-		default: return -1;
-	}
-}
-
-void print_matrix(MAP* map){
-	printf("  ");
-	for(int i=0; i<map->size; i++){
-		printf(" %d",i);
-	}
-	printf("\n");
-
-	for(int i=0; i<map->size; i++){
-		printf(" %d", i);
-		for(int j=0; j<map->size; j++){
-			int temp = map -> matrix[i][j];
-			printf(" %c",select_char(temp));
+int checkAvalablePosition(MAP* map,char boat_id ,BOATPOSITION position){
+	int size_boat = boat_size(boat_id);
+	int x = position.position.row;
+	int y = position.position.column;
+	int dir = position.direction;
+   
+   if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return 0;
+   
+   if(dir){	// horizontal
+		if(size_boat + y >= map->size) return 0;
+		for(int k=y; k<size_boat+y; k++){
+			if(map -> matrix[x][k] != 0) return 0;
 		}
-		printf("\n");
 	}
+	else {	// vertical
+		if(size_boat + x >= map->size) return 0;
+		for(int k=x; k<size_boat+x; k++){
+			if(map -> matrix[k][y] != 0) return 0;
+		}
+	}
+   return 1;
 }
 
 // ASSUMINDO QUE A <= B
@@ -125,12 +82,13 @@ void randomlyPlaceBoatonMap(MAP* map) {
 			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
 			boat_pos.position.row = getRandomNumber(0,N_MATRIX-1);
 			boat_pos.position.column = getRandomNumber(0,N_MATRIX-1);
-			if(insert_boat(map, boat_id[i],boat_pos) != NULL) break;
+			if(checkAvalablePosition(map, boat_id[i],boat_pos)) break;
 		}
+	   insert_boat(map, boat_id[i],boat_pos);
 	}
 }
 
-void Battlesip(){
+void Battleship(){
 	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@\n");
 	printf ("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
 	printf ("@@@@@  @@  @@   @@     @@   @@     @@@@    @@@@  @@@@@@ @@ @@@@\n"); 
@@ -157,11 +115,10 @@ int main(int argc, char** argv){
 	MAP* player1 = (MAP*)build_matrix(N_MATRIX); //inicializar mapa do jogador
 	
 	system("clear");
-	Battlesip();
+	Battleship();
 	pickBoatPosition();
-	
-	//insert_boat(player1,0,2,3,1);
-	//insert_boat(player1,4,6,4,0);
+
+	randomlyPlaceBoatonMap(player1);
 	
 	print_matrix(player1);
 	
