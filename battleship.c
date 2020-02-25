@@ -8,25 +8,6 @@
 
 // em ifs 0 = false, 1 = true
 
-void randomlyPlaceBoatonMap(MAP* map) {
-	BOATPOSITION boat_pos;
-	char boat_id[] = ['c', 'b','r', 's','d'];
-	for (int i = 0; i < N_BOATS; i++) {
-		while (1) {
-			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
-			boat_pos.position.row = getRandomNumber(0,N_MATRIX-1);
-			boat_pos.position.column = getRandomNumber(0,N_MATRIX-1);
-			if(insert_boat(map, boat_id[i],boat_pos) != NULL) break;
-		}
-	}
-}
-
-
-// ASSUMINDO QUE A <= B
-int generateRandomNumber(int a, int b){
-	return (rand() % (b-a+1)) + a; 
-}
-
 //put ship on the map
 void pickBoatPosition(){
 	printf("Boats Available and ID: \n");
@@ -86,24 +67,24 @@ BOAT insert_boat(MAP* map,char boat_id ,BOATPOSITION position){
 	// dir = 0 -> vertical
 	// dir = 1 -> horizontal
 	if(dir){	// horizontal
-		if(boat_size[boat_num] + y >= map->size) return NULL;
-		for(int k=y; k<boat_size[boat_num]+y; k++){
+		if(size_boat + y >= map->size) return NULL;
+		for(int k=y; k<size_boat+y; k++){
 			if(map -> matrix[x][k] != 0) return NULL;
 		}
-		for(int k=y; k<boat_size[boat_num]+y; k++){
+		for(int k=y; k<size_boat+y; k++){
 			map -> matrix[x][k] = 1;
 		}
 	}
 	else {	// vertical
-		if(boat_size[boat_num] + x >= map->size) return NULL;
-		for(int k=x; k<boat_size[boat_num]+x; k++){
+		if(size_boat + x >= map->size) return NULL;
+		for(int k=x; k<size_boat+x; k++){
 			if(map -> matrix[k][y] != 0) return NULL;
 		}
-		for(int k=x; k<boat_size[boat_num]+x; k++){
+		for(int k=x; k<size_boat+x; k++){
 			map -> matrix[k][y] = 1;
 		}
 	}
-	return build_boat(id,position);
+	return build_boat(boat_id,position);
 }
 
 char select_char(int v){
@@ -128,6 +109,24 @@ void print_matrix(MAP* map){
 			printf(" %c",select_char(temp));
 		}
 		printf("\n");
+	}
+}
+
+// ASSUMINDO QUE A <= B
+int getRandomNumber(int a, int b){
+	return (rand() % (b-a+1)) + a; 
+}
+
+void randomlyPlaceBoatonMap(MAP* map) {
+	BOATPOSITION boat_pos;
+	char boat_id[] = {'c', 'b','r', 's','d'};
+	for (int i = 0; i < N_BOATS; i++) {
+		while (1) {
+			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
+			boat_pos.position.row = getRandomNumber(0,N_MATRIX-1);
+			boat_pos.position.column = getRandomNumber(0,N_MATRIX-1);
+			if(insert_boat(map, boat_id[i],boat_pos) != NULL) break;
+		}
 	}
 }
 
@@ -161,7 +160,7 @@ int main(int argc, char** argv){
 	Battlesip();
 	pickBoatPosition();
 	
-	insert_boat(player1,0,2,3,1);
+	//insert_boat(player1,0,2,3,1);
 	//insert_boat(player1,4,6,4,0);
 	
 	print_matrix(player1);

@@ -22,25 +22,23 @@ int boat_size(char c){
       default: return -1;
    }
 }
-
-typedef enum {
-	c = "CARRIER",
-	b = "BATTLESHIP",
-	r = "CRUISER", 
-	s = "SUBMARINE",
-	d = "DESTROYER"
-} Ship_Name;
+ /*
+char c[] = "CARRIER";
+char b[] = "BATTLESHIP";
+char r[] = "CRUISER";
+char s[] = "SUBMARINE";
+char d[] = "DESTROYER";
 
 char* name_boat(char c){
    switch(c){
-      case 'c': return Ship_Name.c;
-      case 'b': return Ship_Name.b;
-      case 'r': return Ship_Name.r;
-      case 's': return Ship_Name.s;
-      case 'd': return Ship_Name.d;
+      case 'c': return c;
+      case 'b': return b;
+      case 'r': return r;
+      case 's': return s;
+      case 'd': return d;
       default: return NULL;
    }
-}
+}*/
 
 //Struct para as coordenadas
 typedef struct {
@@ -52,6 +50,7 @@ COORDINATES build_coordinates(int row, int column){
    COORDINATES new;
    new.row = row;
    new.column = column;
+   return new;
 }
 
 //Localização do barco
@@ -79,8 +78,9 @@ BOAT build_boat(char id, BOATPOSITION position){
    new.id = id;
    int len = boat_size(id);
    new.damage = (int *)malloc(len*sizeof(int));
-   for(int i=0; i<len ;i++) damage[i] = 0;
+   for(int i=0; i<len ;i++) new.damage[i] = 0;
    new.position = position;
+   return new;
 }
 
 //Struct que define cada célula 1*1 (estou a tentar uma coisa)
