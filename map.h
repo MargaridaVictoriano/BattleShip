@@ -1,11 +1,4 @@
 // -------- Estrutura do mapa ------- //
-/* Boat type   symbol   size
-	Carrier		c	  		5
-	Battleship 	b	  		4
-	Cruiser		r  		3
-	Submarine	s 			3
-	Destroyer   d 			2*/
-
 //Matriz n*n
 typedef struct map{
 	unsigned int size;

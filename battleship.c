@@ -1,11 +1,14 @@
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
 #include "map.h"
 #include "boat.h"
 
 #define N_MATRIX  10   // tamanho da matriz
 #define N_BOATS   5	  // numero de barcos
+
+/////// começar a pensar como armazenar os boats(um array de boats e suficente) 
+/////// tem code la em baixo por acabar
 
 // em ifs 0 = false, 1 = true
 
@@ -76,6 +79,7 @@ void randomlyPlaceBoatonMap(MAP* map) {
 	   insert_boat(map, boat_id[i],boat_pos);
 	}
 }
+
 void pickBoatPosition(MAP* map){
 	BOATPOSITION boat_pos;
 	char boat_id;
@@ -86,15 +90,16 @@ void pickBoatPosition(MAP* map){
 	printf("SUBMARINE     's'\n");
 	printf("DESTROYER     'd'\n");
 	printf("\n");
-	printf("Please enter the desired boat ID: \n");
-	boat_id = getchar();
-	while((boat_id != 'c' && boat_id != 'b' && boat_id != 'r' && boat_id != 's' && boat_id != 'd')){
+	
+	while(1){
+	   printf("Please enter the desired boat ID: \n");
+	   boat_id = getchar();
+	   while(getchar() != '\n'); // flush buffer input
+	   if(boat_id == 'c' || boat_id == 'b' || boat_id == 'r' || boat_id == 's' || boat_id == 'd') break;
 		printf("Invalid input. Please try again.\n");
-		boat_id = getchar();
-		//scanf("%c", &boat_id);
-
 	}
-
+	
+	////////////////////////// falta acabar daqui para baixo ////////////////////////
 	//printf("%c\n", boat_id);
 	printf("Please enter the desired coordinates for the boat: \n");
 	printf("Coordinate X:\n");
@@ -107,6 +112,24 @@ void pickBoatPosition(MAP* map){
 
 
 }
+
+void preparePlayerBoats(MAP* map){
+   char mode;
+   while(1) {
+      printf("Select manual position of boats or automaticaly\n");
+      printf("r -> ramdom\n");
+      printf("m -> manual\n");
+      printf("Select mode:\n");
+      mode = getchar();
+      while(getchar() != '\n'); // flush buffer input
+      if(mode=='r' || mode=='m') break;
+      printf("Invalid input. Please try again.\n");
+   }
+   
+   if(mode == 'r') randomlyPlaceBoatonMap(map);
+   else pickBoatPosition(map);
+}
+
 void Battleship(){
 	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@\n");
 	printf ("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -115,7 +138,7 @@ void Battleship(){
 	printf ("@@@@@  @@  @@   @@     @@   @@@@@@ @@@@@@ @@@@@  @@  @@ @@ @@\n");
 	printf("\n");
 
-	/* ********************************************************|
+	/**********************************************************|
 	|                                                          |
 	|																			  |
 	|																			  |
@@ -125,7 +148,6 @@ void Battleship(){
 	|																			  | 
 	|																			  |
 	|**********************************************************/
-	
 }
 
 int main(int argc, char** argv){
@@ -135,9 +157,7 @@ int main(int argc, char** argv){
 	
 	system("clear");
 	Battleship();
-	pickBoatPosition(player1);
-
-	randomlyPlaceBoatonMap(player1);
+	preparePlayerBoats(player1);
 	
 	print_matrix(player1);
 	

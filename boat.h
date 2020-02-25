@@ -1,6 +1,12 @@
+/* Boat type   symbol   size
+	Carrier		c	  		5
+	Battleship 	b	  		4
+	Cruiser		r  		3
+	Submarine	s 			3
+	Destroyer   d 			2*/
 
-int boat_size(char c){
-   switch(c){
+int boat_size(char id){
+   switch(id){
       case 'c': return 5;
       case 'b': return 4;
       case 'r': return 3;
@@ -10,15 +16,14 @@ int boat_size(char c){
    }
 }
 
-/*
-const char* c = "CARRIER";
-const char* b = "BATTLESHIP";
-const char* r = "CRUISER";
-const char* s = "SUBMARINE";
-const char* d = "DESTROYER";
+const char const c[] = "CARRIER";
+const char const b[] = "BATTLESHIP";
+const char const r[] = "CRUISER";
+const char const s[] = "SUBMARINE";
+const char const d[] = "DESTROYER";
 
-char* name_boat(char c){
-   switch(c){
+const char* const name_boat(char id){
+   switch(id){
       case 'c': return c;
       case 'b': return b;
       case 'r': return r;
@@ -26,7 +31,7 @@ char* name_boat(char c){
       case 'd': return d;
       default: return NULL;
    }
-}*/
+}
 
 //Struct para as coordenadas
 typedef struct {
@@ -42,8 +47,8 @@ COORDINATES build_coordinates(int row, int column){
 }
 
 //Localização do barco
-	// dir = 0 -> vertical
-	// dir = 1 -> horizontal
+	// direction = 0 -> vertical
+	// direction = 1 -> horizontal
 typedef struct {
     COORDINATES position;
     int direction;
