@@ -34,10 +34,11 @@ typedef struct {
 	int column; //colunas
 } COORDINATES;
 //Struct que define cada célula 1*1 (estou a tentar uma coisa)
-typedef struct {
+/*typedef struct {
 	//char symbol ????
 	COORDINATES position;
 } CELLS;
+*/
 //Localização do barco
 typedef struct {
     char id;
