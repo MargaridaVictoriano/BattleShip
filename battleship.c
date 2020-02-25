@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <time.h>
 
-int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
-
 #include "map.h"
 
 #define N_MATRIX  10   // tamanho da matriz

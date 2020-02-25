@@ -12,7 +12,7 @@ typedef struct map{
 	Submarine	s 			3
 	Destroyer   d 			2*/
 
-int len_boat(char c){
+int boat_size(char c){
    switch(c){
       case 'c': return 5;
       case 'b': return 4;
