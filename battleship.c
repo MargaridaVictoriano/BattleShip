@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-
+#include <stdlib.h>
 #include "map.h"
 
 #define N_MATRIX  10   // tamanho da matriz
@@ -41,8 +41,7 @@ void pickBoatPosition(){
 	printf("SUBMARINE     's'\n");
 	printf("DESTROYER     'd'\n");
 	printf("\n");
-
-
+	
 }
 
 MAP* build_matrix(unsigned int len){
