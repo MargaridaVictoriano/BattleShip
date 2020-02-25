@@ -9,12 +9,13 @@ int boat_size(char c){
       default: return -1;
    }
 }
- /*
-char c[] = "CARRIER";
-char b[] = "BATTLESHIP";
-char r[] = "CRUISER";
-char s[] = "SUBMARINE";
-char d[] = "DESTROYER";
+
+/*
+const char* c = "CARRIER";
+const char* b = "BATTLESHIP";
+const char* r = "CRUISER";
+const char* s = "SUBMARINE";
+const char* d = "DESTROYER";
 
 char* name_boat(char c){
    switch(c){

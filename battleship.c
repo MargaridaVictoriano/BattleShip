@@ -78,12 +78,12 @@ void randomlyPlaceBoatonMap(MAP* map) {
 	BOATPOSITION boat_pos;
 	char boat_id[] = {'c', 'b','r', 's','d'};
 	for (int i = 0; i < N_BOATS; i++) {
-		while (1) {
+		do {
 			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
 			boat_pos.position.row = getRandomNumber(0,N_MATRIX-1);
 			boat_pos.position.column = getRandomNumber(0,N_MATRIX-1);
-			if(checkAvalablePosition(map, boat_id[i],boat_pos)) break;
 		}
+		while(!checkAvalablePosition(map, boat_id[i],boat_pos));
 	   insert_boat(map, boat_id[i],boat_pos);
 	}
 }
@@ -96,17 +96,17 @@ void Battleship(){
 	printf ("@@@@@  @@  @@   @@     @@   @@@@@@ @@@@@@ @@@@@  @@  @@ @@ @@\n");
 	printf("\n");
 
-	/* ***************************************************************************
-	|                                                                             |
+	/* ********************************************************|
+	|                                                          |
 	|																			  |
 	|																			  |
-	|						Pretty screen with rules							  |
+	|						Pretty screen with rules					  |
 	|																			  |
 	|																			  |
 	|																			  | 
 	|																			  |
-	|*****************************************************************************
-	*/
+	|**********************************************************/
+	
 }
 
 int main(int argc, char** argv){
