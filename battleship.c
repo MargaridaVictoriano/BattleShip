@@ -8,6 +8,7 @@ int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
 
 #define N_MATRIX  10   // tamanho da matriz
 #define N_BOATS   5	  // numero de barcos
+
 #define CARRIER       'c'
 #define BATTLESHIP    'b'
 #define CRUISER       'r'
@@ -96,15 +97,13 @@ int generateRandomNumber(int a, int b){
 
 //put ship on the map
 void pickBoatPosition(){
-	printf("Boats Available and ID: \n");
+	printf("Boats Available and ID:\n");
 	printf("CARRIER       'c'\n");
 	printf("BATTLESHIP    'b'\n");
 	printf("CRUISER       'r'\n");
 	printf("SUBMARINE     's'\n");
 	printf("DESTROYER     'd'\n");
 	printf("\n");
-
-
 }
 
 void Battlesip(){
