@@ -9,17 +9,6 @@
 
 // em ifs 0 = false, 1 = true
 
-//put ship on the map
-void pickBoatPosition(){
-	printf("Boats Available and ID: \n");
-	printf("CARRIER       'c'\n");
-	printf("BATTLESHIP    'b'\n");
-	printf("CRUISER       'r'\n");
-	printf("SUBMARINE     's'\n");
-	printf("DESTROYER     'd'\n");
-	printf("\n");
-}
-
 int contains_boat(MAP* map,int x,int y){
    if(map -> matrix[x][y] == 1) return 1;
    return 0;
@@ -87,7 +76,37 @@ void randomlyPlaceBoatonMap(MAP* map) {
 	   insert_boat(map, boat_id[i],boat_pos);
 	}
 }
+void pickBoatPosition(MAP* map){
+	BOATPOSITION boat_pos;
+	char boat_id;
+	printf("Boats Available and ID: \n");
+	printf("CARRIER       'c'\n");
+	printf("BATTLESHIP    'b'\n");
+	printf("CRUISER       'r'\n");
+	printf("SUBMARINE     's'\n");
+	printf("DESTROYER     'd'\n");
+	printf("\n");
+	printf("Please enter the desired boat ID: \n");
+	boat_id = getchar();
+	while((boat_id != 'c' && boat_id != 'b' && boat_id != 'r' && boat_id != 's' && boat_id != 'd')){
+		printf("Invalid input. Please try again.\n");
+		boat_id = getchar();
+		//scanf("%c", &boat_id);
 
+	}
+
+	//printf("%c\n", boat_id);
+	printf("Please enter the desired coordinates for the boat: \n");
+	printf("Coordinate X:\n");
+	scanf("%d",&boat_pos.position.row);
+	//printf("%d\n", boat_pos.position.row);
+	printf("Coordinate Y:\n");
+	scanf("%d",&boat_pos.position.column);
+	printf("%d\n", boat_pos.position.column);
+
+
+
+}
 void Battleship(){
 	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@\n");
 	printf ("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -116,7 +135,7 @@ int main(int argc, char** argv){
 	
 	system("clear");
 	Battleship();
-	pickBoatPosition();
+	pickBoatPosition(player1);
 
 	randomlyPlaceBoatonMap(player1);
 	
@@ -124,3 +143,4 @@ int main(int argc, char** argv){
 	
 	destroy_matrix(player1);
 }
+
