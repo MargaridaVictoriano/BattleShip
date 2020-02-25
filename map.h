@@ -21,7 +21,6 @@ int boat_size(char c){
       case 'd': return 2;
       default: return -1;
    }
-}
 
 //Struct para as coordenadas
 typedef struct {
@@ -42,9 +41,9 @@ typedef struct {
 	char *name;
 	int *damage;
 	BOATPOSITION position;
-} SHIP;
+} BOAT;
 
-BOATPOSITION placeShip(COORDINATES position, int direction){
+BOATPOSITION placeBoat(COORDINATES position, int direction){
 	BOATPOSITION new;
 	new.position = position;
 	new.direction = direction;
@@ -57,4 +56,5 @@ BOATPOSITION placeShip(COORDINATES position, int direction){
 	COORDINATES position;
 } CELLS;
 */
+
 
