@@ -68,7 +68,7 @@ int getRandomNumber(int a, int b){
 
 void randomlyPlaceBoatonMap(MAP* map) {
 	BOATPOSITION boat_pos;
-	char boat_id[] = {'c', 'b','r', 's','d'};
+	char boat_id[] = {'c','b','r','s','d'};
 	for (int i = 0; i < N_BOATS; i++) {
 		do {
 			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
