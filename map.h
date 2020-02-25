@@ -60,7 +60,7 @@ typedef struct {
     int direction;
 } BOATPOSITION;
 
-BOATPOSITION placeBoat(COORDINATES position, int direction){
+BOATPOSITION build_boatposition(COORDINATES position, int direction){
 	BOATPOSITION new;
 	new.position = position;
 	new.direction = direction;
