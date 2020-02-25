@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
@@ -8,7 +7,6 @@ int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
 
 #define N_MATRIX  10   // tamanho da matriz
 #define N_BOATS   5	  // numero de barcos
-
 #define CARRIER       'c'
 #define BATTLESHIP    'b'
 #define CRUISER       'r'
@@ -17,62 +15,6 @@ int const boat_size[] = {2,3,3,4,5}; // o tamanho dos navios e quantidade
 
 // em ifs 0 = false, 1 = true
 
-/* Boat type   symbol   size
-	Carrier		c	  		5
-	Battleship 	b	  		4
-	Cruiser		r  		3
-	Submarine	s 			3
-	Destroyer   d 			2
-*/ 
-
-/*
-// falta definir relaçao com as restantes funçoes. Temos que tomar uma decisao.
-typedef enum {
-	CARRIER_S    = 5, 
-	BATTLESHIP_S = 4,
-	CRUISER_S    = 3, 
-	SUBMARINE_S  = 3,
-	DESTROYER_S  = 2
-} ShipeSize;
-
-
-//Struct para embarcações
-typedef struct ship {
-	char symbol;
-	unsigned int length;
-	char *name;
-} SHIP;
-
-//Struct para as coordenadas
-typedef struct {
-	int row; 	//linha
-	int column; //colunas
-} COORDINATES;
-
-//Struct que define cada célula 1*1 (estou a tentar uma coisa)
-typedef struct {
-	//char symbol ????
-	COORDINATES position;
-} CELLS;
-
-//Localização do barco
-typedef struct {
-    char id;
-    int row;
-    int column;
-    int direction;
-} BOATPOSITION;
-*/
-
-/*
-BOATPOSITION placeShip(int row, int column, char id, int direction){
-	BOATPOSITION new;
-	new.row = row;
-	new.column = column;
-	new.direction = direction;
-	new.id = id;
-	return new;
-}
 
 void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
 	COORDINATES position;
@@ -88,7 +30,7 @@ void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
 		insert_boat(map, ship[i], position, direction);
 	}
 }
-*/
+
 
 // ASSUMINDO QUE A <= B
 int generateRandomNumber(int a, int b){
@@ -97,13 +39,102 @@ int generateRandomNumber(int a, int b){
 
 //put ship on the map
 void pickBoatPosition(){
-	printf("Boats Available and ID:\n");
+	printf("Boats Available and ID: \n");
 	printf("CARRIER       'c'\n");
 	printf("BATTLESHIP    'b'\n");
 	printf("CRUISER       'r'\n");
 	printf("SUBMARINE     's'\n");
 	printf("DESTROYER     'd'\n");
 	printf("\n");
+
+
+}
+
+MAP* build_matrix(unsigned int len){
+	MAP* map = (MAP*)malloc(sizeof(MAP)); //mapa jogador 
+	map->size = len;
+	
+	// construir a matrix
+	map -> matrix = (int **)malloc(map->size*sizeof(int *));
+	for(int i=0; i<map->size; i++){
+	   map -> matrix[i] = (int *)malloc(map->size*sizeof(int));
+	}
+	
+	// zerar a matrix
+	for(int i = 0; i < map->size; i++){
+		for(int j = 0; j < map->size; j++){
+			map -> matrix[i][j] = 0;
+		}
+	}
+	return map;
+}
+
+void destroy_matrix(MAP* map){
+   if(map != NULL){
+      for(int i=0; i< map->size; i++){
+         free(map -> matrix[i]);
+      }
+      free(map -> matrix);
+      free(map);
+   }
+}
+
+int contains_boat(MAP* map,int x,int y){
+   if(map -> matrix[x][y] == 1) return 1;
+   return 0;
+}
+
+// int insert_boat(Map, ship, coord, dir)
+
+int insert_boat(MAP* map,int boat_num,int x,int y, int dir){
+	if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return 0;
+	
+	// dir = 0 -> vertical
+	// dir = 1 -> horizontal
+	if(dir){	// horizontal
+		if(boat_size[boat_num] + y >= map->size) return 0;
+		for(int k=y; k<boat_size[boat_num]+y; k++){
+			if(map -> matrix[x][k] != 0) return 0;
+		}
+		for(int k=y; k<boat_size[boat_num]+y; k++){
+			map -> matrix[x][k] = 1;
+		}
+	}
+	else {	// vertical
+		if(boat_size[boat_num] + x >= map->size) return 0;
+		for(int k=x; k<boat_size[boat_num]+x; k++){
+			if(map -> matrix[k][y] != 0) return 0;
+		}
+		for(int k=x; k<boat_size[boat_num]+x; k++){
+			map -> matrix[k][y] = 1;
+		}
+	}
+	return 1;
+}
+
+char select_char(int v){
+	switch(v){
+		case 0 : return '~';
+		case 1 : return '#';
+		default: return -1;
+	}
+}
+
+void print_matrix(MAP* map){
+	printf("  ");
+	for(int i=0; i<map->size; i++){
+		printf(" %d",i);
+	}
+	printf("\n");
+
+	for(int i=0; i<map->size; i++){
+		printf(" %d", i);
+		for(int j=0; j<map->size; j++){
+			int temp = map -> matrix[i][j];
+			printf(" %c",select_char(temp));
+		}
+		printf("\n");
+	}
 }
 
 void Battlesip(){
