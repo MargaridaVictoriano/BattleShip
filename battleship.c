@@ -13,19 +13,16 @@
 
 // em ifs 0 = false, 1 = true
 
-
-void randomlyShipsonMap(CELLS build_matrix[][N_MATRIX], SHIP ship[]) {
-	COORDINATES position;
-	int direction = -1;
-	int i = 0;
-	for (i = 0; i < N_BOATS; i++) {
+void randomlyPlaceBoatonMap(MAP* map) {
+	BOATPOSITION boat_pos;
+	char boat_id[] = ['c', 'b','r', 's','d'];
+	for (int i = 0; i < N_BOATS; i++) {
 		while (1) {
-			direction = getRandomNumber (0, 1); // 0 : horizontal, 1 : vertical 
-			//position = generatePosition (direction, ship[i].length);
-			//Criar funçao para verificar se a posiçao existe e se nao esta ocupada
-			//if (isValidLocation (gameBoard, position, direction, ship[i].length)) break;
+			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
+			boat_pos.position.row = getRandomNumber(0,N_MATRIX-1);
+			boat_pos.position.column = getRandomNumber(0,N_MATRIX-1);
+			if(insert_boat(map, boat_id[i],boat_pos) != NULL) break;
 		}
-		insert_boat(map, ship[i], position, direction);
 	}
 }
 
