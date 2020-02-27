@@ -116,6 +116,12 @@ void pickBoatPosition(MAP* map){
 		scanf("%d", &boat_pos.direction);
 		if(checkAvalablePosition(map,boat_id,boat_pos)){
 			insert_boat(map,boat_id, boat_pos);
+			print_matrix(map);
+			printf("\n");
+			while(getchar() != '\n'); // flush buffer input
+		}
+		else{
+	   		printf("\nInvalid input. Please try again.\n\n");
 		}
 
 	}
@@ -172,6 +178,4 @@ int main(int argc, char** argv){
 	
 	destroy_matrix(player1);
 }
-
-
 
