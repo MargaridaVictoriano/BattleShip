@@ -83,6 +83,7 @@ void randomlyPlaceBoatonMap(MAP* map) {
 void pickBoatPosition(MAP* map){
 	BOATPOSITION boat_pos;
 	char boat_id;
+	for(int i = 0; i < N_BOATS; i++){
 	printf("Boats Available and ID: \n");
 	printf("CARRIER       'c'\n");
 	printf("BATTLESHIP    'b'\n");
@@ -116,6 +117,8 @@ void pickBoatPosition(MAP* map){
     if(checkAvalablePosition(map,boat_id,boat_pos)){
     	insert_boat(map,boat_id, boat_pos);
     }
+
+   }
 
 }
 
