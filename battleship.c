@@ -116,14 +116,14 @@ void pickBoatPosition(MAP* map){
 void preparePlayerBoats(MAP* map){
    char mode;
    while(1) {
-      printf("Select manual position of boats or automaticaly\n");
-      printf("r -> ramdom\n");
-      printf("m -> manual\n");
-      printf("Select mode:\n");
+      printf("Select the prefered mode to insert the boats: \n");
+      printf("r :: random\n");
+      printf("m :: manual\n");
+      printf("Select the mode:\n");
       mode = getchar();
       while(getchar() != '\n'); // flush buffer input
       if(mode=='r' || mode=='m') break;
-      printf("Invalid input. Please try again.\n");
+      printf("Invalid mode. Please try again.\n");
    }
    
    if(mode == 'r') randomlyPlaceBoatonMap(map);
