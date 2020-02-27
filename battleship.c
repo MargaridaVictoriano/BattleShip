@@ -4,8 +4,8 @@
 #include "map.h"
 #include "boat.h"
 
-#define N_MATRIX  10   // tamanho da matriz
-#define N_BOATS   5	  // numero de barcos
+#define N_MATRIX  10   // tamanho da matriz O utilizador tem que escolher
+#define N_BOATS   5	  // numero de barcos Perguntar o numero de barcos por tipo
 
 /////// começar a pensar como armazenar os boats(um array de boats e suficente) 
 /////// tem code la em baixo por acabar
@@ -91,6 +91,7 @@ void pickBoatPosition(MAP* map){
 	printf("DESTROYER     'd'\n");
 	printf("\n");
 	
+
 	while(1){
 	   printf("Please enter the desired boat ID: \n");
 	   boat_id = getchar();
@@ -107,9 +108,14 @@ void pickBoatPosition(MAP* map){
 	//printf("%d\n", boat_pos.position.row);
 	printf("Coordinate Y:\n");
 	scanf("%d",&boat_pos.position.column);
-	printf("%d\n", boat_pos.position.column);
-
-
+	//printf("%d\n", boat_pos.position.column);
+	printf("Please Select the Direction:\n");
+	printf("1 :: Horizontal \n");
+    printf("0 :: Vertical \n");
+    scanf("%d", &boat_pos.direction);
+    if(checkAvalablePosition(map,boat_id,boat_pos)){
+    	insert_boat(map,boat_id, boat_pos);
+    }
 
 }
 
