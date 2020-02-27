@@ -1,16 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <curses.h>
 #include <time.h>
 #include "map.h"
 #include "boat.h"
 
-#define N_MATRIX  10   // tamanho da matriz O utilizador tem que escolher
+  // tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
 #define N_BOATS   5	  // numero de barcos Perguntar o numero de barcos por tipo
 
 /////// começar a pensar como armazenar os boats(um array de boats e suficente) 
 /////// tem code la em baixo por acabar
 
 // em ifs 0 = false, 1 = true
+
+int n_matrix = 10;
+
+// perceber porque e que nao funciona
+/*int pickMatrixSize(){
+	int temp;
+	printf("Please insert the matrix size.\n");
+	printf("Both users will use the same matrix size.\n");
+	printf("The matrix maximum size is: %d\n", MAX_MATRIX);
+	scanf("%d", &temp);
+	n_matrix = temp;
+	printf("n_matrix : %d\n", n_matrix);
+	printf("temp : %d\n", temp);
+
+	while(getchar() != '\n'); // flush buffer input
+	return temp;
+}
+*/
 
 int contains_boat(MAP* map,int x,int y){
    if(map -> matrix[x][y] == 1) return 1;
@@ -72,8 +91,8 @@ void randomlyPlaceBoatonMap(MAP* map) {
 	for (int i = 0; i < N_BOATS; i++) {
 		do {
 			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
-			boat_pos.position.row = getRandomNumber(0,N_MATRIX-1);
-			boat_pos.position.column = getRandomNumber(0,N_MATRIX-1);
+			boat_pos.position.row = getRandomNumber(0,n_matrix-1);
+			boat_pos.position.column = getRandomNumber(0,n_matrix-1);
 		}
 		while(!checkAvalablePosition(map, boat_id[i],boat_pos));
 	   insert_boat(map, boat_id[i],boat_pos);
@@ -155,27 +174,30 @@ void Battleship(){
 
 	/**********************************************************|
 	|                                                          |
-	|																			  |
-	|																			  |
-	|						Pretty screen with rules					  |
-	|																			  |
-	|																			  |
-	|																			  | 
-	|																			  |
+	|														   |
+	|										     			   |
+	|				Pretty screen with rules		           |
+	|														   |
+	|														   |
+	|														   | 
+	|														   |
 	|**********************************************************/
 }
 
 int main(int argc, char** argv){
    srand(time(NULL)); // randomize seed
    
-	MAP* player1 = (MAP*)build_matrix(N_MATRIX); //inicializar mapa do jogador
+	MAP* player1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
 	
 	system("clear");
 	Battleship();
+	//pickMatrixSize();
+	//int size = pickMatrixSize();
+	//printf("n_matrix : %d\n", n_matrix);
+
 	preparePlayerBoats(player1);
 	
 	print_matrix(player1);
 	
 	destroy_matrix(player1);
 }
-
