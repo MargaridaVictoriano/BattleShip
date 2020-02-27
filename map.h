@@ -43,17 +43,30 @@ char select_char(int v){
 }
 
 void print_matrix(MAP* map){
-	printf("  ");
+	int digits = 1,temp = map->size;
+	while(temp/10 != 0){
+		digits++;
+		temp /= 10;
+	}
+	//printf("%d\n DIGITOS\n", digits);
+
+	//printf(" ");
+	for(int i = 0; i < digits + 1; i++){
+		printf(" ");
+	}
 	for(int i=0; i<map->size; i++){
-		printf(" %d",i);
+		printf(" %*d",digits,i);
 	}
 	printf("\n");
 
 	for(int i=0; i<map->size; i++){
-		printf(" %d", i);
+		printf(" %*d",digits,i);
 		for(int j=0; j<map->size; j++){
 			int temp = map -> matrix[i][j];
-			printf(" %c",select_char(temp));
+			for(int i = 0; i < digits; i++){
+				printf(" ");
+			}
+			printf("%c",select_char(temp));
 		}
 		printf("\n");
 	}
