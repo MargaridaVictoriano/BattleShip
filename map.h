@@ -1,4 +1,6 @@
 // -------- Estrutura do mapa ------- //
+#define MAX_MATRIX 40   // tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
+
 //Matriz n*n
 typedef struct map{
 	unsigned int size;
