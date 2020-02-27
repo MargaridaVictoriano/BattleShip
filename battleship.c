@@ -84,41 +84,41 @@ void pickBoatPosition(MAP* map){
 	BOATPOSITION boat_pos;
 	char boat_id;
 	for(int i = 0; i < N_BOATS; i++){
-	printf("Boats Available and ID: \n");
-	printf("CARRIER       'c'\n");
-	printf("BATTLESHIP    'b'\n");
-	printf("CRUISER       'r'\n");
-	printf("SUBMARINE     's'\n");
-	printf("DESTROYER     'd'\n");
-	printf("\n");
-	
+		printf("Boats Available and ID: \n");
+		printf("CARRIER       'c'\n");
+		printf("BATTLESHIP    'b'\n");
+		printf("CRUISER       'r'\n");
+		printf("SUBMARINE     's'\n");
+		printf("DESTROYER     'd'\n");
+		printf("\n");
 
-	while(1){
-	   printf("Please enter the desired boat ID: \n");
-	   boat_id = getchar();
-	   while(getchar() != '\n'); // flush buffer input
-	   if(boat_id == 'c' || boat_id == 'b' || boat_id == 'r' || boat_id == 's' || boat_id == 'd') break;
-		printf("Invalid input. Please try again.\n");
+
+		while(1){
+			printf("Please enter the desired boat ID: \n");
+			boat_id = getchar();
+	   		while(getchar() != '\n'); // flush buffer input
+	   		if(boat_id == 'c' || boat_id == 'b' || boat_id == 'r' || boat_id == 's' || boat_id == 'd') break;
+	   		printf("Invalid input. Please try again.\n");
+		}
+	
+		////////////////////////// falta acabar daqui para baixo ////////////////////////
+		//printf("%c\n", boat_id);
+		printf("Please enter the desired coordinates for the boat: \n");
+		printf("Coordinate X:\n");
+		scanf("%d",&boat_pos.position.row);
+		//printf("%d\n", boat_pos.position.row);
+		printf("Coordinate Y:\n");
+		scanf("%d",&boat_pos.position.column);
+		//printf("%d\n", boat_pos.position.column);
+		printf("Please Select the Direction:\n");
+		printf("1 :: Horizontal \n");
+		printf("0 :: Vertical \n");
+		scanf("%d", &boat_pos.direction);
+		if(checkAvalablePosition(map,boat_id,boat_pos)){
+			insert_boat(map,boat_id, boat_pos);
+		}
+
 	}
-	
-	////////////////////////// falta acabar daqui para baixo ////////////////////////
-	//printf("%c\n", boat_id);
-	printf("Please enter the desired coordinates for the boat: \n");
-	printf("Coordinate X:\n");
-	scanf("%d",&boat_pos.position.row);
-	//printf("%d\n", boat_pos.position.row);
-	printf("Coordinate Y:\n");
-	scanf("%d",&boat_pos.position.column);
-	//printf("%d\n", boat_pos.position.column);
-	printf("Please Select the Direction:\n");
-	printf("1 :: Horizontal \n");
-    printf("0 :: Vertical \n");
-    scanf("%d", &boat_pos.direction);
-    if(checkAvalablePosition(map,boat_id,boat_pos)){
-    	insert_boat(map,boat_id, boat_pos);
-    }
-
-   }
 
 }
 
@@ -172,4 +172,6 @@ int main(int argc, char** argv){
 	
 	destroy_matrix(player1);
 }
+
+
 
