@@ -1,9 +1,9 @@
-// gcc -Werror battleship.c -o battleship && ./battleship && rm battleship
+// gcc -Werror battleship.c -o battleship && ./battleship
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <curses.h>
 #include <time.h>
+#include <unistd.h>
 #include "map.h"
 #include "boat.h"
 
@@ -11,6 +11,7 @@
 /// alterar os barcos para ser full heap
 /// veficar os mallocs se dao null
 /// asserts
+/// atualizar print de numero de barcos sempre que algum é colocado
 
 // tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
 #define N_BOATS   5	  // numero de barcos Perguntar o numero de barcos por tipo
@@ -21,13 +22,19 @@
 // em ifs 0 = false, 1 = true
 
 int n_matrix;
-
-// perceber porque e que nao funciona
+//It Works !
 void pickMatrixSize(){
 	printf("Please insert the matrix size.\n");
 	printf("Both users will use the same matrix size.\n");
-	printf("The matrix maximum size is: %d\n", MAX_MATRIX);
-	scanf("%d", &n_matrix);
+	printf("The matrix minimum size is %d and the matrix maximum size is %d.\n",MIN_MATRIX ,MAX_MATRIX);
+	while(1){
+		scanf("%d", &n_matrix);
+		if(n_matrix >= 10 && n_matrix <= 40){
+			break;
+		}
+		printf("Invalid input. Please try again.\n");
+
+	}
 	while(getchar() != '\n'); // flush buffer input
 }
 
@@ -190,12 +197,10 @@ int main(int argc, char** argv){
    system("clear");
 	//Battleship();
 	pickMatrixSize();
-	printf("n_matrix : %d\n", n_matrix);
 	MAP* player1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
-
-	//preparePlayerBoats(player1);
-	
+	preparePlayerBoats(player1);
 	print_matrix(player1);
+	sleep(2);
 	
 	destroy_matrix(player1);
 }
