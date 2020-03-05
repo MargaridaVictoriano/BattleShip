@@ -5,7 +5,12 @@
 #include "map.h"
 #include "boat.h"
 
-  // tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
+/// ligar as posiçoes do damage diretamente ao mapa
+/// alterar os barcos para ser full heap
+/// veficar os mallocs se dao null
+/// asserts
+
+// tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
 #define N_BOATS   5	  // numero de barcos Perguntar o numero de barcos por tipo
 
 /////// começar a pensar como armazenar os boats(um array de boats e suficente) 
