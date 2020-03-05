@@ -4,29 +4,50 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include "map.h"
 #include "boat.h"
 
-/// ligar as posiçoes do damage diretamente ao mapa
-/// alterar os barcos para ser full heap
-/// veficar os mallocs se dao null
-/// asserts
-/// atualizar print de numero de barcos sempre que algum é colocado
-
-// tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
-#define N_BOATS   5	  // numero de barcos Perguntar o numero de barcos por tipo
-
-/////// começar a pensar como armazenar os boats(um array de boats e suficente) 
-/////// tem code la em baixo por acabar
-
-// em ifs 0 = false, 1 = true
-
+/* -----------------------------------------------------------TO DO LIST---------------------------------------------------
+	ligar as posiçoes do damage diretamente ao mapa
+	alterar os barcos para ser full heap
+	veficar os mallocs se dao null
+	asserts
+	atualizar print de numero de barcos sempre que algum é colocado
+	tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
+	começar a pensar como armazenar os boats(um array de boats e suficente) 
+	random para determinar numero de barcos
+	random para determinar tamanho da matriz
+	minimos e maximos de barcos consoante tamanho da matriz
+	tem code la em baixo por acabar
+-------------------------------------------------------------------------------------------------------------------------*/
+int n_boats=5;
 int n_matrix;
 //It Works !
 void pickMatrixSize(){
 	printf("Please insert the matrix size.\n");
 	printf("Both users will use the same matrix size.\n");
 	printf("The matrix minimum size is %d and the matrix maximum size is %d.\n",MIN_MATRIX ,MAX_MATRIX);
+	while(1){
+		scanf("%d", &n_matrix);
+		if(n_matrix >= 10 && n_matrix <= 40){
+			break;
+		}
+		printf("Invalid input. Please try again.\n");
+
+	}
+	while(getchar() != '\n'); // flush buffer input
+}
+
+void pickNumberBoats(){
+	printf("Please insert how many boats you want from each type.\n");
+	printf("Boats Available and ID: \n");
+	printf("CARRIER       'c'\n");
+	printf("BATTLESHIP    'b'\n");
+	printf("CRUISER       'r'\n");
+	printf("SUBMARINE     's'\n");
+	printf("DESTROYER     'd'\n");
+
 	while(1){
 		scanf("%d", &n_matrix);
 		if(n_matrix >= 10 && n_matrix <= 40){
@@ -64,27 +85,27 @@ BOAT insert_boat(MAP* map,char boat_id ,BOATPOSITION position){
 	return build_boat(boat_id,position);
 }
 
-int checkAvalablePosition(MAP* map,char boat_id ,BOATPOSITION position){
+bool checkAvalablePosition(MAP* map,char boat_id ,BOATPOSITION position){
 	int size_boat = boat_size(boat_id);
 	int x = position.position.row;
 	int y = position.position.column;
 	int dir = position.direction;
    
-   if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return 0;
+   if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return false;
    
    if(dir){	// horizontal
-		if(size_boat + y >= map->size) return 0;
+		if(size_boat + y >= map->size) return false;
 		for(int k=y; k<size_boat+y; k++){
-			if(map -> matrix[x][k] != 0) return 0;
+			if(map -> matrix[x][k] != 0) return false;
 		}
 	}
 	else {	// vertical
-		if(size_boat + x >= map->size) return 0;
+		if(size_boat + x >= map->size) return false;
 		for(int k=x; k<size_boat+x; k++){
-			if(map -> matrix[k][y] != 0) return 0;
+			if(map -> matrix[k][y] != 0) return false;
 		}
 	}
-   return 1;
+   return true;
 }
 
 // ASSUMINDO QUE A <= B
@@ -95,7 +116,7 @@ int getRandomNumber(int a, int b){
 void randomlyPlaceBoatonMap(MAP* map) {
 	BOATPOSITION boat_pos;
 	char boat_id[] = {'c','b','r','s','d'};
-	for (int i = 0; i < N_BOATS; i++) {
+	for (int i = 0; i < n_boats; i++) {
 		do {
 			boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
 			boat_pos.position.row = getRandomNumber(0,n_matrix-1);
@@ -109,7 +130,7 @@ void randomlyPlaceBoatonMap(MAP* map) {
 void pickBoatPosition(MAP* map){
 	BOATPOSITION boat_pos;
 	char boat_id;
-	for(int i = 0; i < N_BOATS; i++){
+	for(int i = 0; i < n_boats; i++){
 		printf("Boats Available and ID: \n");
 		printf("CARRIER       'c'\n");
 		printf("BATTLESHIP    'b'\n");
@@ -194,13 +215,12 @@ void Battleship(){
 int main(int argc, char** argv){
    srand(time(NULL)); // randomize seed
    
-   system("clear");
-	//Battleship();
+   	system("clear");
+	Battleship();
 	pickMatrixSize();
 	MAP* player1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
 	preparePlayerBoats(player1);
 	print_matrix(player1);
-	sleep(2);
-	
+	//sleep(2);
 	destroy_matrix(player1);
 }
