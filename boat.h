@@ -16,11 +16,11 @@ int boat_size(char id){
    }
 }
 
-const char const c[] = "CARRIER";
-const char const b[] = "BATTLESHIP";
-const char const r[] = "CRUISER";
-const char const s[] = "SUBMARINE";
-const char const d[] = "DESTROYER";
+const char c[] = "CARRIER";
+const char b[] = "BATTLESHIP";
+const char r[] = "CRUISER";
+const char s[] = "SUBMARINE";
+const char d[] = "DESTROYER";
 
 const char* const name_boat(char id){
    switch(id){
