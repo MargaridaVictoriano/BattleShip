@@ -10,7 +10,9 @@
 #include "boat.h"
 #include "utils.h"
 
+
 /* -------------------------------------------------------TO DO LIST---------------------------------------------------
+	array para guardar barcos
 	ligar as posiçoes do damage diretamente ao mapa
 	alterar os barcos para ser full heap
 	veficar os mallocs se dao null
@@ -39,8 +41,9 @@ void pickMatrixSize(){
 	}
 	while(getchar() != '\n'); // flush buffer input
 }
-
+//need to finish
 void pickNumberBoats(){
+	//dependendo do tamanho da matriz temos que limitar o numero de barcos
 	printf("Please insert how many boats you want from each type.\n");
 	printf("Boats Available and ID: \n");
 	printf("CARRIER       'c'\n");
