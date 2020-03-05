@@ -1,4 +1,4 @@
-// gcc -Werror battleship.c -o battleship && ./battleship
+// gcc -Werror battleship.c -o battleship && ./battleship && rm battleship
 
 #include <stdio.h>
 #include <stdlib.h>
