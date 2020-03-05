@@ -145,6 +145,7 @@ void pickBoatPosition(MAP* map){
 			while(getchar() != '\n'); // flush buffer input
 		}
 		else{
+			while(getchar() != '\n'); // flush buffer input
 	   		printf("\nInvalid input. Please try again.\n\n");
 		}
 
