@@ -1,3 +1,4 @@
+
 int contains_boat(MAP* map,int x,int y){
    if(map -> matrix[x][y] == 1) return 1;
    return 0;

@@ -5,11 +5,13 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <time.h>
+#include "global_var.h"
 #include "map.h"
 #include "boat.h"
 #include "utils.h"
 
-/* -----------------------------------------------------------TO DO LIST---------------------------------------------------
+
+/* -------------------------------------------------------TO DO LIST---------------------------------------------------
 	ligar as posiçoes do damage diretamente ao mapa
 	alterar os barcos para ser full heap
 	veficar os mallocs se dao null
@@ -22,8 +24,7 @@
 	minimos e maximos de barcos consoante tamanho da matriz
 	tem code la em baixo por acabar
 -------------------------------------------------------------------------------------------------------------------------*/
-int n_boats=5;
-int n_matrix;
+
 //It Works !
 void pickMatrixSize(){
 	printf("Please insert the matrix size.\n");
