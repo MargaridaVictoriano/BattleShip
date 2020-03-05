@@ -10,7 +10,6 @@
 #include "boat.h"
 #include "utils.h"
 
-//////////jhbashjbhjas
 /* -------------------------------------------------------TO DO LIST---------------------------------------------------
 	ligar as posiçoes do damage diretamente ao mapa
 	alterar os barcos para ser full heap
