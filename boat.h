@@ -77,4 +77,3 @@ BOAT build_boat(char id, BOATPOSITION position){
    new.position = position;
    return new;
 }
-
