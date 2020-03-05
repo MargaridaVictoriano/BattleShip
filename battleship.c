@@ -1,3 +1,5 @@
+// gcc -Werror battleship.c -o battleship && ./battleship
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <curses.h>
@@ -18,23 +20,16 @@
 
 // em ifs 0 = false, 1 = true
 
-int n_matrix = 10;
+int n_matrix;
 
 // perceber porque e que nao funciona
-/*int pickMatrixSize(){
-	int temp;
+void pickMatrixSize(){
 	printf("Please insert the matrix size.\n");
 	printf("Both users will use the same matrix size.\n");
 	printf("The matrix maximum size is: %d\n", MAX_MATRIX);
-	scanf("%d", &temp);
-	n_matrix = temp;
-	printf("n_matrix : %d\n", n_matrix);
-	printf("temp : %d\n", temp);
-
+	scanf("%d", &n_matrix);
 	while(getchar() != '\n'); // flush buffer input
-	return temp;
 }
-*/
 
 int contains_boat(MAP* map,int x,int y){
    if(map -> matrix[x][y] == 1) return 1;
@@ -125,7 +120,6 @@ void pickBoatPosition(MAP* map){
 	   		printf("Invalid input. Please try again.\n");
 		}
 	
-		////////////////////////// falta acabar daqui para baixo ////////////////////////
 		//printf("%c\n", boat_id);
 		printf("Please enter the desired coordinates for the boat: \n");
 		printf("Coordinate X:\n");
@@ -145,8 +139,8 @@ void pickBoatPosition(MAP* map){
 			while(getchar() != '\n'); // flush buffer input
 		}
 		else{
-			while(getchar() != '\n'); // flush buffer input
-	   		printf("\nInvalid input. Please try again.\n\n");
+		   while(getchar() != '\n'); // flush buffer input
+	   	printf("\nInvalid input. Please try again.\n\n");
 		}
 
 	}
@@ -193,15 +187,13 @@ void Battleship(){
 int main(int argc, char** argv){
    srand(time(NULL)); // randomize seed
    
+   system("clear");
+	//Battleship();
+	pickMatrixSize();
+	printf("n_matrix : %d\n", n_matrix);
 	MAP* player1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
-	
-	system("clear");
-	Battleship();
-	//pickMatrixSize();
-	//int size = pickMatrixSize();
-	//printf("n_matrix : %d\n", n_matrix);
 
-	preparePlayerBoats(player1);
+	//preparePlayerBoats(player1);
 	
 	print_matrix(player1);
 	
