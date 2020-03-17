@@ -18,7 +18,6 @@
 	veficar os mallocs se dao null
 	asserts
 	atualizar print de numero de barcos sempre que algum é colocado
-	tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
 	começar a pensar como armazenar os boats(um array de boats e suficente) 
 	random para determinar numero de barcos
 	random para determinar tamanho da matriz
@@ -33,13 +32,13 @@ void pickMatrixSize(){
 	printf("The matrix minimum size is %d and the matrix maximum size is %d.\n",MIN_MATRIX ,MAX_MATRIX);
 	while(1){
 		scanf("%d", &n_matrix);
-		if(n_matrix >= 10 && n_matrix <= 40){
+		if(n_matrix >= MIN_MATRIX && n_matrix <= MAX_MATRIX){
 			break;
 		}
 		printf("Invalid input. Please try again.\n");
 
 	}
-	while(getchar() != '\n'); // flush buffer input
+	flushInput();
 }
 //need to finish
 void pickNumberBoats(){
@@ -54,13 +53,13 @@ void pickNumberBoats(){
 
 	while(1){
 		scanf("%d", &n_matrix);
-		if(n_matrix >= 10 && n_matrix <= 40){
+		if(n_matrix >= MIN_MATRIX && n_matrix <= MAX_MATRIX){
 			break;
 		}
 		printf("Invalid input. Please try again.\n");
 
 	}
-	while(getchar() != '\n'); // flush buffer input
+	flushInput();
 }
 
 void pickBoatPosition(MAP* map){
@@ -79,7 +78,7 @@ void pickBoatPosition(MAP* map){
 		while(1){
 			printf("Please enter the desired boat ID: \n");
 			boat_id = getchar();
-	   		while(getchar() != '\n'); // flush buffer input
+	   		flushInput();
 	   		if(boat_id == 'c' || boat_id == 'b' || boat_id == 'r' || boat_id == 's' || boat_id == 'd') break;
 	   		printf("Invalid input. Please try again.\n");
 		}
@@ -96,19 +95,18 @@ void pickBoatPosition(MAP* map){
 		printf("1 :: Horizontal \n");
 		printf("0 :: Vertical \n");
 		scanf("%d", &boat_pos.direction);
+		
 		if(checkAvalablePosition(map,boat_id,boat_pos)){
 			insert_boat(map,boat_id, boat_pos);
 			print_matrix(map);
 			printf("\n");
-			while(getchar() != '\n'); // flush buffer input
 		}
 		else{
-		   while(getchar() != '\n'); // flush buffer input
 	   	printf("\nInvalid input. Please try again.\n\n");
 		}
-
+		
+		flushInput();
 	}
-
 }
 
 void preparePlayerBoats(MAP* map){
@@ -119,7 +117,7 @@ void preparePlayerBoats(MAP* map){
       printf("m :: manual\n");
       printf("Select the mode:\n");
       mode = getchar();
-      while(getchar() != '\n'); // flush buffer input
+      flushInput();
       if(mode=='r' || mode=='m') break;
       printf("Invalid mode. Please try again.\n");
    }
@@ -129,34 +127,81 @@ void preparePlayerBoats(MAP* map){
 }
 
 void Battleship(){
-	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@\n");
+	printf ("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@  \n");
 	printf ("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
-	printf ("@@@@@  @@  @@   @@     @@   @@     @@@@    @@@@  @@@@@@ @@ @@@@\n"); 
-	printf ("@@  @@ @@@@@@   @@     @@   @@     @@         @@ @@  @@ @@ @@\n");
-	printf ("@@@@@  @@  @@   @@     @@   @@@@@@ @@@@@@ @@@@@  @@  @@ @@ @@\n");
-	printf("\n");
+	printf ("@@@@@  @@  @@   @@     @@   @@     @@@@    @@@@  @@@@@@ @@ @@@@  \n"); 
+	printf ("@@  @@ @@@@@@   @@     @@   @@     @@         @@ @@  @@ @@ @@    \n");
+	printf ("@@@@@  @@  @@   @@     @@   @@@@@@ @@@@@@ @@@@@  @@  @@ @@ @@    \n");
+	printf ("\n");
 
 	/**********************************************************|
 	|                                                          |
-	|														   |
-	|										     			   |
-	|				Pretty screen with rules		           |
-	|														   |
-	|														   |
-	|														   | 
-	|														   |
+	|														                 |
+	|										     			                 |
+	|				Pretty screen with rules		                 |
+	|														                 |
+	|														                 |
+	|														                 | 
+	|														                 |
 	|**********************************************************/
+}
+
+// Margarida por favor corrige estas strings tds ;-)
+// Temos que pensar como vamos mostrar a cada jogador o seu mapa de ataque.
+// O ciclo ainda nao sei como o fazer terminar
+void game(MAP* map1, MAP* map2){
+   while(1){
+      int x,y;
+      
+      // ataque do jagador 1
+      printf("Player1 select coords for attack.\n");
+      scanf("%d",&x);
+      scanf("%d",&y);
+      flushInput();
+      
+      if(x>=0 && y>=0 && x<map2->size && y<map2->size){
+         if(map2->matrix[x][y] == 1) printf("HIT!\n");
+         else printf("MISS!\n");
+      }
+      else printf("Invalid input. Please try again.\n");
+      
+      // ataque do jagador 2
+      printf("Player2 select coords for attack.\n");
+      scanf("%d",&x);
+      scanf("%d",&y);
+      flushInput();
+      
+      if(x>=0 && y>=0 && x<map1->size && y<map1->size){
+         if(map1->matrix[x][y] == 1) printf("HIT!\n");
+         else printf("MISS!\n");
+      }
+      else printf("Invalid input. Please try again.\n");
+   }
 }
 
 int main(int argc, char** argv){
    srand(time(NULL)); // randomize seed
    
-   	system("clear");
+   system("clear");
 	Battleship();
+	
 	pickMatrixSize();
+	
+	system("clear");
 	MAP* player1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
+	printf("Player1\n");
 	preparePlayerBoats(player1);
 	print_matrix(player1);
-	//sleep(2);
+	
+	system("clear");
+	MAP* player2 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
+	printf("Player2\n");
+	preparePlayerBoats(player2);
+	print_matrix(player2);
+	
+	system("clear");
+	game(player1,player2);
+	
 	destroy_matrix(player1);
+	destroy_matrix(player2);
 }

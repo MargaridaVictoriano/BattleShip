@@ -1,4 +1,10 @@
 
+void flushInput(){
+   int c;
+   while ((c = getchar()) != '\n' && c != EOF);
+   //while(getchar() != '\n'); // flush buffer input
+}
+
 int contains_boat(MAP* map,int x,int y){
    if(map -> matrix[x][y] == 1) return 1;
    return 0;

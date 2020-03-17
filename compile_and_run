@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gcc -Werror -o battleship battleship.c
+gcc -Wall -o battleship battleship.c
 ./battleship
 rm battleship

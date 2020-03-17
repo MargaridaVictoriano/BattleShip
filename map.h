@@ -1,6 +1,7 @@
 // -------- Estrutura do mapa ------- //
+// Limites da matriz
 #define MIN_MATRIX 10
-#define MAX_MATRIX 40   // tamanho da matriz O utilizador tem que escolher //TAMANHO MAXIMO : 40
+#define MAX_MATRIX 40
 
 //Matriz n*n
 typedef struct map{
