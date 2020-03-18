@@ -146,15 +146,13 @@ void Battleship(){
 	|**********************************************************/
 }
 
-// Margarida por favor corrige estas strings tds ;-)
 // Temos que pensar como vamos mostrar a cada jogador o seu mapa de ataque.
 // O ciclo ainda nao sei como o fazer terminar
 void game(MAP* map1, MAP* map2){
    while(1){
       int x,y;
-      
       // ataque do jagador 1
-      printf("Player1 select coords for attack.\n");
+      printf("Player1 please select the attack coordinates.\n");
       scanf("%d",&x);
       scanf("%d",&y);
       flushInput();
@@ -166,7 +164,7 @@ void game(MAP* map1, MAP* map2){
       else printf("Invalid input. Please try again.\n");
       
       // ataque do jagador 2
-      printf("Player2 select coords for attack.\n");
+      printf("Player2 please select the attack coordinates..\n");
       scanf("%d",&x);
       scanf("%d",&y);
       flushInput();
