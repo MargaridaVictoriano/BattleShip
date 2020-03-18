@@ -22,7 +22,7 @@ const char r[] = "CRUISER";
 const char s[] = "SUBMARINE";
 const char d[] = "DESTROYER";
 
-const char* const name_boat(char id){
+const char* name_boat(char id){
    switch(id){
       case 'c': return c;
       case 'b': return b;
