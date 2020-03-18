@@ -75,6 +75,25 @@ void print_matrix(MAP* map){
 		printf("\n");
 	}
 }
+typedef struct {
+	MAP* mapPlayer;
+	MAP* mapOpponent;
+} PLAYER;
+
+//Construtor do jogador
+PLAYER* buildPlayer(MAP* map) {
+	PLAYER* new = (PLAYER*)malloc(sizeof(PLAYER)); 
+	new -> mapPlayer = map;
+	new -> mapOpponent = (MAP*)build_matrix(map -> size); 
+	return new;
+}
+
+void destroyPlayer(PLAYER* player) {
+	destroy_matrix(player -> mapPlayer);
+	destroy_matrix(player -> mapOpponent);
+	free(player);
+}
+
 
 //Struct que define cada célula 1*1 (estou a tentar uma coisa)
 /*typedef struct {
