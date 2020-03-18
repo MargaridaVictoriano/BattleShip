@@ -5,23 +5,21 @@
 
 //Matriz n*n
 typedef struct map{
-	unsigned int size;
 	int **matrix;
 } MAP;
 
-MAP* build_matrix(unsigned int len){
+MAP* build_matrix(){
 	MAP* map = (MAP*)malloc(sizeof(MAP)); //mapa jogador 
-	map->size = len;
 	
 	// construir a matrix
-	map -> matrix = (int **)malloc(map->size*sizeof(int *));
-	for(int i=0; i<map->size; i++){
-	   map -> matrix[i] = (int *)malloc(map->size*sizeof(int));
+	map -> matrix = (int **)malloc(n_matrix*sizeof(int *));
+	for(int i=0; i<n_matrix; i++){
+	   map -> matrix[i] = (int *)malloc(n_matrix*sizeof(int));
 	}
 	
 	// zerar a matrix
-	for(int i = 0; i < map->size; i++){
-		for(int j = 0; j < map->size; j++){
+	for(int i = 0; i < n_matrix; i++){
+		for(int j = 0; j <n_matrix; j++){
 			map -> matrix[i][j] = 0;
 		}
 	}
@@ -30,7 +28,7 @@ MAP* build_matrix(unsigned int len){
 
 void destroy_matrix(MAP* map){
    if(map != NULL){
-      for(int i=0; i< map->size; i++){
+      for(int i=0; i< n_matrix; i++){
          free(map -> matrix[i]);
       }
       free(map -> matrix);
@@ -47,7 +45,7 @@ char select_char(int v){
 }
 
 void print_matrix(MAP* map){
-	int digits = 1,temp = map->size;
+	int digits = 1,temp = n_matrix;
 	while(temp/10 != 0){
 		digits++;
 		temp /= 10;
@@ -58,14 +56,14 @@ void print_matrix(MAP* map){
 	for(int i = 0; i < digits + 1; i++){
 		printf(" ");
 	}
-	for(int i=0; i<map->size; i++){
+	for(int i=0; i<n_matrix; i++){
 		printf(" %*d",digits,i);
 	}
 	printf("\n");
 
-	for(int i=0; i<map->size; i++){
+	for(int i=0; i<n_matrix; i++){
 		printf(" %*d",digits,i);
-		for(int j=0; j<map->size; j++){
+		for(int j=0; j<n_matrix; j++){
 			int temp = map -> matrix[i][j];
 			for(int i = 0; i < digits; i++){
 				printf(" ");
@@ -84,7 +82,7 @@ typedef struct {
 PLAYER* buildPlayer(MAP* map) {
 	PLAYER* new = (PLAYER*)malloc(sizeof(PLAYER)); 
 	new -> mapPlayer = map;
-	new -> mapOpponent = (MAP*)build_matrix(map -> size); 
+	new -> mapOpponent = (MAP*)build_matrix(n_matrix); 
 	return new;
 }
 
