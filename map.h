@@ -40,6 +40,8 @@ char select_char(int v){
 	switch(v){
 		case 0 : return '~';
 		case 1 : return '#';
+		case 2 : return 'X';
+		case 3 : return 'O';
 		default: return -1;
 	}
 }
