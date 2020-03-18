@@ -154,7 +154,7 @@ void Battleship(){
 //Guardar em duas variaveis(uma para cada jogador) o numero de "quadriculas" que cada barco ocupa. Sempre que um jogador ataca, verificamos se foi atingido algum barco e caso seja é so decrementar o valor da variavel e quando chegar a zero sabemos que perdemos
 void game(PLAYER* player1, PLAYER* player2) {
  
-   while(1) {
+   while(n1_size != 0 && n2_size != 0) {
       int x,y;
       // ataque do jogador 1
       printf("Player1 please select the attack coordinates.\n");
@@ -163,11 +163,23 @@ void game(PLAYER* player1, PLAYER* player2) {
       flushInput();
       
       if(x>=0 && y>=0 && x<n_matrix && y<n_matrix){
-         if(player2 -> mapPlayer -> matrix[x][y] == 1) printf("HIT!\n");
-         else printf("MISS!\n");
-      }
+      	//player1 ataca player2
+         if(player2 -> mapPlayer -> matrix[x][y] == 1) {
+         	printf("HIT!\n");
+         	player1 -> mapOpponent -> matrix[x][y] = 2;
+         	n1_size--;
+         }
+         else {
+         	printf("MISS!\n");
+         	player1 -> mapOpponent -> matrix[x][y] = 3;
+      	}
+     }
       else printf("Invalid input. Please try again.\n");
-      
+      print_matrix(player1 -> mapOpponent);
+
+      if(n2_size == 0) {
+      	break;
+      }
       // ataque do jogador 2
       printf("Player2 please select the attack coordinates.\n");
       scanf("%d",&x);
@@ -175,10 +187,25 @@ void game(PLAYER* player1, PLAYER* player2) {
       flushInput();
       
       if(x>=0 && y>=0 && x<n_matrix && y<n_matrix){
-         if(player1 -> mapPlayer -> matrix[x][y] == 1) printf("HIT!\n");
-         else printf("MISS!\n");
+      	      	//player2 ataca player1
+            if(player1 -> mapPlayer -> matrix[x][y] == 1) {
+	         	printf("HIT!\n");
+	         	player2 -> mapOpponent -> matrix[x][y] = 2;
+	         	n2_size--;
+         }
+         else {
+         	printf("MISS!\n");
+         	player2 -> mapOpponent -> matrix[x][y] = 3;
+      	}
       }
       else printf("Invalid input. Please try again.\n");
+      print_matrix(player2 -> mapOpponent);
+   }
+   if(n1_size == 0) { 
+   		printf("Player2 wins !\n" );
+   }
+   else {
+   		printf("Player1 wins !\n");
    }
 }
 
