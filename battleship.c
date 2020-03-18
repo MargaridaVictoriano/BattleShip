@@ -163,7 +163,7 @@ void game(PLAYER* player1, PLAYER* player2) {
       flushInput();
       
       if(x>=0 && y>=0 && x<n_matrix && y<n_matrix){
-         if(player2 -> mapOpponent -> matrix[x][y] == 1) printf("HIT!\n");
+         if(player2 -> mapPlayer -> matrix[x][y] == 1) printf("HIT!\n");
          else printf("MISS!\n");
       }
       else printf("Invalid input. Please try again.\n");
@@ -175,7 +175,7 @@ void game(PLAYER* player1, PLAYER* player2) {
       flushInput();
       
       if(x>=0 && y>=0 && x<n_matrix && y<n_matrix){
-         if(player2 -> mapOpponent -> matrix[x][y] == 1) printf("HIT!\n");
+         if(player1 -> mapPlayer -> matrix[x][y] == 1) printf("HIT!\n");
          else printf("MISS!\n");
       }
       else printf("Invalid input. Please try again.\n");

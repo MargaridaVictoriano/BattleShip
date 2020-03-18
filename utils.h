@@ -37,16 +37,16 @@ bool checkAvalablePosition(MAP* map,char boat_id ,BOATPOSITION position){
 	int y = position.position.column;
 	int dir = position.direction;
    
-   if(x<0 || y<0 || x>=map->size || y>=map->size || dir<0 || dir>1) return false;
+   if(x<0 || y<0 || x>=n_matrix || y>=n_matrix || dir<0 || dir>1) return false;
    
    if(dir){	// horizontal
-		if(size_boat + y >= map->size) return false;
+		if(size_boat + y >= n_matrix) return false;
 		for(int k=y; k<size_boat+y; k++){
 			if(map -> matrix[x][k] != 0) return false;
 		}
 	}
 	else {	// vertical
-		if(size_boat + x >= map->size) return false;
+		if(size_boat + x >= n_matrix) return false;
 		for(int k=x; k<size_boat+x; k++){
 			if(map -> matrix[k][y] != 0) return false;
 		}
