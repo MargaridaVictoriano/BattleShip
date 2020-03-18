@@ -61,7 +61,7 @@ void pickNumberBoats(){
 	}
 	flushInput();
 }
-
+//Mudar para ter disponivel o novo barco
 void pickBoatPosition(MAP* map){
 	BOATPOSITION boat_pos;
 	char boat_id;
@@ -136,13 +136,13 @@ void Battleship(){
 
 	/**********************************************************|
 	|                                                          |
-	|														                 |
-	|										     			                 |
-	|				Pretty screen with rules		                 |
-	|														                 |
-	|														                 |
-	|														                 | 
-	|														                 |
+	|														   |
+	|										     			   |
+	|				Pretty screen with rules		           |
+	|										                   |
+	|											               |
+	|							   			                   | 
+	|											               |
 	|**********************************************************/
 }
 
@@ -151,7 +151,7 @@ void Battleship(){
 void game(MAP* map1, MAP* map2){
    while(1){
       int x,y;
-      // ataque do jagador 1
+      // ataque do jogador 1
       printf("Player1 please select the attack coordinates.\n");
       scanf("%d",&x);
       scanf("%d",&y);
@@ -163,8 +163,8 @@ void game(MAP* map1, MAP* map2){
       }
       else printf("Invalid input. Please try again.\n");
       
-      // ataque do jagador 2
-      printf("Player2 please select the attack coordinates..\n");
+      // ataque do jogador 2
+      printf("Player2 please select the attack coordinates.\n");
       scanf("%d",&x);
       scanf("%d",&y);
       flushInput();
@@ -180,20 +180,27 @@ void game(MAP* map1, MAP* map2){
 int main(int argc, char** argv){
    srand(time(NULL)); // randomize seed
    
-   system("clear");
+    system("clear");
 	Battleship();
 	
 	pickMatrixSize();
 	
 	system("clear");
-	MAP* player1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
-	printf("Player1\n");
+	//Mapa player1
+	MAP* p1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
+	printf("********************\n");
+	printf("*     Player1      *\n");
+	printf("********************\n");
 	preparePlayerBoats(player1);
 	print_matrix(player1);
 	
 	system("clear");
-	MAP* player2 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
-	printf("Player2\n");
+
+	//Mapa player2
+	MAP* p2 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
+	printf("********************\n");
+	printf("*     Player2      *\n");
+	printf("********************\n");
 	preparePlayerBoats(player2);
 	print_matrix(player2);
 	
