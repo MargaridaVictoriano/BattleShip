@@ -124,6 +124,9 @@ void preparePlayerBoats(MAP* map){
    
    if(mode == 'r') randomlyPlaceBoatonMap(map);
    else pickBoatPosition(map);
+   print_matrix(map);
+
+
 }
 
 void Battleship(){
@@ -148,8 +151,10 @@ void Battleship(){
 
 // Temos que pensar como vamos mostrar a cada jogador o seu mapa de ataque.
 // O ciclo ainda nao sei como o fazer terminar
-void game(MAP* map1, MAP* map2){
-   while(1){
+//Guardar em duas variaveis(uma para cada jogador) o numero de "quadriculas" que cada barco ocupa. Sempre que um jogador ataca, verificamos se foi atingido algum barco e caso seja é so decrementar o valor da variavel e quando chegar a zero sabemos que perdemos
+void game(PLAYER* player1, PLAYER* player2) {
+ 
+   while(1) {
       int x,y;
       // ataque do jogador 1
       printf("Player1 please select the attack coordinates.\n");
@@ -157,8 +162,8 @@ void game(MAP* map1, MAP* map2){
       scanf("%d",&y);
       flushInput();
       
-      if(x>=0 && y>=0 && x<map2->size && y<map2->size){
-         if(map2->matrix[x][y] == 1) printf("HIT!\n");
+      if(x>=0 && y>=0 && x<n_matrix && y<n_matrix){
+         if(player2 -> mapOpponent -> matrix[x][y] == 1) printf("HIT!\n");
          else printf("MISS!\n");
       }
       else printf("Invalid input. Please try again.\n");
@@ -169,8 +174,8 @@ void game(MAP* map1, MAP* map2){
       scanf("%d",&y);
       flushInput();
       
-      if(x>=0 && y>=0 && x<map1->size && y<map1->size){
-         if(map1->matrix[x][y] == 1) printf("HIT!\n");
+      if(x>=0 && y>=0 && x<n_matrix && y<n_matrix){
+         if(player2 -> mapOpponent -> matrix[x][y] == 1) printf("HIT!\n");
          else printf("MISS!\n");
       }
       else printf("Invalid input. Please try again.\n");
@@ -187,26 +192,30 @@ int main(int argc, char** argv){
 	
 	system("clear");
 	//Mapa player1
-	MAP* p1 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
+	MAP* p1 = (MAP*)build_matrix(); //inicializar mapa do jogador
 	printf("********************\n");
 	printf("*     Player1      *\n");
 	printf("********************\n");
-	preparePlayerBoats(player1);
-	print_matrix(player1);
-	
+	preparePlayerBoats(p1);
+	PLAYER* player1 = (PLAYER*)buildPlayer(p1);
+	sleep(2);
 	system("clear");
 
 	//Mapa player2
-	MAP* p2 = (MAP*)build_matrix(n_matrix); //inicializar mapa do jogador
+	MAP* p2 = (MAP*)build_matrix(); //inicializar mapa do jogador
 	printf("********************\n");
 	printf("*     Player2      *\n");
 	printf("********************\n");
-	preparePlayerBoats(player2);
-	print_matrix(player2);
-	
+	preparePlayerBoats(p2);
+	PLAYER* player2 = (PLAYER*)buildPlayer(p2);
+	sleep(2);
 	system("clear");
+	
+	//system("clear");
 	game(player1,player2);
 	
-	destroy_matrix(player1);
-	destroy_matrix(player2);
+	destroyPlayer(player1);
+	destroyPlayer(player2);
+	free(p1);
+	free(p2);
 }
