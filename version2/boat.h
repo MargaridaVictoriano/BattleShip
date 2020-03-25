@@ -63,6 +63,33 @@ void destroy_coordinates(COORDINATES* new){
    }
 }
 
+// https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/
+// An Inplace function to rotate a N x N matrix 
+// by 90 degrees in anti-clockwise direction 
+void rotateMatrix(int mat[][MAX_AREA]) { 
+    // Consider all squares one by one 
+    for (int x = 0; x < MAX_AREA / 2; x++) { 
+        // Consider elements in group of 4 in  
+        // current square 
+        for (int y = x; y < MAX_AREA-x-1; y++) { 
+            // store current cell in temp variable 
+            int temp = mat[x][y]; 
+  
+            // move values from right to top 
+            mat[x][y] = mat[y][MAX_AREA-1-x]; 
+  
+            // move values from bottom to right 
+            mat[y][MAX_AREA-1-x] = mat[MAX_AREA-1-x][MAX_AREA-1-y]; 
+  
+            // move values from left to bottom 
+            mat[MAX_AREA-1-x][MAX_AREA-1-y] = mat[MAX_AREA-1-y][x]; 
+  
+            // assign temp to left 
+            mat[MAX_AREA-1-y][x] = temp; 
+        } 
+    } 
+} 
+
 // marcar a matrix com os barcos
 void func(int[MAX_AREA][MAX_AREA] temp, int size){
 	for(int i = 0; i < MAX_AREA; i++) {
