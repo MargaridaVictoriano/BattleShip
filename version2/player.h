@@ -1,19 +1,19 @@
 typedef struct {
-	MAP* mapPlayer;
-	MAP* mapOpponent;
-} PLAYER;
+	Map *mapPlayer;
+	Map *mapOpponent;
+} Player;
 
 //Construtor do jogador
-PLAYER* buildPlayer(MAP* map) {
-	PLAYER* new = (PLAYER*)malloc(sizeof(PLAYER)); 
+Player *buildPlayer(Map *map) {
+	Player* new = (Player*)malloc(sizeof(Player)); 
 	new -> mapPlayer = map;
-	new -> mapOpponent = (MAP*)build_matrix(n_matrix); 
+	new -> mapOpponent = (Map *)buildMap(); 
 	return new;
 }
 
-void destroyPlayer(PLAYER* player) {
-	destroy_matrix(player -> mapPlayer);
-	destroy_matrix(player -> mapOpponent);
+void destroyPlayer(Player* player) {
+	destroyMap(player -> mapPlayer);
+	destroyMap(player -> mapOpponent);
 	free(player);
 }
 

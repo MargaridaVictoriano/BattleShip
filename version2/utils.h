@@ -3,7 +3,12 @@ void flushInput() {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-//usar em game
+// ASSUMINDO QUE A <= B
+int getRandomNumber(int a, int b) {
+    return (rand() % (b - a + 1)) + a;
+}
+
+/*//usar em game
 int contains_boat(MAP* map, int x, int y) {
     if (map -> matrix[x][y] == 1) return 1;
     return 0;
@@ -53,11 +58,6 @@ bool checkAvalablePosition(MAP* map, char boat_id, BOATPOSITION position) {
     return true;
 }
 
-// ASSUMINDO QUE A <= B
-int getRandomNumber(int a, int b) {
-    return (rand() % (b - a + 1)) + a;
-}
-
 void randomlyPlaceBoatonMap(MAP* map) {
     BOATPOSITION boat_pos;
     char boat_id[] = {'c','b','r','s','d'};
@@ -71,4 +71,4 @@ void randomlyPlaceBoatonMap(MAP* map) {
         
         insert_boat(map, boat_id[i], boat_pos);
     }
-}
+}*/

@@ -1,47 +1,44 @@
-
-/**************************************
-               VERSION 2
- ************************************/*  
-
-// -------- Estrutura do mapa ------- //
+// -------- Estrutura do Cell ------- //
 // Limites da matriz
 #define MIN_MATRIX 20
 #define MAX_MATRIX 40
 
 //Matriz n*n
-typedef struct map{
-	BOAT ***matrix;
-} MAP;
+typedef struct {
+	Cell **map;
+} Map;
 
-MAP* build_matrix(){
-	MAP* map = (MAP*)malloc(sizeof(MAP)); //mapa jogador 
+Map *buildMap(){
+	Map *new = (Map *)malloc(sizeof(Map)); //mapa jogador 
 	
 	// construir a matrix
-	map -> matrix = (int **)malloc(n_matrix*sizeof(int *));
+	new -> map = (Cell **)malloc(n_matrix*sizeof(Cell *));
 	for(int i=0; i<n_matrix; i++){
-	   map -> matrix[i] = (int *)malloc(n_matrix*sizeof(int));
+	   new -> map[i] = (Cell *)malloc(n_matrix*sizeof(Cell));
 	}
 	
 	// zerar a matrix
-	for(int i = 0; i < n_matrix; i++){
+	for(int i = 0; i <n_matrix; i++){
 		for(int j = 0; j <n_matrix; j++){
-			map -> matrix[i][j] = 0;
+			new -> map[i][j] = NULL;
 		}
 	}
-	return map;
+	return new;
 }
 
-void destroy_matrix(MAP* map){
-   if(map != NULL){
-      for(int i=0; i< n_matrix; i++){
-         free(map -> matrix[i]);
-      }
-      free(map -> matrix);
-      free(map);
-   }
+void destroyMap(Map* map){
+    for(int i=0; i<n_matrix; i++){
+ 	   for(int j=0; j<n_matrix; j++){
+ 		  	free(map -> map[i][j]);
+ 	   }
+ 	   free(map -> map[i]);
+    }
+    free(map -> map);
+	free(map);
 }
 
-char select_char(int v){
+/*
+char selectChar(int v){
 	switch(v){
 		case 0 : return '~';
 		case 1 : return '#';
@@ -51,7 +48,7 @@ char select_char(int v){
 	}
 }
 
-void print_matrix(MAP* map){
+void printCell(Cell* cell){
 	int digits = 1,temp = n_matrix;
 	while(temp/10 != 0){
 		digits++;
@@ -69,13 +66,12 @@ void print_matrix(MAP* map){
 	for(int i=0; i<n_matrix; i++){
 		printf(" %*d",digits,i);
 		for(int j=0; j<n_matrix; j++){
-			int temp = map -> matrix[i][j];
+			int temp = cell -> map[i][j];
 			for(int i = 0; i < digits; i++){
 				printf(" ");
 			}
-			printf("%c",select_char(temp));
+			printf("%c",selectChar(temp));
 		}
 		printf("\n");
 	}
-}
-
+}*/

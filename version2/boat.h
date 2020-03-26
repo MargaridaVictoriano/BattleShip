@@ -1,17 +1,25 @@
-
 /**************************************
                VERSION 2
- ************************************/*              
+ ************************************/  
+             
 /* Boat type   symbol   size
 	Carrier		c	  		5
 	Battleship 	b	  		4
-	Cruiser		r  		3
+	Cruiser		r  		    3
 	Submarine	s 			3
 	Destroyer   d 			2*/
 	
 #define MAX_AREA 5
 
-int boat_size(char id){
+//Struct para embarcações
+typedef struct {
+	char id;
+	Coords* coords;
+	int damage;
+	int **ship;
+} Boat;
+
+int sizeBoat(char id){
    switch(id){
       case 'c': return 5;
       case 'b': return 4;
@@ -28,7 +36,7 @@ const char r[] = "CRUISER";
 const char s[] = "SUBMARINE";
 const char d[] = "DESTROYER";
 
-const char* name_boat(char id){
+const char* nameBoat(char id){
    switch(id){
       case 'c': return c;
       case 'b': return b;
@@ -39,74 +47,116 @@ const char* name_boat(char id){
    }
 }
 
-//Struct para as coordenadas
+//falta testar
+//
+void rotBoat(Boat* boat){
+	int** mat = boat -> ship;
+	switch(boat -> coords -> rotation % 360){
+		case 0 :
+			return;
+		case 90:
+			for (int x = 0; x < MAX_AREA / 2; x++) { 
+      			for (int y = x; y < MAX_AREA-x-1; y++) { 
+            		int temp = mat[x][y]; 
+            		mat[x][y] = mat[y][MAX_AREA-1-x]; 
+            		mat[y][MAX_AREA-1-x] = mat[MAX_AREA-1-x][MAX_AREA-1-y]; 
+            		mat[MAX_AREA-1-x][MAX_AREA-1-y] = mat[MAX_AREA-1-y][x]; 
+            		mat[MAX_AREA-1-y][x] = temp; 
+        		} 
+    		} 
+			return;
+		case 180:
+			for(int i=0; i<MAX_AREA; i++){
+        		for(int j=0; j<i; j++){
+         		   int temp = mat[i][j];
+        		   mat[i][j] = mat[j][i];
+      		       mat[j][i] = temp;
+     		    }
+  			}
+			return;
+		case 270:
+			for (int i = 0; i < MAX_AREA / 2; i++) { 
+        		for (int j = i; j < MAX_AREA-i-1; j++) { 
+            		int temp = mat[i][j]; 
+            		mat[i][j] = mat[MAX_AREA-1-j][i]; 
+            		mat[MAX_AREA-1-j][i] = mat[MAX_AREA-1-i][MAX_AREA-1-j]; 
+            		mat[MAX_AREA-1-i][MAX_AREA-1-j] = mat[j][MAX_AREA-1-i]; 
+        	   		mat[j][MAX_AREA-1-i] = temp; 
+        		} 
+    		} 
+			return;
+	}
+}
+
+// falta terminar
+// contruir o barco modelo
+void prepareBoat(Boat* boat){
+	// zerar a matrix
+	int** map = boat -> ship;
+	for(int i = 0; i < MAX_AREA; i++) {
+		for(int j = 0; j < MAX_AREA; j++) {
+			map[i][j] = 0;
+		}
+	}
+}
+
+Boat* buildBoat(char id, Coords* coords){
+    Boat* new = (Boat*)malloc(sizeof(Boat));
+    new -> id = id;
+    new -> coords = coords;
+    new -> damage = sizeBoat(id);
+    
+    new -> ship = (int **)malloc(MAX_AREA*sizeof(int *));
+	for(int i=0; i<MAX_AREA; i++){
+	    new -> ship[i] = (int *)malloc(MAX_AREA*sizeof(int));
+	}
+    
+    prepareBoat(new);
+    rotBoat(new);
+    return new;
+}
+
+void destroyBoat(Boat* boat){
+	for(int i=0; i<MAX_AREA; i++){
+       	free(boat -> ship[i]);
+    }
+    free(boat -> ship);
+    destroyCoords(boat -> coords);
+	free(boat);
+}
+
+/*//Localização do barco
+	// direction = 0 -> vertical
+	// direction = 1 -> horizontal
 typedef struct {
-	int row; 	  //linha
-	int column;   //colunas
-	int rotation; //rotacao
-} COORDINATES;
+    COORDINATES position;
+    int rotation;
+} BOATPOSITION;
 
-COORDINATES* build_coordinates(int row, int column){
-   COORDINATES* new = (COORDINATES*)malloc(sizeof(COORDINATES));
-   new.row = row;
-   new.column = column;
-   new.rotation = 0;
-   return new;
-}
+BOATPOSITION build_boatposition(COORDINATES position, int direction){
+	BOATPOSITION new;
+	new.position = position;
+	new.direction = direction;
+	return new;
+}*/
 
-void destroy_coordinates(COORDINATES* new){
-	if(new != NULL){
-      free(row);
-      free(column);
-      free(rotation);
-      free(new);
-   }
-}
-
-// https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/
-// An Inplace function to rotate a N x N matrix 
-// by 90 degrees in anti-clockwise direction 
+/*// https://www.geeksforgeeks.org/inplace-rotate-square-matrix-by-90-degrees/
 void rotateMatrix(int mat[][MAX_AREA]) { 
-    // Consider all squares one by one 
     for (int x = 0; x < MAX_AREA / 2; x++) { 
-        // Consider elements in group of 4 in  
-        // current square 
         for (int y = x; y < MAX_AREA-x-1; y++) { 
-            // store current cell in temp variable 
             int temp = mat[x][y]; 
-  
-            // move values from right to top 
             mat[x][y] = mat[y][MAX_AREA-1-x]; 
-  
-            // move values from bottom to right 
             mat[y][MAX_AREA-1-x] = mat[MAX_AREA-1-x][MAX_AREA-1-y]; 
-  
-            // move values from left to bottom 
             mat[MAX_AREA-1-x][MAX_AREA-1-y] = mat[MAX_AREA-1-y][x]; 
-  
-            // assign temp to left 
             mat[MAX_AREA-1-y][x] = temp; 
         } 
     } 
 } 
 
-// marcar a matrix com os barcos
-void func(int[MAX_AREA][MAX_AREA] temp, int size){
-	for(int i = 0; i < MAX_AREA; i++) {
-		for(int j = 0; j < MAX_AREA; j++) {
-			if(i == 2 && j < size) temp[i][j] = 1;
-			else temp[i][j] = 0;
-		}
-	}
-}
-
 void transpose(int** mat){
-	int j,i,temp;	
-	for(i=0;i<MAX_AREA;i++)
-    {
-        for(j=0;j<i;j++)
-        {
-            temp=mat[i][j];
+	for(int i=0; i<MAX_AREA; i++){
+        for(int j=0; j<i; j++){
+            int temp=mat[i][j];
             mat[i][j]=mat[j][i];
             mat[j][i]=temp;
         }
@@ -127,85 +177,4 @@ void flip_lines(int** mat){
             k--;
         }
     }
-}
-
-void rotation(BOAT* boat){
-	int new[MAX_AREA][MAX_AREA];
-	
-	for(int i = 0; i < MAX_AREA; i++) {
-		for(int j = 0; j < MAX_AREA; j++) {
-			temp[i][j] = 0;
-		}
-	}
-	
-	int rot = boat -> coords -> rotation;
-	int** old = boat -> ship;
-	
-	switch(rot % 360){
-		case 0 :
-			return;
-		case 90:
-			for(int i = 0; i < MAX_AREA; i++) {
-				for(int j = 0; j < MAX_AREA; j++) {
-					if(old[i][j] == 1){
-						new[][]
-					}
-				}
-			}
-			return;
-		case 180:
-			for(int i = 0; i < MAX_AREA; i++) {
-				for(int j = 0; j < MAX_AREA; j++) {
-					if(old[i][j] == 1){
-						new[j][i] = 1;
-					}
-				}
-			}
-			return;
-		case 270:
-			for(int i = 0; i < MAX_AREA; i++) {
-				for(int j = 0; j < MAX_AREA; j++) {
-					if(old[i][j] == 1){
-						new[][]
-					}
-				}
-			}
-			return;
-	}
-}
-
-
-//Struct para embarcações
-typedef struct {
-	char id;
-	int damage;
-	int ship[MAX_AREA][MAX_AREA];
-	COORDINATES* coords;
-} BOAT;
-
-BOAT* build_boat(char id, COORDINATES* coords){
-   BOAT* new = (BOAT*)malloc(sizeof(BOAT));
-   new.id = id;
-   int damage = boat_size(id);
-   new.coords = coords;
-   
-   func(ship,damage);
-   rotation(new);
-   
-   return new;
-}
-
-/*//Localização do barco
-	// direction = 0 -> vertical
-	// direction = 1 -> horizontal
-typedef struct {
-    COORDINATES position;
-    int rotation;
-} BOATPOSITION;
-
-BOATPOSITION build_boatposition(COORDINATES position, int direction){
-	BOATPOSITION new;
-	new.position = position;
-	new.direction = direction;
-	return new;
 }*/

@@ -7,9 +7,11 @@
 #include <time.h>
 
 #include "global_var.h"
+#include "coords.h"
+#include "boat.h"
+#include "cell.h"
 #include "map.h"
 #include "player.h"
-#include "boat.h"
 #include "utils.h"
 
 /* ------------------------------TO DO LIST------------------------------
@@ -27,6 +29,7 @@
 ------------------------------------------------------------------------*/
 
 //It Works !
+/*
 void pickMatrixSize() {
     printf("Please insert the matrix size.\n");
     printf("Both users will use the same matrix size.\n");
@@ -125,7 +128,7 @@ void preparePlayerBoats(MAP* map) {
     print_matrix(map);
 
 }
-
+*/
 void Battleship() {
     printf("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@  \n");
     printf("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -145,7 +148,7 @@ void Battleship() {
     |											               |
     |**********************************************************/
 }
-
+/*
 // inacabada o input seguro
 // Temos que pensar como vamos mostrar a cada jogador o seu mapa de ataque.
 //Guardar em duas variaveis(uma para cada jogador) o numero de "quadriculas" que cada barco ocupa. Sempre que um jogador ataca, verificamos se foi atingido algum barco e caso seja é so decrementar o valor da variavel e quando chegar a zero sabemos que perdemos
@@ -207,12 +210,12 @@ void game(PLAYER* player1, PLAYER* player2) {
 
     if (n1_size == 0) printf("Player2 wins !\n");
     else printf("Player1 wins !\n");
-}
+}*/
 
 int main(int argc, char ** argv) {
     srand(time(NULL)); // randomize seed
 
-    system("clear");
+    /*system("clear");
     Battleship();
 
     pickMatrixSize();
@@ -244,5 +247,5 @@ int main(int argc, char ** argv) {
     destroyPlayer(player1);
     destroyPlayer(player2);
     free(p1);
-    free(p2);
+    free(p2);*/
 }
