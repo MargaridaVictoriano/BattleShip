@@ -11,12 +11,17 @@
 	
 #define MAX_AREA 5
 
+typedef struct {
+	bool isShot; // false = not hitted, true = hitted 
+	bool isBoat; // false = water, true = ship
+} boatState;
+
 //Struct para embarcações
 typedef struct {
 	char id;
 	Coords* coords;
 	int damage;
-	int **ship;
+	boatState **ship;
 } Boat;
 
 int sizeBoat(char id){
@@ -106,9 +111,13 @@ Boat* buildBoat(char id, Coords* coords){
     new -> coords = coords;
     new -> damage = sizeBoat(id);
     
-    new -> ship = (int **)malloc(MAX_AREA*sizeof(int *));
+    new -> ship = (boatState **)malloc(MAX_AREA*sizeof(boatState *));
 	for(int i=0; i<MAX_AREA; i++){
-	    new -> ship[i] = (int *)malloc(MAX_AREA*sizeof(int));
+	    new -> ship[i] = (boatState *)malloc(MAX_AREA*sizeof(boatState));
+	    for(int j=0; j<MAX_AREA; j++){
+	    	new -> ship[i][j].isShot = false;
+	    	new -> ship[i][j].isBoat = false;
+	    }
 	}
     
     prepareBoat(new);

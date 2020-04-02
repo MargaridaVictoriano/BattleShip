@@ -15,17 +15,11 @@
 #include "utils.h"
 
 /* ------------------------------TO DO LIST------------------------------
-	array para guardar barcos
-	ligar as posiçoes do damage diretamente ao mapa
-	alterar os barcos para ser full heap
-	veficar os mallocs se dao null
-	asserts
-	atualizar print de numero de barcos sempre que algum é colocado
-	começar a pensar como armazenar os boats(um array de boats e suficente) 
-	random para determinar numero de barcos
-	random para determinar tamanho da matriz
-	minimos e maximos de barcos consoante tamanho da matriz
-	tem code la em baixo por acabar
+	- Use the necessary functions to perform the transformations for each position (I,J). This implies that you need to do this for the initial matrix setup for all the pieces.
+	- For each shot from the adversary you have to use the inverse of these functions to map it within the canonical (to check if it was a hit or not)
+	- Define 5 different types of boats, with at least one shape being different from a rectangle or square, e.g. "T", "L".
+	- Each game must have at least 1 boat of each type
+	- The maximum number of boats is given by game_size / 5*5, e.g. with a game size of 20*20 = 400, max number of pieces is 400/25 = 16.
 ------------------------------------------------------------------------*/
 
 //It Works !
