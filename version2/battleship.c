@@ -1,4 +1,4 @@
-// gcc -Werror battleship.c -o battleship && ./battleship && rm battleship
+// gcc -Wall battleship.c -o battleship && ./battleship && rm battleship
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,12 +9,12 @@
 #include "global_var.h"
 #include "coords.h"
 #include "boat.h"
-#include "cell.h"
 #include "map.h"
 #include "player.h"
 #include "utils.h"
 
 /* ------------------------------TO DO LIST------------------------------
+	- Each piece data structure besides the bitmap field, should have an additional field, e.g. shot_count, that is a counter of the number of times that a piece was hit (uniquely, 2 or more shots in the same place only count as one)
 	- Use the necessary functions to perform the transformations for each position (I,J). This implies that you need to do this for the initial matrix setup for all the pieces.
 	- For each shot from the adversary you have to use the inverse of these functions to map it within the canonical (to check if it was a hit or not)
 	- Define 5 different types of boats, with at least one shape being different from a rectangle or square, e.g. "T", "L".
@@ -208,7 +208,53 @@ void game(PLAYER* player1, PLAYER* player2) {
 
 int main(int argc, char ** argv) {
     srand(time(NULL)); // randomize seed
-
+	
+	//Map *p1 = (Map *) buildMap(); //inicializar mapa do jogador
+    //printMap(p1);
+	
+	Coords* ned;
+	Boat* boat1;
+	
+	ned = (Coords *)buildCoords(7,9,0);
+	boat1 = (Boat *)buildBoat('l',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	ned = (Coords *)buildCoords(7,9,90);
+	boat1 = (Boat *)buildBoat('l',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	ned = (Coords *)buildCoords(7,9,180);
+	boat1 = (Boat *)buildBoat('l',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	ned = (Coords *)buildCoords(7,9,270);
+	boat1 = (Boat *)buildBoat('l',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	/*boat1 = (Boat *)buildBoat('c',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	boat1 = (Boat *)buildBoat('b',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	boat1 = (Boat *)buildBoat('r',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	boat1 = (Boat *)buildBoat('s',ned);
+	printf("\n");
+	printShip(boat1);
+	
+	boat1 = (Boat *)buildBoat('d',ned);
+	printf("\n");
+	printShip(boat1);
+	*/
     /*system("clear");
     Battleship();
 
