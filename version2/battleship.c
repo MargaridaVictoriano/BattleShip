@@ -9,8 +9,7 @@
 #include "global_var.h"
 #include "coords.h"
 #include "boat.h"
-#include "map.h"
-#include "player.h"
+#include "board.h"
 #include "utils.h"
 
 /* ------------------------------TO DO LIST------------------------------
@@ -117,7 +116,7 @@ void preparePlayerBoats(MAP* map) {
         printf("Invalid mode. Please try again.\n");
     }
 
-    if (mode == 'r') randomlyPlaceBoatonMap(map);
+    if (mode == 'r') randomlyPlaceBoatonBoard(map);
     else pickBoatPosition(map);
     print_matrix(map);
 
@@ -209,10 +208,12 @@ void game(PLAYER* player1, PLAYER* player2) {
 int main(int argc, char ** argv) {
     srand(time(NULL)); // randomize seed
 	
-	//Map *p1 = (Map *) buildMap(); //inicializar mapa do jogador
-    //printMap(p1);
+	Board *p1 = (Board *) buildBoard(); //inicializar mapa do jogador
+    randomlyPlaceBoatonBoard(p1);
+    printBoard(p1);
+
 	
-	Coords* ned;
+	/*Coords* ned;
 	Boat* boat1;
 	
 	ned = (Coords *)buildCoords(7,9,0);
@@ -234,7 +235,8 @@ int main(int argc, char ** argv) {
 	boat1 = (Boat *)buildBoat('l',ned);
 	printf("\n");
 	printShip(boat1);
-	
+	*/
+
 	/*boat1 = (Boat *)buildBoat('c',ned);
 	printf("\n");
 	printShip(boat1);
@@ -261,7 +263,7 @@ int main(int argc, char ** argv) {
     pickMatrixSize();
 
     system("clear");
-    //Mapa player1
+    //Boarda player1
     MAP* p1 = (MAP *) build_matrix(); //inicializar mapa do jogador
     printf("********************\n");
     printf("*     Player1      *\n");
@@ -271,7 +273,7 @@ int main(int argc, char ** argv) {
     sleep(2);
     system("clear");
 
-    //Mapa player2
+    //Board player2
     MAP* p2 = (MAP *) build_matrix(); //inicializar mapa do jogador
     printf("********************\n");
     printf("*     Player2      *\n");
