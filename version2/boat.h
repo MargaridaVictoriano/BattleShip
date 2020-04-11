@@ -65,13 +65,13 @@ void rotBoat(Boat* boat){
     		} 
 			return;
 		case 180:
-			for(int i=0; i<MAX_AREA; i++){
-        		for(int j=0; j<i; j++){
-         		   int temp = mat[i][j];
-        		   mat[i][j] = mat[j][i];
-      		       mat[j][i] = temp;
-     		    }
-  			}
+			for(int i=0;i<MAX_AREA/2;i++) { 
+            	for(int j=0;j<MAX_AREA;j++) { 
+                	int temp = mat[i][j]; 
+                	mat[i][j] = mat[MAX_AREA-i-1][MAX_AREA-j-1]; 
+               		mat[MAX_AREA-i-1][MAX_AREA-j-1] = temp; 
+            	}
+        	}
 			return;
 		case 270:
 			for (int i = 0; i < MAX_AREA / 2; i++) { 
@@ -99,7 +99,7 @@ void prepareBoat(Boat* boat){
 	else {
 		int size = sizeBoat(id);
 		for(int i=0; i<size; i++){
-			boat -> ship[2][i] = 1;
+			boat -> ship[0][i] = 1;
 		}
 	}
 }
