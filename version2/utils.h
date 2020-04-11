@@ -8,67 +8,61 @@ int getRandomNumber(int a, int b) {
     return (rand() % (b - a + 1)) + a;
 }
 
-/*//usar em game
-int contains_boat(MAP* map, int x, int y) {
-    if (map -> matrix[x][y] == 1) return 1;
-    return 0;
+//Verificar se contem barco
+bool containsBoat(Board* board, int x, int y) {
+    if(board -> map[x][y].ship != NULL) {
+        return true;
+    } 
+    return false;
 }
 
-BOAT insert_boat(MAP* map, char boat_id, BOATPOSITION position) {
-    int size_boat = boat_size(boat_id);
-    int x = position.position.row;
-    int y = position.position.column;
-    int dir = position.direction;
-
-    if (dir) { // horizontal
-        for (int k = y; k < size_boat + y; k++) {
-            map -> matrix[x][k] = 1;
+bool checkAvalablePosition(Board* board, char boat_id, Coords* coords) {
+    int x = coords -> row;
+    int y = coords -> column;
+    int rotation = coords -> rotation;
+    if (x < 0 || y < 0 || x >= n_matrix || y >= n_matrix ) return false;
+    if(rotation < 0 || rotation > 360 || rotation%90 != 0) {
+        return false;
+    }
+    Boat* temp = buildBoat(boat_id,coords);
+    for(int i = 0 ; i < MAX_AREA; i++) {
+        for(int j = 0; j < MAX_AREA; j++) {
+            if(temp -> ship[i][j] == 1) {
+                if(i+x-2 < 0 || j+y-2 < 0 || i+x-2 >= n_matrix || j+y-2 >= n_matrix || containsBoat(board,i+x-2,j+y-2)) {
+                    destroyBoat(temp);
+                    return false;
+                }
+            }
         }
     }
-    else { // vertical
-        for (int k = x; k < size_boat + x; k++) {
-            map -> matrix[k][y] = 1;
-        }
-    }
-    
-    return build_boat(boat_id, position);
-}
-
-bool checkAvalablePosition(MAP* map, char boat_id, BOATPOSITION position) {
-    int size_boat = boat_size(boat_id);
-    int x = position.position.row;
-    int y = position.position.column;
-    int dir = position.direction;
-
-    if (x < 0 || y < 0 || x >= n_matrix || y >= n_matrix || dir < 0 || dir > 1) return false;
-
-    if (dir) { // horizontal
-        if (size_boat + y >= n_matrix) return false;
-        for (int k = y; k < size_boat + y; k++) {
-            if (map -> matrix[x][k] != 0) return false;
-        }
-    }
-    else { // vertical
-        if (size_boat + x >= n_matrix) return false;
-        for (int k = x; k < size_boat + x; k++) {
-            if (map -> matrix[k][y] != 0) return false;
-        }
-    }
-    
+    destroyBoat(temp);
     return true;
 }
 
-void randomlyPlaceBoatonMap(MAP* map) {
-    BOATPOSITION boat_pos;
-    char boat_id[] = {'c','b','r','s','d'};
-    
-    for (int i = 0; i < n_boats; i++) {
-        do {
-            boat_pos.direction = getRandomNumber(0, 1); // 0 : horizontal, 1 : vertical 
-            boat_pos.position.row = getRandomNumber(0, n_matrix - 1);
-            boat_pos.position.column = getRandomNumber(0, n_matrix - 1);
-        } while (!checkAvalablePosition(map, boat_id[i], boat_pos));
-        
-        insert_boat(map, boat_id[i], boat_pos);
+void insertBoat(Board* board, char boat_id, Coords* coords) {
+    int x = coords -> row;
+    int y = coords -> column;
+    Boat* temp = buildBoat(boat_id,coords);
+    for(int i = 0 ; i < MAX_AREA ; i++) {
+        for(int j = 0; j < MAX_AREA; j++) {
+            if(temp -> ship[i][j] == 1) {
+                board -> map[i+x-2][j+y-2].state = 1;
+                board -> map[i+x-2][j+y-2].ship = temp;
+            }
+        }
     }
-}*/
+}
+
+
+void randomlyPlaceBoatonBoard(Board* board) {
+    char boat_id[] = {'c','b','r','s','d','l'}; 
+    for (int i = 0; i < n_boats; i++) {
+        Coords* coords = buildCoords(getRandomNumber(0,n_matrix -1),getRandomNumber(0, n_matrix -1),getRandomNumber(0, 3)*90);
+        if (checkAvalablePosition(board, boat_id[i], coords)) {
+            insertBoat(board, boat_id[i], coords);
+        }
+        else {
+            i--;
+        }
+    }
+}
