@@ -18,17 +18,6 @@ typedef struct {
 	int **ship;
 } Boat;
 
-bool validId(char id){
-	switch(id){
-		case 'l': return true;
-      	case 'c': return true;
-      	case 'b': return true;
-      	case 'r': return true;
-      	case 's': return true;
-      	case 'd': return true;
-      	default: return false;
-	}
-}
 
 int sizeBoat(char id){
    	switch(id){
@@ -142,7 +131,7 @@ void destroyBoat(Boat* boat){
     destroyCoords(boat -> coords);
 	free(boat);
 }
-
+//Debug
 void printShip(Boat *boat){
 	printf("   ");
 	for(int i=0; i<MAX_AREA; i++){
