@@ -72,6 +72,16 @@ void rotBoat(Boat* boat){
                		mat[MAX_AREA-i-1][MAX_AREA-j-1] = temp; 
             	}
         	}
+        	
+        	// quando MAX_AREA impar
+        	if(MAX_AREA & 1){
+        		for(int j=0; j<MAX_AREA/2; j++){
+        			int temp = mat[MAX_AREA/2][j]; 
+                	mat[MAX_AREA/2][j] = mat[MAX_AREA/2][MAX_AREA-j-1]; 
+               		mat[MAX_AREA/2][MAX_AREA-j-1] = temp; 
+        		}
+        	}
+        	
 			return;
 		case 270:
 			for (int i = 0; i < MAX_AREA / 2; i++) { 
@@ -123,7 +133,14 @@ Boat* buildBoat(char id, Coords* coords){
     return new;
 }
 
-//Nao esta a funcionar
+void destroyBoatTemp(Boat* boat){
+	for(int i=0; i<MAX_AREA; i++){
+       	free(boat -> ship[i]);
+    }
+    free(boat -> ship);
+	free(boat);
+}
+
 void destroyBoat(Boat* boat){
 	for(int i=0; i<MAX_AREA; i++){
        	free(boat -> ship[i]);

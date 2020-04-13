@@ -209,79 +209,9 @@ int main(int argc, char ** argv) {
     srand(time(NULL)); // randomize seed
 	
 	Board *p1 = (Board *) buildBoard(); //inicializar mapa do jogador
-    
-    //char boat_id[] = {'l','c','b','r','s','d'};
-    /*
-    Coords* coords;
-    coords = buildCoords(15,15,90);
-    insertBoat(p1,'l',coords);
-    
-    coords = buildCoords(15,15,180);
-    insertBoat(p1,'c',coords);
-    
-    coords = buildCoords(0,0,180);
-    insertBoat(p1,'c',coords);
-    
-    coords = buildCoords(0,0,90);
-    insertBoat(p1,'b',coords);
-    
-    coords = buildCoords(0,0,90);
-    insertBoat(p1,'r',coords);
-    
-    coords = buildCoords(0,0,90);
-    insertBoat(p1,'s',coords);
-    
-    coords = buildCoords(0,0,90);
-    insertBoat(p1,'d',coords);
-    */
     randomlyPlaceBoatonBoard(p1);
     printBoard(p1);
 
-	
-	/*Coords* ned;
-	Boat* boat1;
-	
-	ned = (Coords *)buildCoords(7,9,0);
-	boat1 = (Boat *)buildBoat('l',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	ned = (Coords *)buildCoords(7,9,90);
-	boat1 = (Boat *)buildBoat('l',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	ned = (Coords *)buildCoords(7,9,180);
-	boat1 = (Boat *)buildBoat('l',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	ned = (Coords *)buildCoords(7,9,270);
-	boat1 = (Boat *)buildBoat('l',ned);
-	printf("\n");
-	printShip(boat1);
-	*/
-
-	/*boat1 = (Boat *)buildBoat('c',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	boat1 = (Boat *)buildBoat('b',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	boat1 = (Boat *)buildBoat('r',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	boat1 = (Boat *)buildBoat('s',ned);
-	printf("\n");
-	printShip(boat1);
-	
-	boat1 = (Boat *)buildBoat('d',ned);
-	printf("\n");
-	printShip(boat1);
-	*/
     /*system("clear");
     Battleship();
 
