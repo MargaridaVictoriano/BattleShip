@@ -99,7 +99,7 @@ void prepareBoat(Boat* boat){
 	else {
 		int size = sizeBoat(id);
 		for(int i=0; i<size; i++){
-			boat -> ship[0][i] = 1;
+			boat -> ship[2][i] = 1;
 		}
 	}
 }
@@ -123,6 +123,7 @@ Boat* buildBoat(char id, Coords* coords){
     return new;
 }
 
+//Nao esta a funcionar
 void destroyBoat(Boat* boat){
 	for(int i=0; i<MAX_AREA; i++){
        	free(boat -> ship[i]);
@@ -131,6 +132,7 @@ void destroyBoat(Boat* boat){
     destroyCoords(boat -> coords);
 	free(boat);
 }
+
 //Debug
 void printShip(Boat *boat){
 	printf("   ");

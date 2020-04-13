@@ -211,17 +211,17 @@ int main(int argc, char ** argv) {
 	Board *p1 = (Board *) buildBoard(); //inicializar mapa do jogador
     
     //char boat_id[] = {'l','c','b','r','s','d'};
-    
+    /*
     Coords* coords;
-    //coords = buildCoords(15,15,90);
-    //insertBoat(p1,'l',coords);
+    coords = buildCoords(15,15,90);
+    insertBoat(p1,'l',coords);
     
     coords = buildCoords(15,15,180);
     insertBoat(p1,'c',coords);
     
     coords = buildCoords(0,0,180);
     insertBoat(p1,'c',coords);
-    /*
+    
     coords = buildCoords(0,0,90);
     insertBoat(p1,'b',coords);
     
@@ -234,7 +234,7 @@ int main(int argc, char ** argv) {
     coords = buildCoords(0,0,90);
     insertBoat(p1,'d',coords);
     */
-    //randomlyPlaceBoatonBoard(p1);
+    randomlyPlaceBoatonBoard(p1);
     printBoard(p1);
 
 	

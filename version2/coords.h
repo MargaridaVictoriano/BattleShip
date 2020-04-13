@@ -6,7 +6,7 @@ typedef struct {
 } Coords;
 
 Coords* buildCoords(int row, int column, int rotation){
-   Coords *new = (Coords *)malloc(sizeof(Coords));
+   Coords* new = (Coords *)malloc(sizeof(Coords));
    new -> row = row;
    new -> column = column;
    new -> rotation = rotation;
