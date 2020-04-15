@@ -20,7 +20,7 @@ bool checkAvailablePosition(Board* board, char boat_id, Coords* coords) {
     
     if (x < 0 || y < 0 || x >= n_matrix || y >= n_matrix || rotation < 0 || rotation > 360 || rotation%90 != 0) return false;
     if (boat_id == 'l') {
-        if (MAX_AREA + x >= n_matrix || MAX_AREA + y >= n_matrix) return false;
+        if (MAX_AREA + x > n_matrix || MAX_AREA + y > n_matrix) return false;
         Boat* temp = buildBoat(boat_id,coords);
         for(int i = 0 ; i < MAX_AREA; i++) {
             for(int j = 0; j < MAX_AREA; j++) {
@@ -86,19 +86,27 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
     }
 }
 
-
-void randomlyPlaceBoatonBoard(Board* board) {
-    char boat_id[] = {'l','c','b','r','s','d'}; 
-    for (int i = 0; i < n_boats;) {
-        int x = getRandomNumber(0, n_matrix-1);
-        int y = getRandomNumber(0, n_matrix-1);
-        int rot = getRandomNumber(0, 3)*90;
-        
-        Coords* coords = buildCoords(x,y,rot);
-        if (checkAvailablePosition(board, boat_id[i], coords)) {
-        	insertBoat(board, boat_id[i], coords);
-        	i++;
+void randomlyPlaceBoatonBoard(Board* board) { 
+    for (int i = 0; i < n_boats; i++) {
+        char id = listBoat[i];
+        int x,y,rot,n = boat_number[i];
+        while(n > 0){
+    	    if(id == 'l'){
+    	    	x = getRandomNumber(0, n_matrix-5);
+    	    	y = getRandomNumber(0, n_matrix-5);
+    	    }
+    	    else {
+    	    	x = getRandomNumber(0, n_matrix-1);
+    	    	y = getRandomNumber(0, n_matrix-1);
+    	    }
+    	    rot = getRandomNumber(0, 3)*90;
+    	    
+    	    Coords* coords = buildCoords(x,y,rot);
+    	    if (checkAvailablePosition(board, id, coords)) {
+    	    	insertBoat(board, id, coords);
+    	    	n--;
+    	    }
+	        else destroyCoords(coords);
         }
-        else destroyCoords(coords);
     }
 }

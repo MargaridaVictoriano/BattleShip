@@ -1,13 +1,3 @@
-// decidir um barco espcial. usei so o l para ter algo com que fazer testes. mas funciona
-// em qualquer um. temos que o batizar ;-)
-
-/*  Boat type   symbol      size
-	Carrier		c	  		5
-	Battleship 	b	  		4
-	Cruiser		r  		    3
-	Submarine	s 			3
-	Destroyer   d 			2*/
-	
 #define MAX_AREA 5
 
 //Struct para embarcações
@@ -18,6 +8,19 @@ typedef struct {
 	int **ship;
 } Boat;
 
+const char listBoat[] = {'l','c','b','r','s','d'};
+
+int indexBoat(char id){
+   	switch(id){
+   		case 'l': return 0;
+      	case 'c': return 1;
+      	case 'b': return 2;
+      	case 'r': return 3;
+      	case 's': return 4;
+      	case 'd': return 5;
+      	default: return -1;
+   	}
+}
 
 int sizeBoat(char id){
    	switch(id){
@@ -31,7 +34,8 @@ int sizeBoat(char id){
    	}
 }
 
-/*const char c[] = "CARRIER";
+const char l[] = "LBOAT";
+const char c[] = "CARRIER";
 const char b[] = "BATTLESHIP";
 const char r[] = "CRUISER";
 const char s[] = "SUBMARINE";
@@ -39,6 +43,7 @@ const char d[] = "DESTROYER";
 
 const char* nameBoat(char id){
 	switch(id){
+		case 'l': return l;
 	    case 'c': return c;
   	    case 'b': return b;
   	    case 'r': return r;
@@ -46,7 +51,7 @@ const char* nameBoat(char id){
   	    case 'd': return d;
   	    default: return NULL;
 	}
-}*/
+}
 
 void rotBoat(Boat* boat){
 	int** mat = boat -> ship;
