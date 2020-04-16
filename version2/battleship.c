@@ -42,7 +42,9 @@ void showRules() {
     printf("6. The first player to guess the location of all ships wins!\n\n");
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
-    //Quanto tempo esperar ou fazer de outra forma (press any key to start maybe ?)
+    printf("\n");
+
+//Quanto tempo esperar ou fazer de outra forma (press any key to start maybe ?)
     sleep(5);
     system("clear");
 }
