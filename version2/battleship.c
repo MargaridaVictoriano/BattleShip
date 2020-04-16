@@ -14,7 +14,7 @@
 
 // resolver os .h, func statics and makefile
 // melhorar intereçao i/o
-
+// testar se os mallocs retornam null
 void Battleship() {
     printf("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@  \n");
     printf("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -48,13 +48,11 @@ void pickMatrixSize() {
     }
 }
 
-// printas tambem o numero maximo de barcos
-// usando a variavel max_boats
-// forcada jogo a ter no minimo um por cada tipo de barco
 void pickNumberBoats() {
     int max_boats = (n_matrix*n_matrix)/(MAX_AREA*MAX_AREA);
     
     printf("Please insert how many boats you want from each type.\n");
+    printf("The maximum number of boats is: %d.\n", max_boats);
     printf("Boats Available and ID: \n");
    	for(int i=0; i<n_boats; i++){
    		char id = listBoat[i];
@@ -63,25 +61,28 @@ void pickNumberBoats() {
    	printf("\n");
 	
 	while(1) {
+        bool minValue = true;
 		sum_boats = 0;
 		for(int i=0; i<n_boats; i++){
    			scanf("%d",&boat_number[i]);
+            if(boat_number[i] < 1) {
+                minValue = false;
+            }
    			sum_boats += boat_number[i];
    		}
    		flushInput();
-		if(sum_boats <= max_boats) break;
+
+		if(sum_boats <= max_boats && minValue) break;
 		printf("Invalid input. Please try again.\n");
    	}
 }
 
-// margarida verifica as strings pls
-// desambiguar o x e y por linha e coluna
 void pickBoatPosition(Board* map) {
     for (int i = 0; i < sum_boats;) {
     	char boat_id;
     	int x,y,rot;
     	
-        printf("Boats Available and ID: \n");
+        printf("Available Boats and corresponding ID: \n");
     	for(int j=0; j<n_boats; j++){
     		if(boat_number[j] > 0){
     			char id = listBoat[j];
@@ -91,7 +92,7 @@ void pickBoatPosition(Board* map) {
         printf("\n");
 
         while (1) {
-            printf("Please enter the desired boat ID: \n");
+            printf("Please enter the desired Boat ID: \n");
             boat_id = getchar();
             flushInput();
             if(indexBoat(boat_id) != -1 && boat_number[indexBoat(boat_id)] > 0) break;
@@ -105,8 +106,8 @@ void pickBoatPosition(Board* map) {
         printf("Coordinate Y:\n");
         scanf("%d", &y);
         
-        printf("Please Select the Rotation:\n");
-        printf("Only 0º, 90º, 180º, 270º and 360º was accepted\n");
+        printf("Please Insert the desired Rotation:\n");
+        printf("Only 0, 90, 180, 270 and 360 degrees is accepted\n");
         scanf("%d", &rot);
         
         flushInput();
@@ -116,7 +117,7 @@ void pickBoatPosition(Board* map) {
             insertBoat(map, boat_id, boat_pos);
             boat_number[indexBoat(boat_id)]--;
             i++;
-            printBoard(map);
+            printBoardDefense(map);
             printf("\n");
         }
         else {
@@ -144,11 +145,9 @@ void preparePlayerBoats(Board* map) {
     if (mode == 'r') randomlyPlaceBoatonBoard(map);
     else pickBoatPosition(map);
     
-    printBoard(map);
+    printBoardDefense(map);
 }
 
-// falta acrescentar a intereçao com os boats de forma a saber quando cada um e destruido
-// e saber quando o jogo termina usando a var damage dos boats
 bool attack(Board* att, Board* def){
 	int x, y;
 	
@@ -162,6 +161,11 @@ bool attack(Board* att, Board* def){
     	    printf("HIT!\n");
             att -> map[x][y].shot = 2;
             def -> map[x][y].state = 2;
+            def -> map[x][y].ship -> hp--;
+            if(def -> map[x][y].ship -> hp == 0) {
+                def -> remainingBoats--;
+                printf("The ship %s was just destroyed !", nameBoat(def -> map[x][y].ship -> id));
+            }
         }
         else {
             printf("MISS!\n");
@@ -175,36 +179,64 @@ bool attack(Board* att, Board* def){
     return false;
 }
 
-// caso de paragem por resolver
-// dependencia de resolver o attack para saber quando os barcos sao tds destruidos
-// falta resolver o print dos mapas locais e inimigos
-void game(Board* p1, Board* p2) {
+bool gameInterface(Board* p) {
+    int mode;
     while (1) {
-        // ataque do jogador 1
+        printf("\n");
+        printf("Select one of the following options.\n");
+        printf("1 :: Defense Map\n");
+        printf("2 :: Attack Map\n");
+        printf("3 :: Attack !!!\n");
+        scanf("%d",&mode);
+        flushInput();
+        if (mode >= 1 && mode <= 3) break;
+        printf("Invalid mode. Please try again.\n");
+    }
+    switch(mode) {
+        case 1: printBoardDefense(p);
+            return false;
+        case 2: printBoardAttack(p);
+            return false;
+        case 3:
+            return true;
+    }
+    return false;
+} 
+
+void game(Board* p1, Board* p2) {
+    p1 -> remainingBoats = sum_boats;
+    p2 -> remainingBoats = sum_boats;
+    while(p1 -> remainingBoats > 0 && p2 -> remainingBoats > 0) {
+        //ataque do jogador 1
+        printf("********************\n");
+        printf("*     Player1      *\n");
+        printf("********************\n");
+        while(!gameInterface(p1));
         printf("Player1 please select the attack coordinates.\n");
         while(!attack(p1,p2));
 
-        // resolver os prints das matrizes locais e adversarias
-        //print_matrix(p1);
-
-        //if (n2_size == 0) break;
+        if(p2 -> remainingBoats == 0) break;
+        sleep(3);
+        system("clear");
 
         // ataque do jogador 2
+        printf("********************\n");
+        printf("*     Player2      *\n");
+        printf("********************\n");
+        while(!gameInterface(p2));
         printf("Player2 please select the attack coordinates.\n");
         while(!attack(p2,p1));
-        
-        // resolver os prints das matrizes locais e adversarias
-        //print_matrix(p2);
     }
 
-    //if (n1_size == 0) printf("Player2 wins !\n");
-    //else printf("Player1 wins !\n");
+    if (p1 -> remainingBoats == 0) printf("Player2 wins !\n");
+    else printf("Player1 wins !\n");
 }
 
-// gerar aleatorio para quem é o primeiro jogador
+
+// (muito opcional) gerar aleatorio para quem é o primeiro jogador
 int main(int argc, char **argv) {
     srand(time(NULL)); // randomize seed
-    
+
     system("clear");
     Battleship();
     
@@ -233,7 +265,7 @@ int main(int argc, char **argv) {
     system("clear");
     
     game(p1,p2);
-    
+
     free(p1);
     free(p2);
 }

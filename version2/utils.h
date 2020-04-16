@@ -69,7 +69,7 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
         }
     }
     else {
-        int boatSize = temp -> damage;
+        int boatSize = temp -> hp;
         if(coords->rotation % 180 == 0) { //Horizontal
             for(int k = y; k < boatSize + y; k++) {
                 board -> map[x][k].state = 1;

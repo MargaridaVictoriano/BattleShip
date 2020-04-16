@@ -4,7 +4,7 @@
 typedef struct {
 	char id;
 	Coords* coords;
-	int damage;
+	int hp;
 	int **ship;
 } Boat;
 
@@ -123,7 +123,7 @@ Boat* buildBoat(char id, Coords* coords){
     Boat* new = (Boat*)malloc(sizeof(Boat));
     new -> id = id;
     new -> coords = coords;
-    new -> damage = sizeBoat(id);
+    new -> hp = sizeBoat(id);
     
     new -> ship = (int **)malloc(MAX_AREA*sizeof(int *));
 	for(int i=0; i<MAX_AREA; i++){

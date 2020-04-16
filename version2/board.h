@@ -15,11 +15,12 @@ typedef struct {
 //Matriz n*n
 typedef struct {
 	Cell **map;
+	int remainingBoats;
 } Board;
 
 Board *buildBoard(){
 	Board *new = (Board *)malloc(sizeof(Board)); //mapa jogador 
-	
+	new -> remainingBoats = 0;
 	// construir a matrix
 	new -> map = (Cell **)malloc(n_matrix*sizeof(Cell *));
 	for(int i=0; i<n_matrix; i++){
@@ -45,7 +46,7 @@ void destroyBoard(Board* map){
 	free(map);
 }
 
-char selectChar(int v){
+char selectCharDefense(int v){
 	switch(v){
 		case 0 : return '~';
 		case 1 : return '#';
@@ -54,8 +55,16 @@ char selectChar(int v){
 		default: return -1;
 	}
 }
+char selectCharAttack(int v){
+	switch(v){
+		case 0 : return '~';
+		case 1 : return 'O';
+		case 2 : return 'X';
+		default: return -1;
+	}
+}
 
-void printBoard(Board* map){
+void printBoardDefense(Board* map){
 	printf("   ");
 	for(int i=0; i<n_matrix; i++){
 		printf(" %2d",i);
@@ -66,7 +75,24 @@ void printBoard(Board* map){
 		printf(" %2d",i);
 		for(int j=0; j<n_matrix; j++){
 			int temp = map -> map[i][j].state;
-			printf("  %c",selectChar(temp));
+			printf("  %c",selectCharDefense(temp));
+		}
+		printf("\n");
+	}
+}
+
+void printBoardAttack(Board* map) {
+	printf("   ");
+	for(int i=0; i<n_matrix; i++){
+		printf(" %2d",i);
+	}
+	printf("\n");
+	
+	for(int i=0; i<n_matrix; i++){
+		printf(" %2d",i);
+		for(int j=0; j<n_matrix; j++){
+			int temp = map -> map[i][j].shot;
+			printf("  %c",selectCharAttack(temp));
 		}
 		printf("\n");
 	}
