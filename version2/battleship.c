@@ -12,6 +12,9 @@
 #include "board.h"
 #include "utils.h"
 
+// resolver os .h, func statics and makefile
+// melhorar intereçao i/o
+
 void Battleship() {
     printf("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@  \n");
     printf("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -32,15 +35,6 @@ void Battleship() {
     |**********************************************************/
 }
 
-/* ------------------------------TO DO LIST------------------------------
-	- Each piece data structure besides the bitmap field, should have an additional field, e.g. shot_count, that is a counter of the number of times that a piece was hit (uniquely, 2 or more shots in the same place only count as one)
-	- For each shot from the adversary you have to use the inverse of these functions to map it within the canonical (to check if it was a hit or not)
-	- Define 5 different types of boats, with at least one shape being different from a rectangle or square, e.g. "T", "L".
-	- Each game must have at least 1 boat of each type
-	- The maximum number of boats is given by game_size / 5*5, e.g. with a game size of 20*20 = 400, max number of pieces is 400/25 = 16.
-------------------------------------------------------------------------*/
-
-//It Works !
 void pickMatrixSize() {
     printf("Please insert the matrix size.\n");
     printf("Both users will use the same matrix size.\n");
@@ -56,6 +50,7 @@ void pickMatrixSize() {
 
 // printas tambem o numero maximo de barcos
 // usando a variavel max_boats
+// forcada jogo a ter no minimo um por cada tipo de barco
 void pickNumberBoats() {
     int max_boats = (n_matrix*n_matrix)/(MAX_AREA*MAX_AREA);
     
@@ -133,10 +128,12 @@ void pickBoatPosition(Board* map) {
 
 void preparePlayerBoats(Board* map) {
     char mode;
+    
+    printf("Select the prefered mode to insert the boats: \n");
+    printf("'r' :: random\n");
+    printf("'m' :: manual\n");
+    
     while (1) {
-        printf("Select the prefered mode to insert the boats: \n");
-        printf("'r' :: random\n");
-        printf("'m' :: manual\n");
         printf("Select the mode:\n");
         mode = getchar();
         flushInput();
@@ -150,69 +147,61 @@ void preparePlayerBoats(Board* map) {
     printBoard(map);
 }
 
-// inacabada o input seguro
-// Temos que pensar como vamos mostrar a cada jogador o seu mapa de ataque.
-//Guardar em duas variaveis(uma para cada jogador) o numero de "quadriculas" que cada barco ocupa. Sempre que um jogador ataca, verificamos se foi atingido algum barco e caso seja é so decrementar o valor da variavel e quando chegar a zero sabemos que perdemos
-/*void game(PLAYER* player1, PLAYER* player2) {
-    while (n1_size != 0 && n2_size != 0) {
-        int x, y;
+// falta acrescentar a intereçao com os boats de forma a saber quando cada um e destruido
+// e saber quando o jogo termina usando a var damage dos boats
+bool attack(Board* att, Board* def){
+	int x, y;
+	
+    scanf("%d", &x);
+    scanf("%d", &y);
+    flushInput();
+    
+    if(x >= 0 && y >= 0 && x < n_matrix && y < n_matrix && att -> map[x][y].shot == 0) {
+    
+        if (def -> map[x][y].state == 1) {
+    	    printf("HIT!\n");
+            att -> map[x][y].shot = 2;
+            def -> map[x][y].state = 2;
+        }
+        else {
+            printf("MISS!\n");
+            att -> map[x][y].shot = 1;
+            def -> map[x][y].state = 3;
+        }
+        
+        return true;
+    }
+    else printf("Invalid input. Please try again.\n");
+    return false;
+}
+
+// caso de paragem por resolver
+// dependencia de resolver o attack para saber quando os barcos sao tds destruidos
+// falta resolver o print dos mapas locais e inimigos
+void game(Board* p1, Board* p2) {
+    while (1) {
         // ataque do jogador 1
         printf("Player1 please select the attack coordinates.\n");
-        scanf("%d", & x);
-        scanf("%d", & y);
-        flushInput();
+        while(!attack(p1,p2));
 
-        if (x >= 0 && y >= 0 && x < n_matrix && y < n_matrix &&
-            player1 -> mapOpponent -> matrix[x][y] != 2 &&
-            player1 -> mapOpponent -> matrix[x][y] != 3) {
-            
-            //player1 ataca player2
-            if (player2 -> mapPlayer -> matrix[x][y] == 1) {
-                printf("HIT!\n");
-                player1 -> mapOpponent -> matrix[x][y] = 2;
-                n1_size--;
-            }
-            else {
-                printf("MISS!\n");
-                player1 -> mapOpponent -> matrix[x][y] = 3;
-            }
-        }
-        else printf("Invalid input. Please try again.\n");
+        // resolver os prints das matrizes locais e adversarias
+        //print_matrix(p1);
 
-        print_matrix(player1 -> mapOpponent);
-
-        if (n2_size == 0) break;
+        //if (n2_size == 0) break;
 
         // ataque do jogador 2
         printf("Player2 please select the attack coordinates.\n");
-        scanf("%d", & x);
-        scanf("%d", & y);
-        flushInput();
-
-        if (x >= 0 && y >= 0 && x < n_matrix && y < n_matrix &&
-            player1 -> mapOpponent -> matrix[x][y] != 2 &&
-            player1 -> mapOpponent -> matrix[x][y] != 3) {
-            
-            //player2 ataca player1
-            if (player1 -> mapPlayer -> matrix[x][y] == 1) {
-                printf("HIT!\n");
-                player2 -> mapOpponent -> matrix[x][y] = 2;
-                n2_size--;
-            }
-            else {
-                printf("MISS!\n");
-                player2 -> mapOpponent -> matrix[x][y] = 3;
-            }
-        }
-        else printf("Invalid input. Please try again.\n");
-
-        print_matrix(player2 -> mapOpponent);
+        while(!attack(p2,p1));
+        
+        // resolver os prints das matrizes locais e adversarias
+        //print_matrix(p2);
     }
 
-    if (n1_size == 0) printf("Player2 wins !\n");
-    else printf("Player1 wins !\n");
-}*/
+    //if (n1_size == 0) printf("Player2 wins !\n");
+    //else printf("Player1 wins !\n");
+}
 
+// gerar aleatorio para quem é o primeiro jogador
 int main(int argc, char **argv) {
     srand(time(NULL)); // randomize seed
     
@@ -231,7 +220,7 @@ int main(int argc, char **argv) {
     printf("********************\n");
     Board* p1 = (Board *) buildBoard();
     preparePlayerBoats(p1);
-    sleep(5);
+    sleep(3);
     system("clear");
     
     //Board player2
@@ -240,10 +229,10 @@ int main(int argc, char **argv) {
     printf("********************\n");
     Board* p2 = (Board *) buildBoard();
     preparePlayerBoats(p2);
-    sleep(5);
+    sleep(3);
     system("clear");
     
-    //game(player1, player2);
+    game(p1,p2);
     
     free(p1);
     free(p2);

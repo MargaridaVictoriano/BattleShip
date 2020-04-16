@@ -156,7 +156,7 @@ void destroyBoat(Boat* boat){
 }
 
 //Debug
-void printShip(Boat *boat){
+/*void printShip(Boat *boat){
 	printf("   ");
 	for(int i=0; i<MAX_AREA; i++){
 		printf(" %2d",i);
@@ -171,19 +171,4 @@ void printShip(Boat *boat){
 		}
 		printf("\n");
 	}
-}
-
-/*//Localização do barco
-	// direction = 0 -> vertical
-	// direction = 1 -> horizontal
-typedef struct {
-    COORDINATES position;
-    int rotation;
-} BOATPOSITION;
-
-BOATPOSITION build_boatposition(COORDINATES position, int direction){
-	BOATPOSITION new;
-	new.position = position;
-	new.direction = direction;
-	return new;
 }*/

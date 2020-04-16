@@ -55,7 +55,6 @@ char selectChar(int v){
 	}
 }
 
-
 void printBoard(Board* map){
 	printf("   ");
 	for(int i=0; i<n_matrix; i++){
@@ -72,27 +71,3 @@ void printBoard(Board* map){
 		printf("\n");
 	}
 }
-
-/* print do barco em l como @
-void printBoard(Board* map){
-	printf("   ");
-	for(int i=0; i<n_matrix; i++){
-		printf(" %2d",i);
-	}
-	printf("\n");
-	
-	for(int i=0; i<n_matrix; i++){
-		printf(" %2d",i);
-		for(int j=0; j<n_matrix; j++){
-			int temp = map -> map[i][j].state;
-
-			if(temp == 1 && map -> map[i][j].ship->id == 'l') {
-				printf("  @");
-			}
-			else {
-				printf("  %c",selectChar(temp));
-			}
-		}
-		printf("\n");
-	}
-}*/
