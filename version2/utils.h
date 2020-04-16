@@ -13,7 +13,7 @@ bool containsBoat(Board* board, int x, int y) {
     return false;
 }
 
-bool checkAvailablePosition(Board* board, char boat_id, Coords* coords) {
+bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
     int rotation = coords -> rotation;
@@ -102,7 +102,7 @@ void randomlyPlaceBoatonBoard(Board* board) {
     	    rot = getRandomNumber(0, 3)*90;
     	    
     	    Coords* coords = buildCoords(x,y,rot);
-    	    if (checkAvailablePosition(board, id, coords)) {
+    	    if (isAvailablePosition(board, id, coords)) {
     	    	insertBoat(board, id, coords);
     	    	n--;
     	    }

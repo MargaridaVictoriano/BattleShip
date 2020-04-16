@@ -13,8 +13,40 @@
 #include "utils.h"
 
 // resolver os .h, func statics and makefile
-// melhorar intereçao i/o
 // testar se os mallocs retornam null
+
+
+void showRules() {
+    printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
+    printf("                                                                RULES                                                                            \n");
+    printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
+    printf("\n");
+    printf("1. This is a two player game.\n");
+    printf("2. You will be prompted to insert the maximum board size.\n");
+    printf("  Please keep in mind that both players must play with boards of equal size\n");
+    printf("  so you will only be prompted once to input the size which cannot be changed throughout the game.\n");
+    printf("3. You will be prompted to insert how many boats you want from each type.\n");
+    printf("  Please keep in mind that both players must play with the same number of boats\n");
+    printf("  so you will only be prompted once to input the number of boats which cannot be changed throughout the game.\n");
+    printf("  You must choose atleast one boat of each type.\n");
+    printf("4. Players will be prompted to choose how to place the boats on the map: randomly or manually.\n");
+    printf("  4.1. Random Mode:\n");
+    printf("       .:Players will see the map with the boats randomly placed for a few seconds.\n");
+    printf("  4.2. Manual Mode:\n");
+    printf("       .:Players will enter the desired boat ID and then they will be prompted to choose the: \n");
+    printf("       .:X coordinates\n");
+    printf("       .:Y coordinates\n");
+    printf("       .:Rotation : 0,90,270,360 degrees\n");
+    printf("until all boats are placed.\n");
+    printf("5. When the game begins the players take turns attacking each other and they can view their own map and their attack map whenever they want.\n");
+    printf("6. The first player to guess the location of all ships wins!\n\n");
+    printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
+    printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
+    //Quanto tempo esperar ou fazer de outra forma (press any key to start maybe ?)
+    sleep(5);
+    system("clear");
+}
+
 void Battleship() {
     printf("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@  \n");
     printf("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -22,17 +54,27 @@ void Battleship() {
     printf("@@  @@ @@@@@@   @@     @@   @@     @@         @@ @@  @@ @@ @@    \n");
     printf("@@@@@  @@  @@   @@     @@   @@@@@@ @@@@@@ @@@@@  @@  @@ @@ @@    \n");
     printf("\n");
+    int mode;
+    while (1) {
+        printf("\n");
+        printf("Select one of the following options.\n");
+        printf("1 :: Start\n");
+        printf("2 :: Rules\n");
+        printf("3 :: Quit\n");
+        scanf("%d",&mode);
+        flushInput();
+        if (mode >= 1 && mode <= 3) break;
+        printf("Invalid mode. Please try again.\n");
+    }
+    switch(mode) {
+        case 2: showRules();
+            return;
+        case 3:
+            exit(0);
+        case 1:
+        default: return;
+    }
 
-    /**********************************************************|
-    |                                                          |
-    |														   |
-    |										     			   |
-    |				Pretty screen with rules		           |
-    |										                   |
-    |											               |
-    |							   			                   | 
-    |											               |
-    |**********************************************************/
 }
 
 void pickMatrixSize() {
@@ -113,7 +155,7 @@ void pickBoatPosition(Board* map) {
         flushInput();
         
         Coords *boat_pos = (Coords *)buildCoords(x,y,rot);
-        if (checkAvailablePosition(map, boat_id, boat_pos)) {
+        if (isAvailablePosition(map, boat_id, boat_pos)) {
             insertBoat(map, boat_id, boat_pos);
             boat_number[indexBoat(boat_id)]--;
             i++;
@@ -127,7 +169,7 @@ void pickBoatPosition(Board* map) {
     }
 }
 
-void preparePlayerBoats(Board* map) {
+void preparePlayerBoat(Board* map) {
     char mode;
     
     printf("Select the prefered mode to insert the boats: \n");
@@ -230,6 +272,7 @@ void game(Board* p1, Board* p2) {
 
     if (p1 -> remainingBoats == 0) printf("Player2 wins !\n");
     else printf("Player1 wins !\n");
+
 }
 
 
@@ -251,7 +294,7 @@ int main(int argc, char **argv) {
     printf("*     Player1      *\n");
     printf("********************\n");
     Board* p1 = (Board *) buildBoard();
-    preparePlayerBoats(p1);
+    preparePlayerBoat(p1);
     sleep(3);
     system("clear");
     
@@ -260,7 +303,7 @@ int main(int argc, char **argv) {
     printf("*     Player2      *\n");
     printf("********************\n");
     Board* p2 = (Board *) buildBoard();
-    preparePlayerBoats(p2);
+    preparePlayerBoat(p2);
     sleep(3);
     system("clear");
     
