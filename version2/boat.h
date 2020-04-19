@@ -121,13 +121,19 @@ void prepareBoat(Boat* boat){
 
 Boat* buildBoat(char id, Coords* coords){
     Boat* new = (Boat*)malloc(sizeof(Boat));
+    if(new == NULL) exit(-1);
+    
     new -> id = id;
     new -> coords = coords;
     new -> hp = sizeBoat(id);
     
     new -> ship = (int **)malloc(MAX_AREA*sizeof(int *));
+    if(new -> ship == NULL) exit(-1);
+	
 	for(int i=0; i<MAX_AREA; i++){
 	    new -> ship[i] = (int *)malloc(MAX_AREA*sizeof(int));
+	    if(new -> ship[i] == NULL) exit(-1);
+	    
 	    for(int j=0; j<MAX_AREA; j++){
 	    	new -> ship[i][j] = 0;
 	    }

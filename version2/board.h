@@ -18,17 +18,23 @@ typedef struct {
 	int remainingBoats;
 	
 	// reserva dos boats
-	Boat **boats;
 	int size_boats;
+	Boat **boats;
 } Board;
 
 Board *buildBoard(){
-	Board *new = (Board *)malloc(sizeof(Board)); //mapa jogador 
+	Board *new = (Board *)malloc(sizeof(Board)); //mapa jogador
+	if(new == NULL) exit(-1);
+	
 	new -> remainingBoats = 0;
+	
 	// construir a matrix
 	new -> map = (Cell **)malloc(n_matrix*sizeof(Cell *));
+	if(new -> map == NULL) exit(-1);
+	
 	for(int i=0; i<n_matrix; i++){
 	   new -> map[i] = (Cell *)malloc(n_matrix*sizeof(Cell));
+	   if(new -> map[i] == NULL) exit(-1);
 	}
 	
 	// zerar a matrix
@@ -41,8 +47,9 @@ Board *buildBoard(){
 	}
 	
 	// construir a reserva dos boats
-	new -> boats = (Boat **)malloc(sum_boats*sizeof(Boat *));
 	new -> size_boats = 0;
+	new -> boats = (Boat **)malloc(sum_boats*sizeof(Boat *));
+	if(new -> boats == NULL) exit(-1);
 	
 	return new;
 }

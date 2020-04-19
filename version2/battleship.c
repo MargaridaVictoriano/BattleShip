@@ -13,8 +13,6 @@
 #include "utils.h"
 
 // resolver os .h, func statics and makefile
-// testar se os mallocs retornam null
-
 
 void showRules() {
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
