@@ -310,7 +310,7 @@ int main(int argc, char **argv) {
     system("clear");
     
     game(p1,p2);
-
-    free(p1);
-    free(p2);
+    
+    destroyBoard(p1);
+    destroyBoard(p2);
 }

@@ -16,6 +16,10 @@ typedef struct {
 typedef struct {
 	Cell **map;
 	int remainingBoats;
+	
+	// reserva dos boats
+	Boat **boats;
+	int size_boats;
 } Board;
 
 Board *buildBoard(){
@@ -35,6 +39,11 @@ Board *buildBoard(){
 			new -> map[i][j].ship = NULL;
 		}
 	}
+	
+	// construir a reserva dos boats
+	new -> boats = (Boat **)malloc(sum_boats*sizeof(Boat *));
+	new -> size_boats = 0;
+	
 	return new;
 }
 
@@ -43,6 +52,12 @@ void destroyBoard(Board* map){
  	   	free(map -> map[i]);
     }
     free(map -> map);
+	
+	for(int i=0; i< map -> size_boats; i++){
+		destroyBoat(map -> boats[i]);
+	}
+	free(map -> boats);
+	
 	free(map);
 }
 

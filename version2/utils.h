@@ -57,7 +57,11 @@ bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
 void insertBoat(Board* board, char boat_id, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
+    
     Boat* temp = buildBoat(boat_id,coords);
+    board -> boats[board -> size_boats] = temp;
+    board -> size_boats++;
+    
     if(boat_id == 'l') {
         for(int i = 0 ; i < MAX_AREA ; i++) {
             for(int j = 0; j < MAX_AREA; j++) {
