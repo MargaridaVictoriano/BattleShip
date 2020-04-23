@@ -42,8 +42,10 @@ void showRules() {
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
     printf("\n");
 
-//Quanto tempo esperar ou fazer de outra forma (press any key to start maybe ?)
-    sleep(5);
+	printf("Press any key to continue.\n\n");
+	
+	flushInput();
+	
     system("clear");
 }
 
@@ -204,6 +206,7 @@ bool attack(Board* att, Board* def){
             att -> map[x][y].shot = 2;
             def -> map[x][y].state = 2;
             def -> map[x][y].ship -> hp--;
+            setShip(def -> map[x][y].ship,2, x, y);
             if(def -> map[x][y].ship -> hp == 0) {
                 def -> remainingBoats--;
                 printf("The ship %s was just destroyed !", nameBoat(def -> map[x][y].ship -> id));

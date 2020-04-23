@@ -161,6 +161,22 @@ void destroyBoat(Boat* boat){
 	free(boat);
 }
 
+void setShip(Boat* boat, int value, int x, int y){
+	if(value >= 0 && value <= 3){
+		if(boat -> id == 'l') {
+			boat -> ship[x - boat -> coords -> row][y - boat -> coords -> column] = value;
+		}
+		else {
+			switch(boat -> coords -> rotation){
+				case 0  : boat -> ship[x - boat -> coords -> row + 2][y - boat -> coords -> column] = value; break;
+				case 90 : boat -> ship[MAX_AREA - 1 - (x - boat -> coords -> row)][y - boat -> coords -> column + 2] = value; break;
+				case 180: boat -> ship[x - boat -> coords -> row + 2][MAX_AREA - 1 - (y - boat -> coords -> column)] = value; break;
+				case 270: boat -> ship[x - boat -> coords -> row][y - boat -> coords -> column + 2] = value; break;
+			}
+		}
+	}
+}
+
 //Debug
 /*void printShip(Boat *boat){
 	printf("   ");

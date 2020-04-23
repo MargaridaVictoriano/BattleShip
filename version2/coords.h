@@ -10,7 +10,7 @@ Coords* buildCoords(int row, int column, int rotation){
    if(new == NULL) exit(-1);
    new -> row = row;
    new -> column = column;
-   new -> rotation = rotation;
+   new -> rotation = rotation % 360;
    return new;
 }
 
