@@ -204,7 +204,7 @@ bool attack(Board* att, Board* def){
             setShip(def -> map[x][y].ship, 2, x, y);
             if(def -> map[x][y].ship -> hp == 0) {
                 def -> remainingBoats--;
-                printf("The ship %s was just destroyed !", nameBoat(def -> map[x][y].ship -> id));
+                printf("The ship %s was just destroyed !\n", nameBoat(def -> map[x][y].ship -> id));
             }
             else printf("HIT!\n");
         }
