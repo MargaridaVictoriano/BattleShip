@@ -198,20 +198,20 @@ bool attack(Board* att, Board* def){
     if(x >= 0 && y >= 0 && x < n_matrix && y < n_matrix && att -> map[x][y].shot == 0) {
     
         if (def -> map[x][y].state == 1) {
-    	    printf("HIT!\n");
             att -> map[x][y].shot = 2;
             def -> map[x][y].state = 2;
             def -> map[x][y].ship -> hp--;
-            setShip(def -> map[x][y].ship,2, x, y);
+            setShip(def -> map[x][y].ship, 2, x, y);
             if(def -> map[x][y].ship -> hp == 0) {
                 def -> remainingBoats--;
                 printf("The ship %s was just destroyed !", nameBoat(def -> map[x][y].ship -> id));
             }
+            else printf("HIT!\n");
         }
         else {
-            printf("MISS!\n");
             att -> map[x][y].shot = 1;
             def -> map[x][y].state = 3;
+            printf("MISS!\n");
         }
         
         return true;
