@@ -10,6 +10,9 @@
 #include "board.h"
 #include "utils.h"
 
+// alterar nas estruturas valores de int para char e dar fix as funcoes consequentes
+// escrever o readme.txt
+
 void showRules() {
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
     printf("                                                                RULES                                                                            \n");
@@ -204,7 +207,7 @@ bool attack(Board* att, Board* def){
             setShip(def -> map[x][y].ship, 2, x, y);
             if(def -> map[x][y].ship -> hp == 0) {
                 def -> remainingBoats--;
-                printf("The ship %s was just destroyed !\n", nameBoat(def -> map[x][y].ship -> id));
+                printf("The ship %s was just destroyed !", nameBoat(def -> map[x][y].ship -> id));
             }
             else printf("HIT!\n");
         }

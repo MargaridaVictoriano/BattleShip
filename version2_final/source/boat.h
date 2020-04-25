@@ -7,8 +7,8 @@
 typedef struct {
 	char id;
 	Coords* coords;
-	int hp;
-	int **ship;
+	unsigned char hp;//[0,9]
+	char **ship;     //[0,2]
 } Boat;
 
 extern const char listBoat[];
@@ -19,8 +19,8 @@ extern const char r[];
 extern const char s[];
 extern const char d[];
 
-int indexBoat(char);
-int sizeBoat(char);
+unsigned char indexBoat(char);
+unsigned char sizeBoat(char);
 const char* nameBoat(char);
 void rotBoat(Boat*);
 void prepareBoat(Boat*);

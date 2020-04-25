@@ -7,26 +7,30 @@
 
 typedef struct {
 	// informacao adversario
-	int shot;    // 0 = no shot, 1 = shot that didn't hit, 2 = shot that hit an enemy piece
+	// 0 = no shot, 1 = shot that didn't hit, 2 = shot that hit an enemy piece
+	char shot;    // [0,2]
+	
 	// informacao local
-	int state;   // 0 = empty, 1 = piece without being hitted, 2 = piece hitted, 3 = missed shot
-	Boat *ship;  // apontador para o barco local
+	// 0 = empty, 1 = piece without being hitted, 2 = piece hitted, 3 = missed shot
+	char state;   // [0,3]
+	// apontador para o barco local
+	Boat *ship;  
 } Cell;
 
 //Matriz n*n
 typedef struct {
 	Cell **map;
-	int remainingBoats;
+	char remainingBoats;            // [0,64]
 	
 	// reserva dos boats
-	int size_boats;
+	unsigned char size_boats;       // [16,64]
 	Boat **boats;
 } Board;
 
 Board *buildBoard();
 void destroyBoard(Board*);
-char selectCharDefense(int);
-char selectCharAttack(int);
+char selectCharDefense(char);
+char selectCharAttack(char);
 void printBoardDefense(Board*);
 void printBoardAttack(Board*);
 

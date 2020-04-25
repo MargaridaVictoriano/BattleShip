@@ -52,7 +52,7 @@ void destroyBoard(Board* map){
 	free(map);
 }
 
-char selectCharDefense(int v){
+char selectCharDefense(char v){
 	switch(v){
 		case 0 : return '~';
 		case 1 : return '#';
@@ -62,7 +62,7 @@ char selectCharDefense(int v){
 	}
 }
 
-char selectCharAttack(int v){
+char selectCharAttack(char v){
 	switch(v){
 		case 0 : return '~';
 		case 1 : return 'O';

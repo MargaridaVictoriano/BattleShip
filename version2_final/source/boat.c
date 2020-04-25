@@ -12,7 +12,7 @@ const char r[] = "CRUISER";
 const char s[] = "SUBMARINE";
 const char d[] = "DESTROYER";
 
-int indexBoat(char id){
+unsigned char indexBoat(char id){
    	switch(id){
    		case 'l': return 0;
       	case 'c': return 1;
@@ -24,7 +24,7 @@ int indexBoat(char id){
    	}
 }
 
-int sizeBoat(char id){
+unsigned char sizeBoat(char id){
    	switch(id){
    		case 'l': return 9;
       	case 'c': return 5;
@@ -49,14 +49,14 @@ const char* nameBoat(char id){
 }
 
 void rotBoat(Boat* boat){
-	int** mat = boat -> ship;
+	char **mat = boat -> ship, temp;
 	switch(boat -> coords -> rotation){
 		case 0 :
 			return;
 		case 90:
 			for (int i = 0; i < MAX_AREA / 2; i++) { 
       			for (int j = i; j < MAX_AREA-i-1; j++) { 
-            		int temp = mat[i][j]; 
+            		temp = mat[i][j]; 
             		mat[i][j] = mat[j][MAX_AREA-1-i]; 
             		mat[j][MAX_AREA-1-i] = mat[MAX_AREA-1-i][MAX_AREA-1-j]; 
             		mat[MAX_AREA-1-i][MAX_AREA-1-j] = mat[MAX_AREA-1-j][i]; 
@@ -67,7 +67,7 @@ void rotBoat(Boat* boat){
 		case 180:
 			for(int i=0;i<MAX_AREA/2;i++) { 
             	for(int j=0;j<MAX_AREA;j++) { 
-                	int temp = mat[i][j]; 
+                	temp = mat[i][j]; 
                 	mat[i][j] = mat[MAX_AREA-i-1][MAX_AREA-j-1]; 
                		mat[MAX_AREA-i-1][MAX_AREA-j-1] = temp; 
             	}
@@ -76,7 +76,7 @@ void rotBoat(Boat* boat){
         	// quando MAX_AREA impar
         	if(MAX_AREA & 1){
         		for(int j=0; j<MAX_AREA/2; j++){
-        			int temp = mat[MAX_AREA/2][j]; 
+        			temp = mat[MAX_AREA/2][j]; 
                 	mat[MAX_AREA/2][j] = mat[MAX_AREA/2][MAX_AREA-j-1]; 
                		mat[MAX_AREA/2][MAX_AREA-j-1] = temp; 
         		}
@@ -86,7 +86,7 @@ void rotBoat(Boat* boat){
 		case 270:
 			for (int i = 0; i < MAX_AREA / 2; i++) { 
         		for (int j = i; j < MAX_AREA-i-1; j++) { 
-            		int temp = mat[i][j]; 
+            		temp = mat[i][j]; 
             		mat[i][j] = mat[MAX_AREA-1-j][i]; 
             		mat[MAX_AREA-1-j][i] = mat[MAX_AREA-1-i][MAX_AREA-1-j]; 
             		mat[MAX_AREA-1-i][MAX_AREA-1-j] = mat[j][MAX_AREA-1-i]; 
@@ -122,11 +122,11 @@ Boat* buildBoat(char id, Coords* coords){
     new -> coords = coords;
     new -> hp = sizeBoat(id);
     
-    new -> ship = (int **)malloc(MAX_AREA*sizeof(int *));
+    new -> ship = (char **)malloc(MAX_AREA*sizeof(char *));
     if(new -> ship == NULL) exit(-1);
 	
 	for(int i=0; i<MAX_AREA; i++){
-	    new -> ship[i] = (int *)malloc(MAX_AREA*sizeof(int));
+	    new -> ship[i] = (char *)malloc(MAX_AREA*sizeof(char));
 	    if(new -> ship[i] == NULL) exit(-1);
 	    
 	    for(int j=0; j<MAX_AREA; j++){
