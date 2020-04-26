@@ -10,6 +10,8 @@
 #include "board.h"
 #include "utils.h"
 
+// desalocar os barcos mal sao destruidos
+// (muito opcional) gerar aleatorio para quem é o primeiro jogador
 // alterar nas estruturas valores de int para char e dar fix as funcoes consequentes
 // escrever o readme.txt
 
@@ -198,22 +200,22 @@ bool attack(Board* att, Board* def){
     scanf("%d", &y);
     flushInput();
     
-    if(x >= 0 && y >= 0 && x < n_matrix && y < n_matrix && att -> map[x][y].shot == 0) {
-    
-        if (def -> map[x][y].state == 1) {
-            att -> map[x][y].shot = 2;
-            def -> map[x][y].state = 2;
-            def -> map[x][y].ship -> hp--;
-            setShip(def -> map[x][y].ship, 2, x, y);
-            if(def -> map[x][y].ship -> hp == 0) {
+    if(x >= 0 && y >= 0 && x < n_matrix && y < n_matrix && att -> map[x*n_matrix + y].shot == 0) {
+    	int i = x * n_matrix + y;
+        if (def -> map[i].state == 1) {
+            att -> map[i].shot = 2;
+            def -> map[i].state = 2;
+            def -> map[i].ship -> hp--;
+            setShip(def -> map[i].ship, 2, x, y);
+            if(def -> map[i].ship -> hp == 0) {
                 def -> remainingBoats--;
-                printf("The ship %s was just destroyed !", nameBoat(def -> map[x][y].ship -> id));
+                printf("The ship %s was just destroyed !", nameBoat(def -> map[i].ship -> id));
             }
             else printf("HIT!\n");
         }
         else {
-            att -> map[x][y].shot = 1;
-            def -> map[x][y].state = 3;
+            att -> map[i].shot = 1;
+            def -> map[i].state = 3;
             printf("MISS!\n");
         }
         
@@ -277,8 +279,6 @@ void game(Board* p1, Board* p2) {
 
 }
 
-
-// (muito opcional) gerar aleatorio para quem é o primeiro jogador
 int main(int argc, char **argv) {
     srand(time(NULL)); // randomize seed
 

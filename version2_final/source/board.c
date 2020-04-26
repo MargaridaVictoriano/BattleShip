@@ -13,20 +13,15 @@ Board *buildBoard(){
 	new -> remainingBoats = 0;
 	
 	// construir a matrix
-	new -> map = (Cell **)malloc(n_matrix*sizeof(Cell *));
+	new -> map = (Cell *)malloc(n_matrix*n_matrix*sizeof(Cell));
 	if(new -> map == NULL) exit(-1);
-	
-	for(int i=0; i<n_matrix; i++){
-	   new -> map[i] = (Cell *)malloc(n_matrix*sizeof(Cell));
-	   if(new -> map[i] == NULL) exit(-1);
-	}
 	
 	// zerar a matrix
 	for(int i = 0; i <n_matrix; i++){
 		for(int j = 0; j <n_matrix; j++){
-			new -> map[i][j].shot = 0;
-			new -> map[i][j].state = 0;
-			new -> map[i][j].ship = NULL;
+			new -> map[i*n_matrix + j].shot = 0;
+			new -> map[i*n_matrix + j].state = 0;
+			new -> map[i*n_matrix + j].ship = NULL;
 		}
 	}
 	
@@ -39,9 +34,6 @@ Board *buildBoard(){
 }
 
 void destroyBoard(Board* map){
-    for(int i=0; i<n_matrix; i++){
- 	   	free(map -> map[i]);
-    }
     free(map -> map);
 	
 	for(int i=0; i< map -> size_boats; i++){
@@ -81,7 +73,7 @@ void printBoardDefense(Board* map){
 	for(int i=0; i<n_matrix; i++){
 		printf(" %2d",i);
 		for(int j=0; j<n_matrix; j++){
-			int temp = map -> map[i][j].state;
+			int temp = map -> map[i*n_matrix + j].state;
 			printf("  %c",selectCharDefense(temp));
 		}
 		printf("\n");
@@ -98,7 +90,7 @@ void printBoardAttack(Board* map) {
 	for(int i=0; i<n_matrix; i++){
 		printf(" %2d",i);
 		for(int j=0; j<n_matrix; j++){
-			int temp = map -> map[i][j].shot;
+			int temp = map -> map[i*n_matrix + j].shot;
 			printf("  %c",selectCharAttack(temp));
 		}
 		printf("\n");

@@ -19,7 +19,7 @@ int getRandomNumber(int a, int b) {
 
 //Verificar se contem barco
 bool containsBoat(Board* board, int x, int y) {
-    if(board -> map[x][y].ship != NULL) return true;
+    if(board -> map[x*n_matrix + y].ship != NULL) return true;
     return false;
 }
 
@@ -34,7 +34,7 @@ bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
         Boat* temp = buildBoat(boat_id,coords);
         for(int i = 0 ; i < MAX_AREA; i++) {
             for(int j = 0; j < MAX_AREA; j++) {
-                if(temp -> ship[i][j] == 1) {
+                if(temp -> ship[i*MAX_AREA + j] == 1) {
                     if(i+x < 0 || j+y < 0 || i+x >= n_matrix || j+y >= n_matrix || containsBoat(board,i+x,j+y)) {
                         destroyBoatTemp(temp);
                         return false;
@@ -75,9 +75,9 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
     if(boat_id == 'l') {
         for(int i = 0 ; i < MAX_AREA ; i++) {
             for(int j = 0; j < MAX_AREA; j++) {
-                if(temp -> ship[i][j] == 1) {
-                    board -> map[i+x][j+y].state = 1;
-                    board -> map[i+x][j+y].ship = temp;
+                if(temp -> ship[i*MAX_AREA + j] == 1) {
+                    board -> map[(i+x) * n_matrix + (j+y)].state = 1;
+                    board -> map[(i+x) * n_matrix + (j+y)].ship = temp;
                 }
             }
         }
@@ -86,14 +86,14 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
         int boatSize = temp -> hp;
         if(coords->rotation % 180 == 0) { //Horizontal
             for(int k = y; k < boatSize + y; k++) {
-                board -> map[x][k].state = 1;
-                board -> map[x][k].ship = temp;
+                board -> map[x * n_matrix + k].state = 1;
+                board -> map[x * n_matrix + k].ship = temp;
             }
         }
         else { //Vertical
             for(int k = x; k < boatSize + x; k++) {
-                board -> map[k][y].state = 1;
-                board -> map[k][y].ship = temp;
+                board -> map[k * n_matrix + y].state = 1;
+                board -> map[k * n_matrix + y].ship = temp;
             }
 
         }

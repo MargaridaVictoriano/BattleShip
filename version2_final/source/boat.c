@@ -49,36 +49,36 @@ const char* nameBoat(char id){
 }
 
 void rotBoat(Boat* boat){
-	char **mat = boat -> ship, temp;
+	char *mat = boat -> ship, temp;
 	switch(boat -> coords -> rotation){
 		case 0 :
 			return;
 		case 90:
 			for (int i = 0; i < MAX_AREA / 2; i++) { 
       			for (int j = i; j < MAX_AREA-i-1; j++) { 
-            		temp = mat[i][j]; 
-            		mat[i][j] = mat[j][MAX_AREA-1-i]; 
-            		mat[j][MAX_AREA-1-i] = mat[MAX_AREA-1-i][MAX_AREA-1-j]; 
-            		mat[MAX_AREA-1-i][MAX_AREA-1-j] = mat[MAX_AREA-1-j][i]; 
-            		mat[MAX_AREA-1-j][i] = temp; 
+            		temp = mat[i*MAX_AREA + j]; 
+            		mat[i*MAX_AREA + j] = mat[j*MAX_AREA + MAX_AREA-1-i]; 
+            		mat[j*MAX_AREA + MAX_AREA-1-i] = mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j]; 
+            		mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j] = mat[(MAX_AREA-1-j)*MAX_AREA + i]; 
+            		mat[(MAX_AREA-1-j)*MAX_AREA + i] = temp; 
         		} 
     		} 
 			return;
 		case 180:
 			for(int i=0;i<MAX_AREA/2;i++) { 
             	for(int j=0;j<MAX_AREA;j++) { 
-                	temp = mat[i][j]; 
-                	mat[i][j] = mat[MAX_AREA-i-1][MAX_AREA-j-1]; 
-               		mat[MAX_AREA-i-1][MAX_AREA-j-1] = temp; 
+                	temp = mat[i*MAX_AREA + j]; 
+                	mat[i*MAX_AREA + j] = mat[(MAX_AREA-i-1)*MAX_AREA + MAX_AREA-j-1]; 
+               		mat[(MAX_AREA-i-1)*MAX_AREA + MAX_AREA-j-1] = temp; 
             	}
         	}
         	
         	// quando MAX_AREA impar
         	if(MAX_AREA & 1){
         		for(int j=0; j<MAX_AREA/2; j++){
-        			temp = mat[MAX_AREA/2][j]; 
-                	mat[MAX_AREA/2][j] = mat[MAX_AREA/2][MAX_AREA-j-1]; 
-               		mat[MAX_AREA/2][MAX_AREA-j-1] = temp; 
+        			temp = mat[(MAX_AREA/2)*MAX_AREA + j]; 
+                	mat[(MAX_AREA/2)*MAX_AREA + j] = mat[(MAX_AREA/2)*MAX_AREA + MAX_AREA-j-1]; 
+               		mat[(MAX_AREA/2)*MAX_AREA + MAX_AREA-j-1] = temp; 
         		}
         	}
         	
@@ -86,11 +86,11 @@ void rotBoat(Boat* boat){
 		case 270:
 			for (int i = 0; i < MAX_AREA / 2; i++) { 
         		for (int j = i; j < MAX_AREA-i-1; j++) { 
-            		temp = mat[i][j]; 
-            		mat[i][j] = mat[MAX_AREA-1-j][i]; 
-            		mat[MAX_AREA-1-j][i] = mat[MAX_AREA-1-i][MAX_AREA-1-j]; 
-            		mat[MAX_AREA-1-i][MAX_AREA-1-j] = mat[j][MAX_AREA-1-i]; 
-        	   		mat[j][MAX_AREA-1-i] = temp; 
+            		temp = mat[i*MAX_AREA + j]; 
+            		mat[i*MAX_AREA + j] = mat[(MAX_AREA-1-j)*MAX_AREA + i]; 
+            		mat[(MAX_AREA-1-j)*MAX_AREA + i] = mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j]; 
+            		mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j] = mat[j*MAX_AREA + MAX_AREA-1-i]; 
+        	   		mat[j*MAX_AREA + MAX_AREA-1-i] = temp; 
         		} 
     		} 
 			return;
@@ -102,14 +102,14 @@ void prepareBoat(Boat* boat){
 	char id = boat -> id;
 	if(id == 'l') {
 		for(int i=0; i<MAX_AREA ; i++)
-			boat -> ship[i][0] = 1;
+			boat -> ship[i*MAX_AREA + 0] = 1;
 		for(int i=1; i<MAX_AREA ; i++)
-			boat -> ship[MAX_AREA-1][i] = 1;
+			boat -> ship[(MAX_AREA-1)*MAX_AREA + i] = 1;
 	}
 	else {
 		int size = sizeBoat(id);
 		for(int i=0; i<size; i++){
-			boat -> ship[2][i] = 1;
+			boat -> ship[2*MAX_AREA + i] = 1;
 		}
 	}
 }
@@ -122,15 +122,12 @@ Boat* buildBoat(char id, Coords* coords){
     new -> coords = coords;
     new -> hp = sizeBoat(id);
     
-    new -> ship = (char **)malloc(MAX_AREA*sizeof(char *));
+    new -> ship = (char *)malloc(MAX_AREA*MAX_AREA*sizeof(char));
     if(new -> ship == NULL) exit(-1);
 	
 	for(int i=0; i<MAX_AREA; i++){
-	    new -> ship[i] = (char *)malloc(MAX_AREA*sizeof(char));
-	    if(new -> ship[i] == NULL) exit(-1);
-	    
 	    for(int j=0; j<MAX_AREA; j++){
-	    	new -> ship[i][j] = 0;
+	    	new -> ship[i*MAX_AREA + j] = 0;
 	    }
 	}
     
@@ -140,17 +137,11 @@ Boat* buildBoat(char id, Coords* coords){
 }
 
 void destroyBoatTemp(Boat* boat){
-	for(int i=0; i<MAX_AREA; i++){
-       	free(boat -> ship[i]);
-    }
     free(boat -> ship);
 	free(boat);
 }
 
 void destroyBoat(Boat* boat){
-	for(int i=0; i<MAX_AREA; i++){
-       	free(boat -> ship[i]);
-    }
     free(boat -> ship);
     destroyCoords(boat -> coords);
 	free(boat);
@@ -159,14 +150,14 @@ void destroyBoat(Boat* boat){
 void setShip(Boat* boat, int value, int x, int y){
 	if(value >= 0 && value <= 3){
 		if(boat -> id == 'l') {
-			boat -> ship[x - boat -> coords -> row][y - boat -> coords -> column] = value;
+			boat -> ship[(x - boat -> coords -> row)*MAX_AREA + y - boat -> coords -> column] = value;
 		}
 		else {
 			switch(boat -> coords -> rotation){
-				case 0  : boat -> ship[x - boat -> coords -> row + 2][y - boat -> coords -> column] = value; break;
-				case 90 : boat -> ship[MAX_AREA - 1 - (x - boat -> coords -> row)][y - boat -> coords -> column + 2] = value; break;
-				case 180: boat -> ship[x - boat -> coords -> row + 2][MAX_AREA - 1 - (y - boat -> coords -> column)] = value; break;
-				case 270: boat -> ship[x - boat -> coords -> row][y - boat -> coords -> column + 2] = value; break;
+				case 0  : boat -> ship[(x - boat -> coords -> row + 2)*MAX_AREA + y - boat -> coords -> column] = value; break;
+				case 90 : boat -> ship[(MAX_AREA - 1 - (x - boat -> coords -> row))*MAX_AREA + y - boat -> coords -> column + 2] = value; break;
+				case 180: boat -> ship[(x - boat -> coords -> row + 2)*MAX_AREA + MAX_AREA - 1 - (y - boat -> coords -> column)] = value; break;
+				case 270: boat -> ship[(x - boat -> coords -> row)*MAX_AREA + y - boat -> coords -> column + 2] = value; break;
 			}
 		}
 	}
@@ -184,7 +175,7 @@ void setShip(Boat* boat, int value, int x, int y){
 	for(int i=0; i<MAX_AREA; i++){
 		printf(" %2d",i);
 		for(int j=0; j<MAX_AREA; j++){
-			int temp = boat -> ship[i][j];
+			int temp = boat -> ship[i*MAX_AREA + j];
 			printf("  %d",temp);
 		}
 		printf("\n");

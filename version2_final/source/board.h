@@ -19,7 +19,7 @@ typedef struct {
 
 //Matriz n*n
 typedef struct {
-	Cell **map;
+	Cell *map;                      // array a simular a matrix
 	char remainingBoats;            // [0,64]
 	
 	// reserva dos boats

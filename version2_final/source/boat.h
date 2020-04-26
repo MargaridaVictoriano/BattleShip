@@ -7,8 +7,8 @@
 typedef struct {
 	char id;
 	Coords* coords;
-	unsigned char hp;//[0,9]
-	char **ship;     //[0,2]
+	unsigned char hp;  // [0,9]
+	char *ship;        //array a simular matrix [0,2] 
 } Boat;
 
 extern const char listBoat[];
