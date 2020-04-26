@@ -1,7 +1,7 @@
 all:
-	cd source && make
-	mv source/battleship .
+	@cd source && $(MAKE) all
+	@mv source/battleship .
 
 clean:
-	cd source && make clean
-	rm battleship
+	@cd source && $(MAKE) clean
+	@rm -f *~
