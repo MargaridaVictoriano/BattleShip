@@ -23,4 +23,4 @@ utils.o: utils.c utils.h global_var.h coords.h boat.h board.h
 	$(CC) -o utils.o utils.c -c $(CFLAGS)
 
 clean:
-	rm -rf *.o *~
+	rm -f *.o battleship
