@@ -19,8 +19,8 @@ extern const char r[];
 extern const char s[];
 extern const char d[];
 
-unsigned char indexBoat(char);
-unsigned char sizeBoat(char);
+signed char indexBoat(char);
+signed char sizeBoat(char);
 const char* nameBoat(char);
 void rotBoat(Boat*);
 void prepareBoat(Boat*);

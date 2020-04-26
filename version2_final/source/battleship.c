@@ -10,7 +10,6 @@
 #include "board.h"
 #include "utils.h"
 
-// desalocar os barcos mal sao destruidos
 // (muito opcional) gerar aleatorio para quem é o primeiro jogador
 // alterar nas estruturas valores de int para char e dar fix as funcoes consequentes
 // escrever o readme.txt
@@ -140,7 +139,7 @@ void pickBoatPosition(Board* map) {
             printf("Please enter the desired Boat ID: \n");
             boat_id = getchar();
             flushInput();
-            if(indexBoat(boat_id) != -1 && boat_number[indexBoat(boat_id)] > 0) break;
+            if(indexBoat(boat_id) != -1 && boat_number[(unsigned char)indexBoat(boat_id)] > 0) break;
             printf("Invalid input. Please try again.\n");
         }
 
@@ -160,7 +159,7 @@ void pickBoatPosition(Board* map) {
         Coords *boat_pos = (Coords *)buildCoords(x,y,rot);
         if (isAvailablePosition(map, boat_id, boat_pos)) {
             insertBoat(map, boat_id, boat_pos);
-            boat_number[indexBoat(boat_id)]--;
+            boat_number[(unsigned char)indexBoat(boat_id)]--;
             i++;
             printBoardDefense(map);
             printf("\n");
@@ -279,7 +278,7 @@ void game(Board* p1, Board* p2) {
 
 }
 
-int main(int argc, char **argv) {
+int main() {
     srand(time(NULL)); // randomize seed
 
     system("clear");

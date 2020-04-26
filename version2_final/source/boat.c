@@ -12,7 +12,7 @@ const char r[] = "CRUISER";
 const char s[] = "SUBMARINE";
 const char d[] = "DESTROYER";
 
-unsigned char indexBoat(char id){
+signed char indexBoat(char id){
    	switch(id){
    		case 'l': return 0;
       	case 'c': return 1;
@@ -24,7 +24,7 @@ unsigned char indexBoat(char id){
    	}
 }
 
-unsigned char sizeBoat(char id){
+signed char sizeBoat(char id){
    	switch(id){
    		case 'l': return 9;
       	case 'c': return 5;
