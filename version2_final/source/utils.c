@@ -8,20 +8,42 @@
 #include "board.h"
 #include "utils.h"
 
+/**
+ * Function name : flushInput()
+ * Usage         : flushInput();
+ * Definition    : This function flushes the standard input.         
+ */
+
 void flushInput() {
     for(int c; (c = getchar()) != '\n' && c != EOF ;);
 }
 
-// ASSUMINDO QUE A <= B
+/**
+ * Function name : getRandomNumber()
+ * Usage         : getRandomNumber(int,int);
+ * Definition    : This function returns a random number between and including the lowest to the highest number.         
+ */
+
 int getRandomNumber(int a, int b) {
     return (rand() % (b - a + 1)) + a;
 }
 
-//Verificar se contem barco
+/**
+ * Function name : containsBoat()
+ * Usage         : containsBoat(Board*,int,int);
+ * Definition    : This function verifies if a cell is occupied by a boat.         
+ */
+
 bool containsBoat(Board* board, int x, int y) {
     if(board -> map[x*n_matrix + y].ship != NULL) return true;
     return false;
 }
+
+/**
+ * Function name : isAvailablePosition()
+ * Usage         : isAvailablePosition(Board*,char,Coords*);
+ * Definition    : This functions checks if a given boat can be placed on the board.         
+ */
 
 bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
     int x = coords -> row;
@@ -64,6 +86,12 @@ bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
     }
 }
 
+/**
+ * Function name : insertBoat()
+ * Usage         : insertBoat(Board*,char,Coords*);
+ * Definition    : This function inserts the given boat in the game board.         
+ */
+
 void insertBoat(Board* board, char boat_id, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
@@ -99,6 +127,12 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
         }
     }
 }
+
+/**
+ * Function name : randomlyPlaceBoatonBoard()
+ * Usage         : randomlyPlaceBoatonBoard(Board*);
+ * Definition    : This function generates the boat coordinates randomly and inserts the boat.         
+ */
 
 void randomlyPlaceBoatonBoard(Board* board) { 
     for (int i = 0; i < n_boats; i++) {

@@ -187,7 +187,7 @@ void pickBoatPosition(Board* map) {
             insertBoat(map, boat_id, boat_pos);
             boat_number[(unsigned char)indexBoat(boat_id)]--;
             i++;
-            printBoardDefense(map);
+            printDefenseBoard(map);
             printf("\n");
         }
         else {
@@ -221,7 +221,7 @@ void placeBoat(Board* map) {
     if (mode == 'r') randomlyPlaceBoatonBoard(map);
     else pickBoatPosition(map);
     
-    printBoardDefense(map);
+    printDefenseBoard(map);
 }
 
 /**
@@ -282,9 +282,9 @@ bool gameInterface(Board* p) {
         printf("Invalid mode. Please try again.\n");
     }
     switch(mode) {
-        case 1: printBoardDefense(p);
+        case 1: printDefenseBoard(p);
             return false;
-        case 2: printBoardAttack(p);
+        case 2: printAttackBoard(p);
             return false;
         case 3:
             return true;
@@ -341,18 +341,21 @@ int main() {
     system("clear");
     
     //Board player1
-    printf("********************\n");
-    printf("*     Player1      *\n");
-    printf("********************\n");
+    printf(":*~*:._.::*~*:._.::*~*:._.:\n");
+    printf(":.        Player1        .:\n");
+    printf(":*~*:._.::*~*:._.::*~*:._.:\n");
+    printf("\n");
     Board* p1 = (Board *) buildBoard();
     placeBoat(p1);
     sleep(3);
     system("clear");
     
     //Board player2
-    printf("********************\n");
-    printf("*     Player2      *\n");
-    printf("********************\n");
+    printf(":*~*:._.::*~*:._.::*~*:._.:\n");
+    printf(":.        Player2        .:\n");
+    printf(":*~*:._.::*~*:._.::*~*:._.:\n");
+    printf("\n");
+
     Board* p2 = (Board *) buildBoard();
     placeBoat(p2);
     sleep(3);

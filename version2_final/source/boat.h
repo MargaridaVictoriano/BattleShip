@@ -3,12 +3,11 @@
 
 #define MAX_AREA 5
 
-//Struct para embarcações
 typedef struct {
 	char id;
 	Coords* coords;
-	unsigned char hp;  // [0,9]
-	char *ship;        //array a simular matrix [0,2] 
+	unsigned char hp;  
+	char *ship;       
 } Boat;
 
 extern const char listBoat[];
@@ -28,8 +27,5 @@ Boat* buildBoat(char,Coords*);
 void destroyBoatTemp(Boat*);
 void destroyBoat(Boat*);
 void setShip(Boat*,int,int,int);
-
-//Debug
-//void printShip(Boat);
 
 #endif

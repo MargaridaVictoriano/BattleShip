@@ -12,6 +12,12 @@ const char r[] = "CRUISER";
 const char s[] = "SUBMARINE";
 const char d[] = "DESTROYER";
 
+/**
+ * Function name : indexBoat()
+ * Usage         : indexBoat(char);
+ * Definition    : Returns boat ID index.            
+ */
+
 signed char indexBoat(char id){
    	switch(id){
    		case 'l': return 0;
@@ -23,6 +29,12 @@ signed char indexBoat(char id){
       	default: return -1;
    	}
 }
+
+/**
+ * Function name : sizeBoat()
+ * Usage         : sizeBoat(char);
+ * Definition    : Returns the boat size.            
+ */
 
 signed char sizeBoat(char id){
    	switch(id){
@@ -36,6 +48,12 @@ signed char sizeBoat(char id){
    	}
 }
 
+/**
+ * Function name : nameBoat()
+ * Usage         : nameBoat(char);
+ * Definition    : Returns the boat name.            
+ */
+
 const char* nameBoat(char id){
 	switch(id){
 		case 'l': return l;
@@ -47,6 +65,12 @@ const char* nameBoat(char id){
   	    default: return NULL;
 	}
 }
+
+/**
+ * Function name : rotBoat()
+ * Usage         : rotBoat(Boat*);
+ * Definition    : This function applies the desired rotation to the boat.            
+ */
 
 void rotBoat(Boat* boat){
 	char *mat = boat -> ship, temp;
@@ -97,7 +121,12 @@ void rotBoat(Boat* boat){
 	}
 }
 
-// contruir o barco modelo
+/**
+ * Function name : prepareBoat()
+ * Usage         : prepareBoat(Boat*);
+ * Definition    : This function creates the boat generic model.            
+ */
+
 void prepareBoat(Boat* boat){
 	char id = boat -> id;
 	if(id == 'l') {
@@ -113,6 +142,12 @@ void prepareBoat(Boat* boat){
 		}
 	}
 }
+
+/**
+ * Function name : buildBoat()
+ * Usage         : buildBoat(char,Coords*);
+ * Definition    : This function allocates the structure on the heap, creates the boat generic model and it applies the requested rotation.            
+ */
 
 Boat* buildBoat(char id, Coords* coords){
     Boat* new = (Boat*)malloc(sizeof(Boat));
@@ -136,16 +171,33 @@ Boat* buildBoat(char id, Coords* coords){
     return new;
 }
 
+/**
+ * Function name : destroyBoatTemp()
+ * Usage         : destroyBoatTemp(Boat*);
+ * Definition    : This function deallocs everything except for the coordinates.            
+ */
+
 void destroyBoatTemp(Boat* boat){
     free(boat -> ship);
 	free(boat);
 }
 
+/**
+ * Function name : destroyBoat()
+ * Usage         : destroyBoat(Boat*);
+ * Definition    : This function deallocs everything.           
+ */
+
 void destroyBoat(Boat* boat){
-    free(boat -> ship);
     destroyCoords(boat -> coords);
-	free(boat);
+	  destroyBoatTemp(boat);
 }
+
+/**
+ * Function name : setShip()
+ * Usage         : setShip(Boat*,int,int,int);
+ * Definition    : This function updates the boat structure when it suffers an attack.           
+ */
 
 void setShip(Boat* boat, int value, int x, int y){
 	if(value >= 0 && value <= 3){

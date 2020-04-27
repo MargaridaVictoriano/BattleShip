@@ -13,16 +13,14 @@
  */
 
 Board *buildBoard(){
-	Board *new = (Board *)malloc(sizeof(Board)); //mapa jogador
+	Board *new = (Board *)malloc(sizeof(Board)); //players map
 	if(new == NULL) exit(-1);
 	
 	new -> remainingBoats = 0;
 	
-	// construir a matrix
 	new -> map = (Cell *)malloc(n_matrix*n_matrix*sizeof(Cell));
 	if(new -> map == NULL) exit(-1);
 	
-	// zerar a matrix
 	for(int i = 0; i <n_matrix; i++){
 		for(int j = 0; j <n_matrix; j++){
 			new -> map[i*n_matrix + j].shot = 0;
@@ -31,7 +29,6 @@ Board *buildBoard(){
 		}
 	}
 	
-	// construir a reserva dos boats
 	new -> size_boats = 0;
 	new -> boats = (Boat **)malloc(sum_boats*sizeof(Boat *));
 	if(new -> boats == NULL) exit(-1);
@@ -45,7 +42,6 @@ Board *buildBoard(){
  * Definition    : This function destroys the game board.             
  */
 
-
 void destroyBoard(Board* map){
     free(map -> map);
 	
@@ -57,6 +53,12 @@ void destroyBoard(Board* map){
 	free(map);
 }
 
+/**
+ * Function name : selectCharDefense()
+ * Usage         : selectCharDefense(char);
+ * Definition    : Returns corresponding symbol.            
+ */
+
 char selectCharDefense(char v){
 	switch(v){
 		case 0 : return '~';
@@ -67,6 +69,12 @@ char selectCharDefense(char v){
 	}
 }
 
+/**
+ * Function name : selectCharAttack()
+ * Usage         : selectCharAttack(char);
+ * Definition    : Returns corresponding symbol.            
+ */
+
 char selectCharAttack(char v){
 	switch(v){
 		case 0 : return '~';
@@ -76,7 +84,13 @@ char selectCharAttack(char v){
 	}
 }
 
-void printBoardDefense(Board* map){
+/**
+ * Function name : printDefenseBoard()
+ * Usage         : printDefenseBoard(Board*);
+ * Definition    : This function displays the defense map.            
+ */
+
+void printDefenseBoard(Board* map){
 	printf("   ");
 	for(int i=0; i<n_matrix; i++){
 		printf(" %2d",i);
@@ -93,7 +107,13 @@ void printBoardDefense(Board* map){
 	}
 }
 
-void printBoardAttack(Board* map) {
+/**
+ * Function name : printAttackBoard()
+ * Usage         : printAttackBoard(Board*);
+ * Definition    : This function displays the attack map.            
+ */
+
+void printAttackBoard(Board* map) {
 	printf("   ");
 	for(int i=0; i<n_matrix; i++){
 		printf(" %2d",i);
