@@ -7,8 +7,8 @@ You can download or clone the project on our GitHub repository : https://github.
 ## Prerequisites
 First, you need to have installed **gcc** and **makefile**.
 You can install both of them using the following terminal command: `sudo apt-get install build-essential`.
- To compile the program you simply need to run the following terminal comand: `make`.
- Then, to run the program you need to run the following terminal comand: `./battleship`. 
+To compile the program you simply need to run the following terminal comand: `make`.
+Then, to run the program you need to run the following terminal comand: `./battleship`. 
  
 ## How to Play
 You will be prompted with a menu with three options. If you press `1` you will start the game imediately, if you press  `2` the rules will be shown and if you press `3` you will quit the program.
