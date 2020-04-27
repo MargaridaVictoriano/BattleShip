@@ -6,6 +6,12 @@
 #include "boat.h"
 #include "board.h"
 
+/**
+ * Function name : buildBoard()
+ * Usage         : buildBoard();
+ * Definition    : This function builds and initializes the game board.             
+ */
+
 Board *buildBoard(){
 	Board *new = (Board *)malloc(sizeof(Board)); //mapa jogador
 	if(new == NULL) exit(-1);
@@ -32,6 +38,13 @@ Board *buildBoard(){
 	
 	return new;
 }
+
+/**
+ * Function name : destroyBoard()
+ * Usage         : destroyBoard(Board*);
+ * Definition    : This function destroys the game board.             
+ */
+
 
 void destroyBoard(Board* map){
     free(map -> map);

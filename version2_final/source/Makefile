@@ -6,6 +6,7 @@ all: battleship
 battleship: global_var.o coords.o boat.o board.o utils.o
 	$(CC) -o battleship.o battleship.c -c $(CFLAGS)
 	$(CC) -o battleship *.o
+	rm -f *.o
 
 global_var.o: global_var.c global_var.h
 	$(CC) -o global_var.o global_var.c -c $(CFLAGS)

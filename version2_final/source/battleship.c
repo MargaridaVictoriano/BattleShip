@@ -10,9 +10,11 @@
 #include "board.h"
 #include "utils.h"
 
-// (muito opcional) gerar aleatorio para quem é o primeiro jogador
-// alterar nas estruturas valores de int para char e dar fix as funcoes consequentes
-// escrever o readme.txt
+/**
+ * Function name : showRules()
+ * Usage         : showRules();
+ * Definition    : This function displays the Battleship Rules.             
+ */
 
 void showRules() {
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
@@ -49,6 +51,12 @@ void showRules() {
     system("clear");
 }
 
+/**
+ * Function name : Battleship()
+ * Usage         : Battleship();
+ * Definition    : This function displays a welcome screen with the main menu.             
+ */
+
 void Battleship() {
     printf("@@@@@   @@@@  @@@@@@ @@@@@@ @@     @@@@@@  @@@@@ @@  @@ @@ @@@@  \n");
     printf("@@  @@ @@  @@   @@     @@   @@     @@     @@     @@  @@ @@ @@  @@\n");
@@ -79,6 +87,12 @@ void Battleship() {
 
 }
 
+/**
+ * Function name : pickMatrixSize()
+ * Usage         : pickMatrixSize();
+ * Definition    : This function receives the matrix size from the stdin and checks if the value is within range.           
+ */
+
 void pickMatrixSize() {
     printf("Please insert the matrix size.\n");
     printf("Both users will use the same matrix size.\n");
@@ -91,6 +105,12 @@ void pickMatrixSize() {
         printf("Invalid input. Please try again.\n");
     }
 }
+
+/**
+ * Function name : pickNumberBoats()
+ * Usage         : pickNumberBoats();
+ * Definition    : This function receives the number of boats of each type from the stdin and checks if the values are within range.           
+ */
 
 void pickNumberBoats() {
     int max_boats = (n_matrix*n_matrix)/(MAX_AREA*MAX_AREA);
@@ -120,6 +140,12 @@ void pickNumberBoats() {
 		printf("Invalid input. Please try again.\n");
    	}
 }
+
+/**
+ * Function name : pickBoatPosition()
+ * Usage         : pickBoatPosition(Board*);
+ * Definition    : This function receives the coordinates and rotation to place each boat which is identified by its ID.           
+ */
 
 void pickBoatPosition(Board* map) {
     for (int i = 0; i < sum_boats;) {
@@ -171,7 +197,13 @@ void pickBoatPosition(Board* map) {
     }
 }
 
-void preparePlayerBoat(Board* map) {
+/**
+ * Function name : placeBoat()
+ * Usage         : placeBoat(Board*);
+ * Definition    : This function allows user to choose how they want to place the boats: manually or randomly.           
+ */
+
+void placeBoat(Board* map) {
     char mode;
     
     printf("Select the prefered mode to insert the boats: \n");
@@ -191,6 +223,12 @@ void preparePlayerBoat(Board* map) {
     
     printBoardDefense(map);
 }
+
+/**
+ * Function name : attack()
+ * Usage         : attack(Board*,Board*);
+ * Definition    : This function receives the attack coordinates anc checks wheter there is a hit, a miss or if a ship is destroyed.           
+ */
 
 bool attack(Board* att, Board* def){
 	int x, y;
@@ -224,6 +262,12 @@ bool attack(Board* att, Board* def){
     return false;
 }
 
+/**
+ * Function name : gameInterface()
+ * Usage         : gameInterface(Board*);
+ * Definition    : This function allows the user to choose wheter they want to see their defense map, their attack map or to attack.           
+ */
+
 bool gameInterface(Board* p) {
     int mode;
     while (1) {
@@ -248,14 +292,20 @@ bool gameInterface(Board* p) {
     return false;
 } 
 
+/**
+ * Function name : game()
+ * Usage         : game(Board*,Board*);
+ * Definition    : This function attacks with the received coordinates one of the players win.           
+ */
+
 void game(Board* p1, Board* p2) {
     p1 -> remainingBoats = sum_boats;
     p2 -> remainingBoats = sum_boats;
     while(p1 -> remainingBoats > 0 && p2 -> remainingBoats > 0) {
         //ataque do jogador 1
-        printf("********************\n");
-        printf("*     Player1      *\n");
-        printf("********************\n");
+        printf(":*~*:._.::*~*:._.::*~*:._.:\n");
+        printf(":.        Player1        .:\n");
+        printf(":*~*:._.::*~*:._.::*~*:._.:\n");
         while(!gameInterface(p1));
         printf("Player1 please select the attack coordinates.\n");
         while(!attack(p1,p2));
@@ -265,9 +315,9 @@ void game(Board* p1, Board* p2) {
         system("clear");
 
         // ataque do jogador 2
-        printf("********************\n");
-        printf("*     Player2      *\n");
-        printf("********************\n");
+        printf(":*~*:._.::*~*:._.::*~*:._.:\n");
+        printf(":.        Player2        .:\n");
+        printf(":*~*:._.::*~*:._.::*~*:._.:\n");
         while(!gameInterface(p2));
         printf("Player2 please select the attack coordinates.\n");
         while(!attack(p2,p1));
@@ -295,7 +345,7 @@ int main() {
     printf("*     Player1      *\n");
     printf("********************\n");
     Board* p1 = (Board *) buildBoard();
-    preparePlayerBoat(p1);
+    placeBoat(p1);
     sleep(3);
     system("clear");
     
@@ -304,7 +354,7 @@ int main() {
     printf("*     Player2      *\n");
     printf("********************\n");
     Board* p2 = (Board *) buildBoard();
-    preparePlayerBoat(p2);
+    placeBoat(p2);
     sleep(3);
     system("clear");
     
