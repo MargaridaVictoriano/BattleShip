@@ -26,4 +26,4 @@ The first player to guess the location of all ships wins!
 ## Authors
 Ana Margarida Victoriano, up201704476
 
-Eduardo Santos, up2018
+Eduardo Santos, up201805449
