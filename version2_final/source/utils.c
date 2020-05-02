@@ -11,7 +11,7 @@
 /**
  * Function name : flushInput()
  * Usage         : flushInput();
- * Definition    : This function flushes the standard input.         
+ * Definition    : This function flushes the standard input.
  */
 
 void flushInput() {
@@ -21,7 +21,7 @@ void flushInput() {
 /**
  * Function name : getRandomNumber()
  * Usage         : getRandomNumber(int,int);
- * Definition    : This function returns a random number between and including the lowest to the highest number.         
+ * Definition    : This function returns a random number between and including the lowest to the highest number.
  */
 
 int getRandomNumber(int a, int b) {
@@ -31,7 +31,7 @@ int getRandomNumber(int a, int b) {
 /**
  * Function name : containsBoat()
  * Usage         : containsBoat(Board*,int,int);
- * Definition    : This function verifies if a cell is occupied by a boat.         
+ * Definition    : This function verifies if a cell is occupied by a boat.
  */
 
 bool containsBoat(Board* board, int x, int y) {
@@ -42,21 +42,21 @@ bool containsBoat(Board* board, int x, int y) {
 /**
  * Function name : isAvailablePosition()
  * Usage         : isAvailablePosition(Board*,char,Coords*);
- * Definition    : This functions checks if a given boat can be placed on the board.         
+ * Definition    : This functions checks if a given boat can be placed on the board.
  */
 
 bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
     int rotation = coords -> rotation;
-    
+
     if (x < 0 || y < 0 || x >= n_matrix || y >= n_matrix || rotation < 0 || rotation > 360 || rotation%90 != 0) return false;
     if (boat_id == 'l') {
-        if (MAX_AREA + x > n_matrix || MAX_AREA + y > n_matrix) return false;
+        if (BITMAP_SIZE + x > n_matrix || BITMAP_SIZE + y > n_matrix) return false;
         Boat* temp = buildBoat(boat_id,coords);
-        for(int i = 0 ; i < MAX_AREA; i++) {
-            for(int j = 0; j < MAX_AREA; j++) {
-                if(temp -> ship[i*MAX_AREA + j] == 1) {
+        for(int i = 0 ; i < BITMAP_SIZE; i++) {
+            for(int j = 0; j < BITMAP_SIZE; j++) {
+                if(temp -> ship[i*BITMAP_SIZE + j] == 1) {
                     if(i+x < 0 || j+y < 0 || i+x >= n_matrix || j+y >= n_matrix || containsBoat(board,i+x,j+y)) {
                         destroyBoatTemp(temp);
                         return false;
@@ -89,21 +89,21 @@ bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
 /**
  * Function name : insertBoat()
  * Usage         : insertBoat(Board*,char,Coords*);
- * Definition    : This function inserts the given boat in the game board.         
+ * Definition    : This function inserts the given boat in the game board.
  */
 
 void insertBoat(Board* board, char boat_id, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
-    
+
     Boat* temp = buildBoat(boat_id,coords);
     board -> boats[board -> size_boats] = temp;
     board -> size_boats++;
-    
+
     if(boat_id == 'l') {
-        for(int i = 0 ; i < MAX_AREA ; i++) {
-            for(int j = 0; j < MAX_AREA; j++) {
-                if(temp -> ship[i*MAX_AREA + j] == 1) {
+        for(int i = 0 ; i < BITMAP_SIZE ; i++) {
+            for(int j = 0; j < BITMAP_SIZE; j++) {
+                if(temp -> ship[i*BITMAP_SIZE + j] == 1) {
                     board -> map[(i+x) * n_matrix + (j+y)].state = 1;
                     board -> map[(i+x) * n_matrix + (j+y)].ship = temp;
                 }
@@ -131,10 +131,10 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
 /**
  * Function name : randomlyPlaceBoatonBoard()
  * Usage         : randomlyPlaceBoatonBoard(Board*);
- * Definition    : This function generates the boat coordinates randomly and inserts the boat.         
+ * Definition    : This function generates the boat coordinates randomly and inserts the boat.
  */
 
-void randomlyPlaceBoatonBoard(Board* board) { 
+void randomlyPlaceBoatonBoard(Board* board) {
     for (int i = 0; i < n_boats; i++) {
         char id = listBoat[i];
         int x,y,rot,n = boat_number[i];
@@ -148,7 +148,7 @@ void randomlyPlaceBoatonBoard(Board* board) {
     	    	y = getRandomNumber(0, n_matrix-1);
     	    }
     	    rot = getRandomNumber(0, 3)*90;
-    	    
+
     	    Coords* coords = buildCoords(x,y,rot);
     	    if (isAvailablePosition(board, id, coords)) {
     	    	insertBoat(board, id, coords);

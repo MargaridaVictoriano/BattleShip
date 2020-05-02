@@ -1,13 +1,13 @@
 #ifndef BOAT
 #define BOAT
 
-#define MAX_AREA 5
+#define BITMAP_SIZE 5
 
 typedef struct {
 	char id;
 	Coords* coords;
-	unsigned char hp;  
-	char *ship;       
+	unsigned char hp;
+	char *ship;
 } Boat;
 
 extern const char listBoat[];

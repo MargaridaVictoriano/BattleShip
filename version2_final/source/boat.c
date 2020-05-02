@@ -15,7 +15,7 @@ const char d[] = "DESTROYER";
 /**
  * Function name : indexBoat()
  * Usage         : indexBoat(char);
- * Definition    : Returns boat ID index.            
+ * Definition    : Returns boat ID index.
  */
 
 signed char indexBoat(char id){
@@ -33,7 +33,7 @@ signed char indexBoat(char id){
 /**
  * Function name : sizeBoat()
  * Usage         : sizeBoat(char);
- * Definition    : Returns the boat size.            
+ * Definition    : Returns the boat size.
  */
 
 signed char sizeBoat(char id){
@@ -51,7 +51,7 @@ signed char sizeBoat(char id){
 /**
  * Function name : nameBoat()
  * Usage         : nameBoat(char);
- * Definition    : Returns the boat name.            
+ * Definition    : Returns the boat name.
  */
 
 const char* nameBoat(char id){
@@ -69,7 +69,7 @@ const char* nameBoat(char id){
 /**
  * Function name : rotBoat()
  * Usage         : rotBoat(Boat*);
- * Definition    : This function applies the desired rotation to the boat.            
+ * Definition    : This function applies the desired rotation to the boat.
  */
 
 void rotBoat(Boat* boat){
@@ -78,45 +78,45 @@ void rotBoat(Boat* boat){
 		case 0 :
 			return;
 		case 90:
-			for (int i = 0; i < MAX_AREA / 2; i++) { 
-      			for (int j = i; j < MAX_AREA-i-1; j++) { 
-            		temp = mat[i*MAX_AREA + j]; 
-            		mat[i*MAX_AREA + j] = mat[j*MAX_AREA + MAX_AREA-1-i]; 
-            		mat[j*MAX_AREA + MAX_AREA-1-i] = mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j]; 
-            		mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j] = mat[(MAX_AREA-1-j)*MAX_AREA + i]; 
-            		mat[(MAX_AREA-1-j)*MAX_AREA + i] = temp; 
-        		} 
-    		} 
+			for (int i = 0; i < BITMAP_SIZE / 2; i++) {
+      			for (int j = i; j < BITMAP_SIZE-i-1; j++) {
+            		temp = mat[i*BITMAP_SIZE + j];
+            		mat[i*BITMAP_SIZE + j] = mat[j*BITMAP_SIZE + BITMAP_SIZE-1-i];
+            		mat[j*BITMAP_SIZE + BITMAP_SIZE-1-i] = mat[(BITMAP_SIZE-1-i)*BITMAP_SIZE + BITMAP_SIZE-1-j];
+            		mat[(BITMAP_SIZE-1-i)*BITMAP_SIZE + BITMAP_SIZE-1-j] = mat[(BITMAP_SIZE-1-j)*BITMAP_SIZE + i];
+            		mat[(BITMAP_SIZE-1-j)*BITMAP_SIZE + i] = temp;
+        		}
+    		}
 			return;
 		case 180:
-			for(int i=0;i<MAX_AREA/2;i++) { 
-            	for(int j=0;j<MAX_AREA;j++) { 
-                	temp = mat[i*MAX_AREA + j]; 
-                	mat[i*MAX_AREA + j] = mat[(MAX_AREA-i-1)*MAX_AREA + MAX_AREA-j-1]; 
-               		mat[(MAX_AREA-i-1)*MAX_AREA + MAX_AREA-j-1] = temp; 
+			for(int i=0;i<BITMAP_SIZE/2;i++) {
+            	for(int j=0;j<BITMAP_SIZE;j++) {
+                	temp = mat[i*BITMAP_SIZE + j];
+                	mat[i*BITMAP_SIZE + j] = mat[(BITMAP_SIZE-i-1)*BITMAP_SIZE + BITMAP_SIZE-j-1];
+               		mat[(BITMAP_SIZE-i-1)*BITMAP_SIZE + BITMAP_SIZE-j-1] = temp;
             	}
         	}
-        	
-        	// quando MAX_AREA impar
-        	if(MAX_AREA & 1){
-        		for(int j=0; j<MAX_AREA/2; j++){
-        			temp = mat[(MAX_AREA/2)*MAX_AREA + j]; 
-                	mat[(MAX_AREA/2)*MAX_AREA + j] = mat[(MAX_AREA/2)*MAX_AREA + MAX_AREA-j-1]; 
-               		mat[(MAX_AREA/2)*MAX_AREA + MAX_AREA-j-1] = temp; 
+
+        	// quando BITMAP_SIZE impar
+        	if(BITMAP_SIZE & 1){
+        		for(int j=0; j<BITMAP_SIZE/2; j++){
+        			temp = mat[(BITMAP_SIZE/2)*BITMAP_SIZE + j];
+                	mat[(BITMAP_SIZE/2)*BITMAP_SIZE + j] = mat[(BITMAP_SIZE/2)*BITMAP_SIZE + BITMAP_SIZE-j-1];
+               		mat[(BITMAP_SIZE/2)*BITMAP_SIZE + BITMAP_SIZE-j-1] = temp;
         		}
         	}
-        	
+
 			return;
 		case 270:
-			for (int i = 0; i < MAX_AREA / 2; i++) { 
-        		for (int j = i; j < MAX_AREA-i-1; j++) { 
-            		temp = mat[i*MAX_AREA + j]; 
-            		mat[i*MAX_AREA + j] = mat[(MAX_AREA-1-j)*MAX_AREA + i]; 
-            		mat[(MAX_AREA-1-j)*MAX_AREA + i] = mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j]; 
-            		mat[(MAX_AREA-1-i)*MAX_AREA + MAX_AREA-1-j] = mat[j*MAX_AREA + MAX_AREA-1-i]; 
-        	   		mat[j*MAX_AREA + MAX_AREA-1-i] = temp; 
-        		} 
-    		} 
+			for (int i = 0; i < BITMAP_SIZE / 2; i++) {
+        		for (int j = i; j < BITMAP_SIZE-i-1; j++) {
+            		temp = mat[i*BITMAP_SIZE + j];
+            		mat[i*BITMAP_SIZE + j] = mat[(BITMAP_SIZE-1-j)*BITMAP_SIZE + i];
+            		mat[(BITMAP_SIZE-1-j)*BITMAP_SIZE + i] = mat[(BITMAP_SIZE-1-i)*BITMAP_SIZE + BITMAP_SIZE-1-j];
+            		mat[(BITMAP_SIZE-1-i)*BITMAP_SIZE + BITMAP_SIZE-1-j] = mat[j*BITMAP_SIZE + BITMAP_SIZE-1-i];
+        	   		mat[j*BITMAP_SIZE + BITMAP_SIZE-1-i] = temp;
+        		}
+    		}
 			return;
 	}
 }
@@ -124,21 +124,21 @@ void rotBoat(Boat* boat){
 /**
  * Function name : prepareBoat()
  * Usage         : prepareBoat(Boat*);
- * Definition    : This function creates the boat generic model.            
+ * Definition    : This function creates the boat generic model.
  */
 
 void prepareBoat(Boat* boat){
 	char id = boat -> id;
 	if(id == 'l') {
-		for(int i=0; i<MAX_AREA ; i++)
-			boat -> ship[i*MAX_AREA + 0] = 1;
-		for(int i=1; i<MAX_AREA ; i++)
-			boat -> ship[(MAX_AREA-1)*MAX_AREA + i] = 1;
+		for(int i=0; i<BITMAP_SIZE ; i++)
+			boat -> ship[i*BITMAP_SIZE + 0] = 1;
+		for(int i=1; i<BITMAP_SIZE ; i++)
+			boat -> ship[(BITMAP_SIZE-1)*BITMAP_SIZE + i] = 1;
 	}
 	else {
 		int size = sizeBoat(id);
 		for(int i=0; i<size; i++){
-			boat -> ship[2*MAX_AREA + i] = 1;
+			boat -> ship[2*BITMAP_SIZE + i] = 1;
 		}
 	}
 }
@@ -146,26 +146,26 @@ void prepareBoat(Boat* boat){
 /**
  * Function name : buildBoat()
  * Usage         : buildBoat(char,Coords*);
- * Definition    : This function allocates the structure on the heap, creates the boat generic model and it applies the requested rotation.            
+ * Definition    : This function allocates the structure on the heap, creates the boat generic model and it applies the requested rotation.
  */
 
 Boat* buildBoat(char id, Coords* coords){
     Boat* new = (Boat*)malloc(sizeof(Boat));
     if(new == NULL) exit(-1);
-    
+
     new -> id = id;
     new -> coords = coords;
     new -> hp = sizeBoat(id);
-    
-    new -> ship = (char *)malloc(MAX_AREA*MAX_AREA*sizeof(char));
+
+    new -> ship = (char *)malloc(BITMAP_SIZE*BITMAP_SIZE*sizeof(char));
     if(new -> ship == NULL) exit(-1);
-	
-	for(int i=0; i<MAX_AREA; i++){
-	    for(int j=0; j<MAX_AREA; j++){
-	    	new -> ship[i*MAX_AREA + j] = 0;
+
+	for(int i=0; i<BITMAP_SIZE; i++){
+	    for(int j=0; j<BITMAP_SIZE; j++){
+	    	new -> ship[i*BITMAP_SIZE + j] = 0;
 	    }
 	}
-    
+
     prepareBoat(new);
     rotBoat(new);
     return new;
@@ -174,7 +174,7 @@ Boat* buildBoat(char id, Coords* coords){
 /**
  * Function name : destroyBoatTemp()
  * Usage         : destroyBoatTemp(Boat*);
- * Definition    : This function deallocs everything except for the coordinates.            
+ * Definition    : This function deallocs everything except for the coordinates.
  */
 
 void destroyBoatTemp(Boat* boat){
@@ -185,7 +185,7 @@ void destroyBoatTemp(Boat* boat){
 /**
  * Function name : destroyBoat()
  * Usage         : destroyBoat(Boat*);
- * Definition    : This function deallocs everything.           
+ * Definition    : This function deallocs everything.
  */
 
 void destroyBoat(Boat* boat){
@@ -196,40 +196,21 @@ void destroyBoat(Boat* boat){
 /**
  * Function name : setShip()
  * Usage         : setShip(Boat*,int,int,int);
- * Definition    : This function updates the boat structure when it suffers an attack.           
+ * Definition    : This function updates the boat structure when it suffers an attack.
  */
 
 void setShip(Boat* boat, int value, int x, int y){
 	if(value >= 0 && value <= 3){
 		if(boat -> id == 'l') {
-			boat -> ship[(x - boat -> coords -> row)*MAX_AREA + y - boat -> coords -> column] = value;
+			boat -> ship[(x - boat -> coords -> row)*BITMAP_SIZE + y - boat -> coords -> column] = value;
 		}
 		else {
 			switch(boat -> coords -> rotation){
-				case 0  : boat -> ship[(x - boat -> coords -> row + 2)*MAX_AREA + y - boat -> coords -> column] = value; break;
-				case 90 : boat -> ship[(MAX_AREA - 1 - (x - boat -> coords -> row))*MAX_AREA + y - boat -> coords -> column + 2] = value; break;
-				case 180: boat -> ship[(x - boat -> coords -> row + 2)*MAX_AREA + MAX_AREA - 1 - (y - boat -> coords -> column)] = value; break;
-				case 270: boat -> ship[(x - boat -> coords -> row)*MAX_AREA + y - boat -> coords -> column + 2] = value; break;
+				case 0  : boat -> ship[(x - boat -> coords -> row + 2)*BITMAP_SIZE + y - boat -> coords -> column] = value; break;
+				case 90 : boat -> ship[(BITMAP_SIZE - 1 - (x - boat -> coords -> row))*BITMAP_SIZE + y - boat -> coords -> column + 2] = value; break;
+				case 180: boat -> ship[(x - boat -> coords -> row + 2)*BITMAP_SIZE + BITMAP_SIZE - 1 - (y - boat -> coords -> column)] = value; break;
+				case 270: boat -> ship[(x - boat -> coords -> row)*BITMAP_SIZE + y - boat -> coords -> column + 2] = value; break;
 			}
 		}
 	}
 }
-
-//Debug
-// incluir #include <stdio.h> para usar neste file
-/*void printShip(Boat *boat){
-	printf("   ");
-	for(int i=0; i<MAX_AREA; i++){
-		printf(" %2d",i);
-	}
-	printf("\n");
-	
-	for(int i=0; i<MAX_AREA; i++){
-		printf(" %2d",i);
-		for(int j=0; j<MAX_AREA; j++){
-			int temp = boat -> ship[i*MAX_AREA + j];
-			printf("  %d",temp);
-		}
-		printf("\n");
-	}
-}*/
