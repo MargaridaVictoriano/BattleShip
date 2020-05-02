@@ -321,6 +321,9 @@ void game(Board* p1, Board* p2) {
         while(!gameInterface(p2));
         printf("Player2 please select the attack coordinates.\n");
         while(!attack(p2,p1));
+        
+        sleep(3);
+        system("clear");
     }
 
     if (p1 -> remainingBoats == 0) printf("Player2 wins !\n");
