@@ -49,7 +49,7 @@ The usage and description of the functions of the _Boat_ module are specified in
 The following functions are responsible for managing memory allocations and for freeing memory:
 
   * buildBoat(char,Coords*);
-  * destroyBoatTemp(Boat*);
+  * destroyTempBoat(Boat*);
   * destroyBoat(Boat*);
 
 The other functions are responsible for interacting and applying changes to the contents of the structures.
