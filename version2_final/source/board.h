@@ -21,6 +21,10 @@ typedef struct {
 
 Board* buildBoard();
 void destroyBoard(Board*);
+bool containsBoat(Board*,int,int);
+void insertBoat(Board*,char,Coords*);
+bool isAvailablePosition(Board*,char,Coords*);
+void randomlyPlaceBoatonBoard(Board*);
 char selectCharDefense(char);
 char selectCharAttack(char);
 void printDefenseBoard(Board*);
