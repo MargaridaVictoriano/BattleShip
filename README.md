@@ -28,7 +28,7 @@ The first player to guess the location of all ships wins!
 Our program is divided in several different modules. We decided to divide the project into its main components and create a new module for each one of them.
 
 ### Board Module
-The _Board_ module contains the _Cell_ and the _Board_ structures definition and the matrix limits.
+The _Board_ module contains the _Cell_ and the _Board_ structures definition,the matrix limits and it also contains some auxiliary funtions to manipulate the board.
 
 #### Board Module Functions
 The usage and description of the functions of the _Board_ module are specified in the documentation.
@@ -37,7 +37,7 @@ The following functions are responsible for managing memory allocations and for 
   *buildBoard();
   *destroyBoard(Board*);
 
-The other functions are responsible for converting and returning the corresponding symbols and to print the boards.
+The other functions are responsible for converting and returning the corresponding symbols,to print the attack and defense boards, to manipulate the boats and to check if a given position is available.
 
 
 ### Boat module
@@ -66,8 +66,10 @@ The following functions are responsible for managing memory allocations and for 
   * destroyCoords(Coords*);
 
 ### Utils module
+The _Utils_ module contains some useful auxiliary functions that aren't bounded to any specific structures.
 
-
+#### Utils Module Functions
+The usage and description of the functions of the _Utils_ module are specified in the documentation.
 
 ## Authors
 Ana Margarida Victoriano, up201704476
