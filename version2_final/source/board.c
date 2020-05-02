@@ -159,8 +159,7 @@ bool isAvailablePosition(Board* board, char boatId, Coords* coords) {
 /**
  * Function name : randomlyPlaceBoatonBoard()
  * Usage         : randomlyPlaceBoatonBoard(Board*);
- * Definition    : This function generates the boat coordinates randomly and inserts the boat
- *								 on the game board.
+ * Definition    : This function generates the boat coordinates randomly and inserts the boat on the game board.							
  */
 
 void randomlyPlaceBoatonBoard(Board* board) {

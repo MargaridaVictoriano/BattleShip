@@ -1,12 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-#include "global_var.h"
-#include "coords.h"
-#include "boat.h"
-#include "board.h"
-#include "utils.h"
 
 /**
  * Function name : flushInput()

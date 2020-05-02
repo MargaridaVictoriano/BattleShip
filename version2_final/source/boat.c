@@ -97,7 +97,7 @@ void boatRot(Boat* boat){
             	}
         	}
 
-        	// quando BITMAP_SIZE impar
+        	// When BITMAP_SIZE odd
         	if(BITMAP_SIZE & 1){
         		for(int j=0; j<BITMAP_SIZE/2; j++){
         			temp = mat[(BITMAP_SIZE/2)*BITMAP_SIZE + j];
@@ -193,7 +193,7 @@ void destroyTempBoat(Boat* boat){
 
 void destroyBoat(Boat* boat){
     destroyCoords(boat -> coords);
-	  destroyTempBoat(boat);
+	destroyTempBoat(boat);
 }
 
 /**

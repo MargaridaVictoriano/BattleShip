@@ -17,10 +17,10 @@ coords.o: coords.c coords.h
 boat.o: boat.c boat.h coords.h
 	$(CC) -o boat.o boat.c -c $(CFLAGS)
 
-board.o: board.c board.h global_var.h coords.h boat.h
+board.o: board.c board.h global_var.h coords.h boat.h utils.h
 	$(CC) -o board.o board.c -c $(CFLAGS)
 
-utils.o: utils.c utils.h global_var.h coords.h boat.h board.h
+utils.o: utils.c utils.h
 	$(CC) -o utils.o utils.c -c $(CFLAGS)
 
 clean:

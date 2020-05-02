@@ -1,7 +1,6 @@
 #ifndef COORDS
 #define COORDS
 
-
 typedef struct {
 	int row;
 	int column;
