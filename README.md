@@ -2,7 +2,7 @@
 A C99 implementation of the strategic game Battleship.
 
 ## Getting Started
-You can download or clone the project on our GitHub repository : https://github.com/MargaridaVictoriano/BattleShip .
+You can download or clone the project on our [GitHub repository](https://github.com/MargaridaVictoriano/BattleShip).
 
 ## Prerequisites
 First, you need to have installed **gcc** and **makefile**.
@@ -25,10 +25,19 @@ When the game begins the players take turns attacking each other and they can vi
 The first player to guess the location of all ships wins!
 
 ## Code Structure
-Our program is divided in several different modules.
-The board module contains the _Cell_ and the _Board_ structures definition. 
+Our program is divided in several different modules. We decided to divide the project into its main components and create a new module for each one of them.
+
+### Board Module
+
+The _Board_ module contains the _Cell_ and the _Board_ structures definition, the matrix limits and it also contains some auxiliary funtions to manipulate the board.
+
+#### Board Module Functions
+The usage and description of the functions of the Board module are specified in the documentation.
+
+### 
 
 ## Authors
 Ana Margarida Victoriano, up201704476
 
 Eduardo Santos, up201805449
+
