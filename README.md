@@ -8,9 +8,10 @@ You can download or clone the project on our GitHub repository : https://github.
 First, you need to have installed **gcc** and **makefile**.
 You can install both of them using the following terminal command: `sudo apt-get install build-essential`.
 To compile the program you simply need to run the following terminal comand: `make`.
-Then, to run the program you need to run the following terminal comand: `./battleship`. 
- 
+Then, to run the program you need to run the following terminal comand: `./battleship`.
+
 ## How to Play
+This is a two player game.
 You will be prompted with a menu with three options. If you press `1` you will start the game imediately, if you press  `2` the rules will be shown and if you press `3` you will quit the program.
 
 If it's your first time playing the game,  we advise you to press `2` to read the rules since they explain in detail on how to play the game.
@@ -22,6 +23,10 @@ You can place your boats on the board or you can choose to place them randomly.
 When the game begins the players take turns attacking each other and they can view their own map and their attack map whenever they want.
 
 The first player to guess the location of all ships wins!
+
+## Code Structure
+Our program is divided in several different modules.
+The board module contains the _Cell_ and the _Board_ structures definition. 
 
 ## Authors
 Ana Margarida Victoriano, up201704476
