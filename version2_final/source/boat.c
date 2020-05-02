@@ -146,7 +146,10 @@ void prepareBoat(Boat* boat){
 /**
  * Function name : buildBoat()
  * Usage         : buildBoat(char,Coords*);
- * Definition    : This function allocates the structure on the heap, creates the boat generic model and it applies the requested rotation.
+ * Definition    : This function allocates the structure on the heap,
+ *                 creates the boat generic model
+ *                 and it applies the requested rotation.
+ *                 Returns a boat.
  */
 
 Boat* buildBoat(char id, Coords* coords){

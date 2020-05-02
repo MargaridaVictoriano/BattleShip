@@ -5,11 +5,10 @@
 /**
  * Function name : buildCoords()
  * Usage         : buildCoords(int,int,int);
- * Definition    : This function creates the coordinates.         
+ * Definition    : This function creates the coordinates.
  */
 
-
-Coords* buildCoords(int row, int column, int rotation){
+Coords* buildCoords(int row, int column, int rotation) {
    Coords* new = (Coords *)malloc(sizeof(Coords));
    if(new == NULL) exit(-1);
    new -> row = row;
@@ -21,9 +20,9 @@ Coords* buildCoords(int row, int column, int rotation){
 /**
  * Function name : destroyCoords()
  * Usage         : destroyCoords(Coords*);
- * Definition    : This function destroys the coordinates.         
+ * Definition    : This function destroys the coordinates.
  */
 
-void destroyCoords(Coords* new){
+void destroyCoords(Coords* new) {
 	free(new);
 }

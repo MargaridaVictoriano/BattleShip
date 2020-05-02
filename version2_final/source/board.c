@@ -10,7 +10,7 @@
  * Function name : buildBoard()
  * Usage         : buildBoard();
  * Definition    : This function builds,initializes the game board and then it
- * returns the new board.
+ * 								 returns the new board.
  */
 
 Board *buildBoard() {

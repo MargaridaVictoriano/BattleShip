@@ -3,9 +3,9 @@
 
 
 typedef struct {
-	int row; 	  
-	int column;   
-	int rotation; 
+	int row;
+	int column;
+	int rotation;
 } Coords;
 
 Coords* buildCoords(int,int,int);
