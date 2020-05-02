@@ -19,12 +19,12 @@ extern const char s[];
 extern const char d[];
 
 signed char indexBoat(char);
-signed char sizeBoat(char);
-const char* nameBoat(char);
-void rotBoat(Boat*);
+signed char boatSize(char);
+const char* boatName(char);
+void boatRot(Boat*);
 void prepareBoat(Boat*);
 Boat* buildBoat(char,Coords*);
-void destroyBoatTemp(Boat*);
+void destroyTempBoat(Boat*);
 void destroyBoat(Boat*);
 void setShip(Boat*,int,int,int);
 

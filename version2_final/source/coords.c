@@ -5,7 +5,8 @@
 /**
  * Function name : buildCoords()
  * Usage         : buildCoords(int,int,int);
- * Definition    : This function creates the coordinates.
+ * Definition    : This function creates the coordinates that represent
+ *                 the bitmap piece.
  */
 
 Coords* buildCoords(int row, int column, int rotation) {
@@ -20,7 +21,8 @@ Coords* buildCoords(int row, int column, int rotation) {
 /**
  * Function name : destroyCoords()
  * Usage         : destroyCoords(Coords*);
- * Definition    : This function destroys the coordinates.
+ * Definition    : This function destroys the coordinates that represent
+ *                 the bitmap piece.
  */
 
 void destroyCoords(Coords* new) {

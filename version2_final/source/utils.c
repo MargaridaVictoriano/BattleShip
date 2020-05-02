@@ -21,7 +21,8 @@ void flushInput() {
 /**
  * Function name : getRandomNumber()
  * Usage         : getRandomNumber(int,int);
- * Definition    : This function returns a random number between and including the lowest to the highest number.
+ * Definition    : This function returns a random number between and including
+*                  the lowest to the highest number.
  */
 
 int getRandomNumber(int a, int b) {

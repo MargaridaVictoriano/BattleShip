@@ -45,7 +45,7 @@ Board *buildBoard() {
  * Definition    : This function destroys the game board.
  */
 
-void destroyBoard(Board* map){
+void destroyBoard(Board* map) {
     free(map -> map);
 
 	for(int i=0; i< map -> size_boats; i++){
@@ -73,15 +73,15 @@ bool containsBoat(Board* board, int x, int y) {
  * Definition    : This function inserts the given boat in the game board.
  */
 
-void insertBoat(Board* board, char boat_id, Coords* coords) {
+void insertBoat(Board* board, char boatId, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
 
-    Boat* temp = buildBoat(boat_id,coords);
+    Boat* temp = buildBoat(boatId,coords);
     board -> boats[board -> size_boats] = temp;
     board -> size_boats++;
 
-    if(boat_id == 'l') {
+    if(boatId == 'l') {
         for(int i = 0 ; i < BITMAP_SIZE ; i++) {
             for(int j = 0; j < BITMAP_SIZE; j++) {
                 if(temp -> ship[i*BITMAP_SIZE + j] == 1) {
@@ -115,39 +115,39 @@ void insertBoat(Board* board, char boat_id, Coords* coords) {
  * Definition    : This functions checks if a given boat can be placed on the board.
  */
 
-bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
+bool isAvailablePosition(Board* board, char boatId, Coords* coords) {
     int x = coords -> row;
     int y = coords -> column;
     int rotation = coords -> rotation;
 
     if (x < 0 || y < 0 || x >= n_matrix || y >= n_matrix || rotation < 0 || rotation > 360 || rotation%90 != 0) return false;
-    if (boat_id == 'l') {
+    if (boatId == 'l') {
         if (BITMAP_SIZE + x > n_matrix || BITMAP_SIZE + y > n_matrix) return false;
-        Boat* temp = buildBoat(boat_id,coords);
+        Boat* temp = buildBoat(boatId,coords);
         for(int i = 0 ; i < BITMAP_SIZE; i++) {
             for(int j = 0; j < BITMAP_SIZE; j++) {
                 if(temp -> ship[i*BITMAP_SIZE + j] == 1) {
                     if(i+x < 0 || j+y < 0 || i+x >= n_matrix || j+y >= n_matrix || containsBoat(board,i+x,j+y)) {
-                        destroyBoatTemp(temp);
+                        destroyTempBoat(temp);
                         return false;
                     }
                 }
             }
         }
-        destroyBoatTemp(temp);
+        destroyTempBoat(temp);
         return true;
     }
     else {
-        int boatSize = sizeBoat(boat_id);
+        int size = boatSize(boatId);
         if(coords->rotation % 180 == 0) { //Horizontal
-            if (boatSize + y >= n_matrix) return false;
-            for(int k = y; k < boatSize + y; k++) {
+            if (size + y >= n_matrix) return false;
+            for(int k = y; k < size + y; k++) {
                 if(containsBoat(board,x,k)) return false;
             }
         }
         else { //Vertical
-            if(boatSize + x >= n_matrix) return false;
-            for(int k = x; k < boatSize + x; k++) {
+            if(size + x >= n_matrix) return false;
+            for(int k = x; k < size + x; k++) {
                 if(containsBoat(board,k,y)) return false;
             }
 
@@ -159,7 +159,8 @@ bool isAvailablePosition(Board* board, char boat_id, Coords* coords) {
 /**
  * Function name : randomlyPlaceBoatonBoard()
  * Usage         : randomlyPlaceBoatonBoard(Board*);
- * Definition    : This function generates the boat coordinates randomly and inserts the boat.
+ * Definition    : This function generates the boat coordinates randomly and inserts the boat
+ *								 on the game board.
  */
 
 void randomlyPlaceBoatonBoard(Board* board) {

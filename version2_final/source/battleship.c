@@ -44,7 +44,7 @@ void showRules() {
     printf(".:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*._.:*~*:._.:*~*:._.:*~*:.*~*:._.:*~*:.\n");
     printf("\n");
 
-	printf("Press any key to continue.\n\n");
+	printf("Press any key to continue.\n");
 
 	flushInput();
 
@@ -149,23 +149,23 @@ void pickNumberBoats() {
 
 void pickBoatPosition(Board* map) {
     for (int i = 0; i < sum_boats;) {
-    	char boat_id;
+    	char boatId;
     	int x,y,rot;
 
         printf("Available Boats and corresponding ID: \n");
     	for(int j=0; j<n_boats; j++){
     		if(boat_number[j] > 0){
     			char id = listBoat[j];
-    			printf("'%c' :: %s\n",id,nameBoat(id));
+    			printf("'%c' :: %s\n",id,boatName(id));
     		}
     	}
         printf("\n");
 
         while (1) {
             printf("Please enter the desired Boat ID: \n");
-            boat_id = getchar();
+            boatId = getchar();
             flushInput();
-            if(indexBoat(boat_id) != -1 && boat_number[(unsigned char)indexBoat(boat_id)] > 0) break;
+            if(indexBoat(boatId) != -1 && boat_number[(unsigned char)indexBoat(boatId)] > 0) break;
             printf("Invalid input. Please try again.\n");
         }
 
@@ -183,9 +183,9 @@ void pickBoatPosition(Board* map) {
         flushInput();
 
         Coords *boat_pos = (Coords *)buildCoords(x,y,rot);
-        if (isAvailablePosition(map, boat_id, boat_pos)) {
-            insertBoat(map, boat_id, boat_pos);
-            boat_number[(unsigned char)indexBoat(boat_id)]--;
+        if (isAvailablePosition(map, boatId, boat_pos)) {
+            insertBoat(map, boatId, boat_pos);
+            boat_number[(unsigned char)indexBoat(boatId)]--;
             i++;
             printDefenseBoard(map);
             printf("\n");
@@ -227,10 +227,10 @@ void placeBoat(Board* map) {
 /**
  * Function name : attack()
  * Usage         : attack(Board*,Board*);
- * Definition    : This function receives the attack coordinates anc checks wheter there is a hit, a miss or if a ship is destroyed.
+ * Definition    : This function receives the attack coordinates anc checks whether there is a hit, a miss or if a ship is destroyed.
  */
 
-bool attack(Board* att, Board* def){
+bool attack(Board* att, Board* def) {
 	int x, y;
 
     scanf("%d", &x);
@@ -246,7 +246,7 @@ bool attack(Board* att, Board* def){
             setShip(def -> map[i].ship, 2, x, y);
             if(def -> map[i].ship -> hp == 0) {
                 def -> remainingBoats--;
-                printf("The ship %s was just destroyed !", nameBoat(def -> map[i].ship -> id));
+                printf("The ship %s was just destroyed !", boatName(def -> map[i].ship -> id));
             }
             else printf("HIT!\n");
         }
@@ -265,7 +265,7 @@ bool attack(Board* att, Board* def){
 /**
  * Function name : gameInterface()
  * Usage         : gameInterface(Board*);
- * Definition    : This function allows the user to choose wheter they want to see their defense map, their attack map or to attack.
+ * Definition    : This function allows the user to choose whether they want to see their defense map, their attack map or to attack.
  */
 
 bool gameInterface(Board* p) {
@@ -295,14 +295,14 @@ bool gameInterface(Board* p) {
 /**
  * Function name : game()
  * Usage         : game(Board*,Board*);
- * Definition    : This function attacks with the received coordinates one of the players win.
+ * Definition    : This function attacks with the received coordinates until one of the players win.
  */
 
 void game(Board* p1, Board* p2) {
     p1 -> remainingBoats = sum_boats;
     p2 -> remainingBoats = sum_boats;
     while(p1 -> remainingBoats > 0 && p2 -> remainingBoats > 0) {
-        //ataque do jogador 1
+        //Player1 attack
         printf(":*~*:._.::*~*:._.::*~*:._.:\n");
         printf(":.        Player1        .:\n");
         printf(":*~*:._.::*~*:._.::*~*:._.:\n");
@@ -314,7 +314,7 @@ void game(Board* p1, Board* p2) {
         sleep(3);
         system("clear");
 
-        // ataque do jogador 2
+        //Player2 attack
         printf(":*~*:._.::*~*:._.::*~*:._.:\n");
         printf(":.        Player2        .:\n");
         printf(":*~*:._.::*~*:._.::*~*:._.:\n");

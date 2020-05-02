@@ -31,12 +31,12 @@ signed char indexBoat(char id){
 }
 
 /**
- * Function name : sizeBoat()
- * Usage         : sizeBoat(char);
+ * Function name : boatSize()
+ * Usage         : boatSize(char);
  * Definition    : Returns the boat size.
  */
 
-signed char sizeBoat(char id){
+signed char boatSize(char id){
    	switch(id){
    		case 'l': return 9;
       	case 'c': return 5;
@@ -49,12 +49,12 @@ signed char sizeBoat(char id){
 }
 
 /**
- * Function name : nameBoat()
- * Usage         : nameBoat(char);
+ * Function name : boatName()
+ * Usage         : boatName(char);
  * Definition    : Returns the boat name.
  */
 
-const char* nameBoat(char id){
+const char* boatName(char id){
 	switch(id){
 		case 'l': return l;
 	    case 'c': return c;
@@ -67,12 +67,12 @@ const char* nameBoat(char id){
 }
 
 /**
- * Function name : rotBoat()
- * Usage         : rotBoat(Boat*);
+ * Function name : boatRot()
+ * Usage         : boatRot(Boat*);
  * Definition    : This function applies the desired rotation to the boat.
  */
 
-void rotBoat(Boat* boat){
+void boatRot(Boat* boat){
 	char *mat = boat -> ship, temp;
 	switch(boat -> coords -> rotation){
 		case 0 :
@@ -136,7 +136,7 @@ void prepareBoat(Boat* boat){
 			boat -> ship[(BITMAP_SIZE-1)*BITMAP_SIZE + i] = 1;
 	}
 	else {
-		int size = sizeBoat(id);
+		int size = boatSize(id);
 		for(int i=0; i<size; i++){
 			boat -> ship[2*BITMAP_SIZE + i] = 1;
 		}
@@ -158,7 +158,7 @@ Boat* buildBoat(char id, Coords* coords){
 
     new -> id = id;
     new -> coords = coords;
-    new -> hp = sizeBoat(id);
+    new -> hp = boatSize(id);
 
     new -> ship = (char *)malloc(BITMAP_SIZE*BITMAP_SIZE*sizeof(char));
     if(new -> ship == NULL) exit(-1);
@@ -170,17 +170,17 @@ Boat* buildBoat(char id, Coords* coords){
 	}
 
     prepareBoat(new);
-    rotBoat(new);
+    boatRot(new);
     return new;
 }
 
 /**
- * Function name : destroyBoatTemp()
- * Usage         : destroyBoatTemp(Boat*);
+ * Function name : destroyTempBoat()
+ * Usage         : destroyTempBoat(Boat*);
  * Definition    : This function deallocs everything except for the coordinates.
  */
 
-void destroyBoatTemp(Boat* boat){
+void destroyTempBoat(Boat* boat){
     free(boat -> ship);
 	free(boat);
 }
@@ -193,7 +193,7 @@ void destroyBoatTemp(Boat* boat){
 
 void destroyBoat(Boat* boat){
     destroyCoords(boat -> coords);
-	  destroyBoatTemp(boat);
+	  destroyTempBoat(boat);
 }
 
 /**
