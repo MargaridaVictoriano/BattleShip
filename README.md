@@ -72,7 +72,7 @@ The _Utils_ module contains some useful auxiliary functions that aren't bounded 
 The usage and description of the functions of the _Utils_ module are specified in the documentation.
 
 ## The Main Program
-The _battleship.c_ has the main funtion of the program. In this file, we receive and treat the user input.
+The _battleship.c_ has the main function of the program. In this file, we receive and treat the user input.
 We use the given information and the other modules to play the game.
 
 ## Authors
