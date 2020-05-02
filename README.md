@@ -5,7 +5,7 @@ A C99 implementation of the strategic game Battleship.
 You can download or clone the project on our [GitHub repository](https://github.com/MargaridaVictoriano/BattleShip).
 
 ## Prerequisites
-First, you need to have installed **gcc** and **makefile**.
+First, you need to have installed **gcc** and **make**.
 You can install both of them using the following terminal command: `sudo apt-get install build-essential`.
 To compile the program you simply need to run the following terminal comand: `make`.
 Then, to run the program you need to run the following terminal comand: `./battleship`.
@@ -28,16 +28,16 @@ The first player to guess the location of all ships wins!
 Our program is divided in several different modules. We decided to divide the project into its main components and create a new module for each one of them.
 
 ### Board Module
-The _Board_ module contains the _Cell_ and the _Board_ structures definition,the matrix limits and it also contains some auxiliary funtions to manipulate the board.
+The _Board_ module contains the _Cell_ and the _Board_ structures definition, the matrix limits and it also contains some auxiliary funtions to manipulate the board.
 
 #### Board Module Functions
 The usage and description of the functions of the _Board_ module are specified in the documentation.
 
 The following functions are responsible for managing memory allocations and for freeing memory:
-  *buildBoard();
-  *destroyBoard(Board*);
+  * buildBoard();
+  * destroyBoard(Board*);
 
-The other functions are responsible for converting and returning the corresponding symbols,to print the attack and defense boards, to manipulate the boats and to check if a given position is available.
+The other functions are responsible for converting and returning the corresponding symbols, to print the attack and defense boards, to manipulate the boats and to check if a given position is available.
 
 
 ### Boat module
