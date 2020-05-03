@@ -148,13 +148,18 @@ void pickNumberBoats() {
 */
 
 void pickBoatPosition(Board* map) {
+  int copy[n_boats];
+  for(int i=0; i<n_boats; i++){
+    copy[i] = boat_number[i];
+  }
+  
   for (int i = 0; i < sum_boats;) {
     char boatId;
     int x,y,rot;
 
     printf("Available Boats and corresponding ID: \n");
     for(int j=0; j<n_boats; j++){
-      if(boat_number[j] > 0){
+      if(copy[j] > 0){
         char id = listBoat[j];
         printf("'%c' :: %s\n",id,boatName(id));
       }
@@ -165,7 +170,7 @@ void pickBoatPosition(Board* map) {
       printf("Please enter the desired Boat ID: \n");
       boatId = getchar();
       flushInput();
-      if(indexBoat(boatId) != -1 && boat_number[(unsigned char)indexBoat(boatId)] > 0) break;
+      if(indexBoat(boatId) != -1 && copy[(unsigned char)indexBoat(boatId)] > 0) break;
       printf("Invalid input. Please try again.\n");
     }
 
@@ -185,7 +190,9 @@ void pickBoatPosition(Board* map) {
     Coords *boat_pos = (Coords *)buildCoords(x,y,rot);
     if (isAvailablePosition(map, boatId, boat_pos)) {
       insertBoat(map, boatId, boat_pos);
-      boat_number[(unsigned char)indexBoat(boatId)]--;
+      printf(" %d antes \n",copy[(unsigned char)indexBoat(boatId)]);
+      copy[(unsigned char)indexBoat(boatId)]--;
+      printf(" %d depois \n",copy[(unsigned char)indexBoat(boatId)]);
       i++;
       printDefenseBoard(map);
       printf("\n");
@@ -245,8 +252,8 @@ bool attack(Board* att, Board* def) {
       def -> map[i].ship -> hp--;
       setShip(def -> map[i].ship, 2, x, y);
       if(def -> map[i].ship -> hp == 0) {
+        printf("The ship %s was just destroyed !\n\n", boatName(def -> map[i].ship -> id));
         def -> remainingBoats--;
-        printf("The ship %s was just destroyed !", boatName(def -> map[i].ship -> id));
       }
       else printf("HIT!\n");
     }
@@ -311,9 +318,9 @@ void game(Board* p1, Board* p2) {
     printf("Player1 please select the attack coordinates.\n");
     while(!attack(p1,p2));
 
-    if(p2 -> remainingBoats == 0) break;
     sleep(3);
     system("clear");
+    if(p2 -> remainingBoats == 0) break;
 
     //Player2 attack
     printf(":*~*:._.::*~*:._.::*~*:._.:\n");
