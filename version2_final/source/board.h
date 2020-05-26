@@ -5,12 +5,20 @@
 #define MIN_MATRIX 20
 #define MAX_MATRIX 40
 
-typedef struct {
-	char shot;
-	char state;
-	Boat *ship;
-} Cell;
+#ifdef QUAD
 
+#include "qtree.h"
+
+typedef struct {
+	QD_Node *qtree;
+	char remainingBoats;
+	unsigned char size_boats;
+	Boat **boats;
+} Board;
+
+#else
+
+#include "cell.h"
 
 typedef struct {
 	Cell *map;
@@ -18,6 +26,8 @@ typedef struct {
 	unsigned char size_boats;
 	Boat **boats;
 } Board;
+
+#endif
 
 Board* buildBoard();
 void destroyBoard(Board*);
@@ -29,5 +39,6 @@ char selectCharDefense(char);
 char selectCharAttack(char);
 void printDefenseBoard(Board*);
 void printAttackBoard(Board*);
+Cell* getCell(Board*,int,int);
 
 #endif
