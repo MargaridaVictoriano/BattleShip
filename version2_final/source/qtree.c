@@ -6,7 +6,9 @@
 #include "boat.h"
 #include "qtree.h"
 
-#include <stdio.h>
+//#include <stdio.h>
+
+const int canonicalCoords[4][2] = {{0,0},{0,1},{1,1},{1,0}};
 
 QD_Node* buildNode(QD_TNODE type){
 	QD_Node* new = (QD_Node *)malloc(sizeof(QD_Node));
@@ -36,28 +38,19 @@ indexQuad quadrants(Point p,Point corners, int side) {
 }
 
 QD_Node* insertNode(QD_Node* root, QD_Node* node){
-	return insertNodeRecursive(root, node, makePoint(0,0), n_matrix);
+	return insertNodeRecursive(root, node, makePoint(0,0), width);
 }
 
 QD_Node* insertNodeRecursive(QD_Node* root, QD_Node* node, Point sw, int side){
 	
-	if(side == 0){
-		printf("ja deu merda\n");
-		exit(1);
-	} 
-	
-	if(side == 1){
-		printf("tem que ser terminal, side = 1\n");
-	}
-	
 	if(root == NULL){
-		printf("inseri num no null, node (%d,%d)\n\n",node -> node.leaf.p.x,node -> node.leaf.p.y);
+		//printf("inseri num no null, node (%d,%d)\n\n",node -> node.leaf.p.x,node -> node.leaf.p.y);
 		root = node;
 		return root;
 	}
 
 	if(root->type == QDLEAF){
-		printf("fiz split para uma nova arvore\n");
+		//printf("fiz split para uma nova arvore\n");
 		
 		QD_Node* aux = buildNode(QDLEAF);
 		aux -> node.leaf.p = root -> node.leaf.p;
@@ -68,59 +61,36 @@ QD_Node* insertNodeRecursive(QD_Node* root, QD_Node* node, Point sw, int side){
 			root -> node.quadrants[i] = NULL;
 		}
 		
-		indexQuad index = quadrants(aux->node.leaf.p,sw,side);
-		int middleSide = side/2;
-		printf("(%d,%d), side = %d\n",sw.x,sw.y,side);
-		switch(index){
-			case SW:
-				printf("next -- SW\n");
-				root->node.quadrants[SW] = insertNodeRecursive(root->node.quadrants[SW],aux,makePoint(sw.x,sw.y), middleSide);
-				break;
-			case NW:
-				printf("next -- NW\n");
-				root->node.quadrants[NW] = insertNodeRecursive(root->node.quadrants[NW],aux,makePoint(sw.x,sw.y + middleSide), middleSide);
-				break;
-			case NE:
-				printf("next -- NE\n");
-				root->node.quadrants[NE] = insertNodeRecursive(root->node.quadrants[NE],aux,makePoint(sw.x + middleSide, sw.y + middleSide), middleSide);
-				break;
-			case SE:
-				printf("next -- SE\n");
-				root->node.quadrants[SE] = insertNodeRecursive(root->node.quadrants[SE],aux,makePoint(sw.x + middleSide, sw.y),middleSide);
-				break;
-		}
+		//printf("(%d,%d), side = %d\n",sw.x,sw.y,side);
+		indexQuad index = quadrants(aux -> node.leaf.p,sw,side);
+		root -> node.quadrants[index] = insertNextNode(root,aux,sw,side,index);
 		
 	}
-	
-QD_Node* 
 
 	//Caso recursivo
 	indexQuad index = quadrants(node -> node.leaf.p,sw,side);
-	int middleSide = side/2;
-	printf("(%d,%d), side = %d\n",sw.x,sw.y,side);
-	switch(index){
-		case SW:
-			printf("next -- SW\n");
-			root->node.quadrants[SW] = insertNodeRecursive(root->node.quadrants[SW],node,makePoint(sw.x,sw.y), middleSide);
-			break;
-		case NW:
-			printf("next -- NW\n");
-			root->node.quadrants[NW] = insertNodeRecursive(root->node.quadrants[NW],node,makePoint(sw.x,sw.y + middleSide), middleSide);
-			break;
-		case NE:
-			printf("next -- NE\n");
-			root->node.quadrants[NE] = insertNodeRecursive(root->node.quadrants[NE],node,makePoint(sw.x + middleSide, sw.y + middleSide), middleSide);
-			break;
-		case SE:
-			printf("next -- SE\n");
-			root->node.quadrants[SE] = insertNodeRecursive(root->node.quadrants[SE],node,makePoint(sw.x + middleSide, sw.y),middleSide);
-			break;
-	}
+	//printf("(%d,%d), side = %d\n",sw.x,sw.y,side);
+	root -> node.quadrants[index] = insertNextNode(root,node,sw,side,index);
+	
 	return root;
 }
 
+QD_Node* insertNextNode(QD_Node* root, QD_Node* node, Point sw, int side, indexQuad index){
+	int middleSide = side/2;
+	
+	return insertNodeRecursive(
+		root -> node.quadrants[index],
+		node,
+		makePoint(
+			sw.x + middleSide * canonicalCoords[index][0],
+			sw.y + middleSide * canonicalCoords[index][1]
+			),
+		middleSide
+		);
+}
+
 QD_Node* searchNode(QD_Node* root, Point p){
-	return searchNodeRecursive(root,p,makePoint(0,n_matrix),n_matrix);
+	return searchNodeRecursive(root,p,makePoint(0,0),width);
 }
 
 QD_Node* searchNodeRecursive(QD_Node* node, Point p, Point sw, int side){
@@ -139,30 +109,67 @@ QD_Node* searchNodeRecursive(QD_Node* node, Point p, Point sw, int side){
 	}
 
 	indexQuad index = quadrants(p,sw,side);
-	int middleSide = side/2;
-	switch(index){
-		case SW:
-			return searchNodeRecursive(node->node.quadrants[SW],p,sw, middleSide);
-		case NW:
-			return searchNodeRecursive(node->node.quadrants[NW],p, makePoint(sw.x,sw.y + middleSide), middleSide);
-		case NE:
-			return searchNodeRecursive(node->node.quadrants[NE],p, makePoint(sw.x + middleSide, sw.y + middleSide), middleSide);
-		case SE:
-			return searchNodeRecursive(node->node.quadrants[SE],p, makePoint(sw.x + middleSide, sw.y),middleSide);
-		default: exit(1);
-	}
+	return searchNextNode(node, p, sw, side, index);
 }
 
-void removeNode(QD_Node* root, Point destiny){
+QD_Node* searchNextNode(QD_Node* root, Point p, Point sw, int side, indexQuad index){
+	int middleSide = side/2;
+	
+	return searchNodeRecursive(
+		root -> node.quadrants[index],
+		p,
+		makePoint(
+			sw.x + middleSide * canonicalCoords[index][0],
+			sw.y + middleSide * canonicalCoords[index][1]
+			),
+		middleSide
+		);
+}
+
+void destroyQTree(QD_Node* root){
+	destroyQTreeRecursive(root,makePoint(0,0),width);
+	return;
+}
+
+void destroyQTreeRecursive(QD_Node* node, Point sw, int side){
+	if(node == NULL) {
+		return;
+	}
+
+	if(node->type == QDLEAF){
+		destroyNode(node);
+		return;
+	}
+	
+	int middleSide = side/2;
+	for(int i = 0; i < nQuadrants ; i++){
+		destroyQTreeRecursive(
+			node -> node.quadrants[i],
+			makePoint(
+				sw.x + middleSide * canonicalCoords[i][0],
+				sw.y + middleSide * canonicalCoords[i][1]
+				),
+			middleSide
+			);
+	}
+	
+	destroyNode(node);
+	return;
+}
+
+/*void removeNode(QD_Node* root, Point destiny){
 	if(root == NULL){
 		return;
 	}
 
-	if(root->type == QDLEAF && isEqual(root->node.leaf.p,destiny)){
-		destroyNode(root);
+	if(root->type == QDLEAF){
+		if(isEqual(root->node.leaf.p,destiny)){
+			destroyNode(root);
+		}
+		return;
 	}
 
-	removeNodeRecursive(root,destiny,makePoint(0,0),n_matrix);
+	removeNodeRecursive(root,destiny,makePoint(0,0),width);
 }
 
 void removeNodeRecursive(QD_Node* node, Point destiny, Point sw, int side){
@@ -204,4 +211,4 @@ void removeNodeRecursive(QD_Node* node, Point destiny, Point sw, int side){
 			removeNodeRecursive(node->node.quadrants[SE],destiny,makePoint(sw.x + middleSide, sw.y),middleSide);
 			return;
 	}
-}
+}*/
